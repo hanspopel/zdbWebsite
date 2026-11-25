@@ -91,17 +91,120 @@
   segs.forEach((b) => b.addEventListener("click", () => setCurrency(b.dataset.cur)));
   setCurrency(detectCurrency());
 
-  /* ---- a little life in the demo mixer: re-randomise the
-     fader caps every so often, like a track being ridden ---- */
-  if (!reduced) {
-    const caps = document.querySelectorAll('.device .cap, .big-frame .cap');
-    setInterval(() => {
-      caps.forEach((cap) => {
-        const base = 8 + Math.random() * 30;
-        const delta = 10 + Math.random() * 30;
-        cap.style.setProperty("--a", base + "%");
-        cap.style.setProperty("--b", Math.min(base + delta, 78) + "%");
+  /* ---- live mixer model — the behaviour is the app's, copied from
+     TAVolumeView.cpp: levels are sqrt-scaled like the meter value,
+     rises snap and decay away in 0.1337 s, the hot zone starts at
+     85 % and grows redder the harder it clips (meter.warm →
+     meter.hot), a muted track stays silent, and the faders get
+     ridden now and then like an engineer's thumb. The geometry and
+     colours live in the CSS, straight from TATokens.cpp. ---- */
+  const mixer = document.querySelector(".live-mixer");
+  if (mixer) {
+    /* one role per strip: beat period, level, phase — the muted bus plays 0 */
+    const roles = [
+      { period: 1.0, gain: 0.62 },  /* Wavetable  — four-to-the-floor pad  */
+      { period: 0.5, gain: 0.78 },  /* 808 Kit    — busy, the loudest bus  */
+      { period: 2.0, gain: 0.72 },  /* Lead Vox   — slow, occasionally hot */
+      { period: 0,   gain: 0    },  /* Drum Bus   — muted                  */
+    ];
+    const strips = Array.prototype.map.call(
+      mixer.querySelectorAll(".lm-strip"),
+      (el, i) => ({
+        el: el,
+        v: parseFloat(el.style.getPropertyValue("--v")) || 0.5,
+        muted: el.classList.contains("lm-muted"),
+        cur: [0, 0],
+        period: roles[i].period,
+        gain: roles[i].gain,
+        phase: (i * 1.37) % 1,
+        lits: el.querySelectorAll(".lm-lit"),
+        val: el.querySelector(".lm-val"),
+      })
+    );
+
+    const BPM = 126;
+    const WARM = [255, 189, 0];   /* meter.warm — #ffbd00 */
+    const HOT = [255, 0, 0];      /* meter.hot  — #ff0000 */
+
+    const target = (s, ch, t) => {
+      if (!s.period) return 0;                          /* muted — silence */
+      const beats = t / (60 / BPM) + s.phase * 4;
+      const env = Math.pow(1 - (beats % s.period) / s.period, 2.2);
+      const wob = 0.5 + 0.5 * Math.sin(beats * 1.7 + ch * 2.1 + s.phase * 9);
+      return Math.min(1, Math.sqrt(env * s.gain * (0.55 + 0.5 * wob) + 0.02));
+    };
+
+    const paint = (s, ch, m) => {
+      const lit = s.lits[ch];
+      lit.style.height = (m * 100).toFixed(2) + "%";
+      let hot = lit.querySelector(".lm-hot");
+      if (m > 0.85) {                                   /* redPercentage in the app */
+        const over = Math.min(1, (m - 0.85) / 0.15);
+        if (!hot) {
+          hot = document.createElement("span");
+          hot.className = "lm-hot";
+          lit.appendChild(hot);
+        }
+        hot.style.bottom = ((0.85 / m) * 100).toFixed(2) + "%";
+        hot.style.height = (((m - 0.85) / m) * 100).toFixed(2) + "%";
+        const c = HOT.map((h, i) => Math.round(WARM[i] + (h - WARM[i]) * over));
+        hot.style.background = "linear-gradient(to top,#ffbd00,rgb(" + c.join(",") + "))";
+      } else if (hot) {
+        hot.remove();
+      }
+    };
+
+    let raf = null;
+    let last = performance.now();
+    const tick = (now) => {
+      const dt = Math.min(0.1, (now - last) / 1000 || 0.016);
+      last = now;
+      const t = now / 1000;
+      strips.forEach((s) => {
+        [0, 1].forEach((ch) => {
+          const tg = target(s, ch, t);
+          if (tg > s.cur[ch]) s.cur[ch] = tg;                          /* rise: snap  */
+          else s.cur[ch] += (tg - s.cur[ch]) * (1 - Math.exp(-dt / 0.1337)); /* fall  */
+          if (s.cur[ch] < 0.004) s.cur[ch] = 0;
+          paint(s, ch, s.cur[ch]);
+        });
       });
-    }, 9000);
+      raf = requestAnimationFrame(tick);
+    };
+
+    /* ride the faders — a thumb nudge every few seconds, with the
+       CSS transition (1.6 s var(--ease)) doing the travel */
+    const ride = () => {
+      strips.forEach((s) => {
+        if (s.muted || Math.random() < 0.45) return;
+        s.v = Math.min(0.88, Math.max(0.22, s.v + (Math.random() - 0.5) * 0.3));
+        s.el.style.setProperty("--v", s.v.toFixed(3));
+        const db = Math.round((s.v * 2 - 1) * 12 * 10) / 10;            /* ±12 dB travel */
+        s.val.childNodes[0].nodeValue =
+          (db >= 0 ? "+" : "−") + Math.abs(db).toFixed(1);
+      });
+      setTimeout(ride, 2800 + Math.random() * 2600);
+    };
+
+    if (reduced) {
+      /* one honest still frame: a groove playing, one bar in the red */
+      const frame = [[0.48, 0.56], [0.72, 0.8], [0.93, 0.61], [0, 0]];
+      strips.forEach((s, i) => [0, 1].forEach((ch) => paint(s, ch, frame[i][ch])));
+    } else {
+      raf = requestAnimationFrame(tick);
+      ride();
+      /* no point animating what nobody sees — park the loop offscreen */
+      if ("IntersectionObserver" in window) {
+        new IntersectionObserver(([e]) => {
+          if (e.isIntersecting && raf === null) {
+            last = performance.now();
+            raf = requestAnimationFrame(tick);
+          } else if (!e.isIntersecting && raf !== null) {
+            cancelAnimationFrame(raf);
+            raf = null;
+          }
+        }, { threshold: 0 }).observe(mixer);
+      }
+    }
   }
 })();

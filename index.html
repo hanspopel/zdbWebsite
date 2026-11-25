@@ -63,83 +63,16 @@
       <a class="btn btn-ghost" href="#features">See what it does<span class="chev"></span></a>
     </div>
 
-    <!-- the product shot: a CSS iPad running touchAble -->
-    <div class="device-stage reveal" style="--rd:.24s">
+    <!-- the product shot: captured from touchAble running a live set -->
+    <figure class="device-stage reveal" style="--rd:.24s;margin:0">
       <div class="device">
-        <div class="device-screen" role="img" aria-label="touchAble Pro running on an iPad: a mixer with moving faders and live level meters">
-          <div class="app-topbar">
-            <span class="live-chip"><i class="dot"></i>LIVE 12</span>
-            <span class="mod on">Mixer</span>
-            <span class="mod">Clips</span>
-            <span class="mod">Devices</span>
-            <span class="mod">Keys</span>
-            <span class="mod">XY</span>
-            <span class="link-dot" title="connected"></span>
-          </div>
-          <div class="app-mixer">
-            <div class="strip">
-              <span class="tname">Drums</span><span class="tdot" style="background:#0098f8"></span><span class="pan" style="--pan:-32deg"></span>
-              <div class="fader-row">
-                <div class="fader"><div class="cap" style="--a:18%;--b:44%;--dur:7s"></div></div>
-                <div class="meter"><div class="litbar" style="--from:35%;--to:82%;--dur:1.1s"></div></div>
-              </div>
-              <span class="tgl"><i></i><i></i></span>
-            </div>
-            <div class="strip">
-              <span class="tname">Bass</span><span class="tdot" style="background:#cc8f3d"></span><span class="pan" style="--pan:12deg"></span>
-              <div class="fader-row">
-                <div class="fader"><div class="cap" style="--a:34%;--b:14%;--dur:9s"></div></div>
-                <div class="meter"><div class="litbar" style="--from:22%;--to:64%;--dur:0.8s;--d:.2s"></div></div>
-              </div>
-              <span class="tgl"><i class="solo"></i><i></i></span>
-            </div>
-            <div class="strip hide-sm">
-              <span class="tname">Synth</span><span class="tdot" style="background:#60c878"></span><span class="pan" style="--pan:38deg"></span>
-              <div class="fader-row">
-                <div class="fader"><div class="cap" style="--a:12%;--b:52%;--dur:8s"></div></div>
-                <div class="meter"><div class="litbar" style="--from:48%;--to:90%;--dur:1.3s;--d:.4s"></div></div>
-              </div>
-              <span class="tgl"><i></i><i class="arm"></i></span>
-            </div>
-            <div class="strip hide-sm">
-              <span class="tname">Vocals</span><span class="tdot" style="background:#ff6542"></span><span class="pan" style="--pan:-8deg"></span>
-              <div class="fader-row">
-                <div class="fader"><div class="cap" style="--a:40%;--b:22%;--dur:10s"></div></div>
-                <div class="meter"><div class="litbar" style="--from:18%;--to:58%;--dur:0.95s"></div></div>
-              </div>
-              <span class="tgl"><i></i><i></i></span>
-            </div>
-            <div class="strip hide-sm">
-              <span class="tname">FX Ride</span><span class="tdot" style="background:#4570b5"></span><span class="pan" style="--pan:24deg"></span>
-              <div class="fader-row">
-                <div class="fader"><div class="cap" style="--a:55%;--b:8%;--dur:6.5s"></div></div>
-                <div class="meter"><div class="litbar" style="--from:30%;--to:76%;--dur:1.6s;--d:.6s"></div></div>
-              </div>
-              <span class="tgl"><i></i><i></i></span>
-            </div>
-            <div class="strip hide-sm">
-              <span class="tname">Pad</span><span class="tdot" style="background:#d08ab5"></span><span class="pan" style="--pan:-45deg"></span>
-              <div class="fader-row">
-                <div class="fader"><div class="cap" style="--a:26%;--b:48%;--dur:11s"></div></div>
-                <div class="meter"><div class="litbar" style="--from:12%;--to:44%;--dur:1.9s;--d:.3s"></div></div>
-              </div>
-              <span class="tgl"><i class="solo"></i><i></i></span>
-            </div>
-            <div class="strip master">
-              <span class="tname">Master</span><span class="tdot" style="background:#f4f6fa"></span><span class="pan"></span>
-              <div class="fader-row">
-                <div class="fader"><div class="cap" style="--a:16%;--b:26%;--dur:12s"></div></div>
-                <div class="meter"><div class="litbar" style="--from:55%;--to:94%;--dur:1.05s"></div></div>
-              </div>
-              <span class="env"></span>
-            </div>
-          </div>
-          <div class="app-rail">
-            <i class="on">SESSION</i><i>ARRANGEMENT</i><i>NOTE</i><span style="flex:1"></span><i>TEMPO 124.0</i>
-          </div>
+        <div class="device-screen">
+          <img src="assets/screens/clips-mixer.png" width="1334" height="750"
+               alt="touchAble Pro on iPad: the Session clip grid with playing clips above, the mixer with faders below — connected to Ableton Live">
         </div>
       </div>
-    </div>
+      <figcaption class="shot-note">Captured from touchAble running a live Ableton&nbsp;Live set.</figcaption>
+    </figure>
   </div>
 </header>
 
@@ -180,10 +113,9 @@
 
     <div class="grid-3" style="margin-top:26px">
       <article class="card reveal">
-        <div class="viz">
-          <span class="knob" style="--ang:-58deg;--v:46"></span>
-          <span class="knob" style="--kc:var(--zdb-yellow);--ang:24deg;--v:70"></span>
-          <span class="knob" style="--kc:var(--zdb-mint);--ang:70deg;--v:38"></span>
+        <div class="shot">
+          <img src="assets/screens/mixer-volume.png" width="1334" height="750" loading="lazy"
+               alt="The touchAble mixer: four track strips with colour-coded volume faders and meters">
         </div>
         <div class="card-body">
           <span class="caption" style="padding:0 0 10px;justify-content:flex-start;max-width:none">— Mixer</span>
@@ -193,13 +125,9 @@
       </article>
 
       <article class="card reveal" style="--rd:.08s">
-        <div class="viz">
-          <div class="mini-grid">
-            <i class="c2"></i><i></i><i class="c1"></i><i></i><i class="c4"></i>
-            <i class="c5"></i><i class="c3"></i><i></i><i class="c1"></i><i></i>
-            <i></i><i class="c1"></i><i class="c4"></i><i></i><i class="c3"></i>
-            <i class="c1"></i><i></i><i></i><i class="c2"></i><i></i>
-          </div>
+        <div class="shot shot-clips">
+          <img src="assets/screens/clips-mixer.png" width="1334" height="750" loading="lazy"
+               alt="The touchAble Session view: colour-coded clips, two playing with progress bars, scene column on the right">
         </div>
         <div class="card-body">
           <span class="caption" style="padding:0 0 10px;justify-content:flex-start;max-width:none">— Session</span>
@@ -209,15 +137,9 @@
       </article>
 
       <article class="card reveal" style="--rd:.16s">
-        <div class="viz">
-          <div class="eqviz">
-            <i style="--zc:#2f9be0;--w:70%"></i>
-            <i style="--zc:#23c6c0;--w:45%"></i>
-            <i style="--zc:#4ec93f;--w:82%"></i>
-            <i style="--zc:#e6c31f;--w:38%"></i>
-            <i style="--zc:#f08a24;--w:64%"></i>
-            <i style="--zc:#e54f3d;--w:52%"></i>
-          </div>
+        <div class="shot">
+          <img src="assets/screens/device-eq8.png" width="1334" height="750" loading="lazy"
+               alt="Ableton's EQ Eight as laid out by touchAble: curve display with four coloured band nodes and large band keys">
         </div>
         <div class="card-body">
           <span class="caption" style="padding:0 0 10px;justify-content:flex-start;max-width:none">— Devices</span>
@@ -227,13 +149,9 @@
       </article>
 
       <article class="card reveal" style="--rd:.08s">
-        <div class="viz">
-          <div class="pads">
-            <i></i><i></i><i></i>
-            <i class="hit2"></i><i></i><i></i>
-            <i></i><i class="hit"></i><i></i>
-            <i></i><i></i><i class="hit2"></i>
-          </div>
+        <div class="shot">
+          <img src="assets/screens/keys-isomorphic.png" width="1334" height="750" loading="lazy"
+               alt="touchAble's isomorphic key layout: a grid of pads with the C notes lit up in green">
         </div>
         <div class="card-body">
           <span class="caption" style="padding:0 0 10px;justify-content:flex-start;max-width:none">— Keys</span>
@@ -243,8 +161,9 @@
       </article>
 
       <article class="card reveal" style="--rd:.16s">
-        <div class="viz">
-          <div class="xyyz"><b class="a"></b><b class="b"></b></div>
+        <div class="shot">
+          <img src="assets/screens/xy-pads.png" width="1334" height="750" loading="lazy"
+               alt="touchAble's XY pad with four coloured touch balls and their parameter assignments">
         </div>
         <div class="card-body">
           <span class="caption" style="padding:0 0 10px;justify-content:flex-start;max-width:none">— XY</span>
@@ -254,17 +173,14 @@
       </article>
 
       <article class="card reveal" style="--rd:.24s">
-        <div class="viz">
-          <div class="editviz">
-            <span class="knob" style="position:absolute;left:12%;top:18%;--ang:40deg"></span>
-            <span class="f2"></span>
-            <span class="sel"><b></b><b></b><b></b><b></b></span>
-          </div>
+        <div class="shot">
+          <img src="assets/screens/editor-midi.png" width="1334" height="750" loading="lazy"
+               alt="touchAble's MIDI clip editor: a piano roll with green notes and a piano keyboard on the left">
         </div>
         <div class="card-body">
           <span class="caption" style="padding:0 0 10px;justify-content:flex-start;max-width:none">— Editor</span>
           <h3>Build your own instrument.</h3>
-          <p>The template editor lets you place every control, size it to your fingers and map it to anything in Live. Your studio, your layout.</p>
+          <p>The template editor lets you place every control, size it to your fingers and map it to anything in Live. Edit notes too — the piano roll comes with it.</p>
         </div>
       </article>
     </div>
@@ -285,48 +201,77 @@
           <div><b>Auto</b><span>discovery</span></div>
         </div>
       </div>
-      <div class="big-frame reveal" style="--rd:.12s" role="img" aria-label="Close-up of touchAble's mixer: animated faders and level meters">
-        <div class="app-topbar">
-          <span class="live-chip"><i class="dot"></i>LIVE 12</span>
-          <span class="mod on">Mixer</span>
-          <span class="link-dot"></span>
+      <figure class="big-frame reveal" style="--rd:.12s;margin:0">
+        <!-- live model of the touchAble mixer — every shape and colour below is
+             lifted from the app's own drawing code: the groove, cap and meter
+             geometry from TATokens.cpp (fader.groove.*, fader.cap.*, meter.*)
+             and the level behaviour from TAVolumeView.cpp (sqrt meter, 85 %
+             hot zone, decay, muted meters at 7 %). -->
+        <div class="live-mixer" role="img"
+             aria-label="A live model of the touchAble mixer: four track strips with faders moving and meters reacting, exactly as in the app.">
+          <div class="lm-strip" style="--trk:#0098f8;--v:.62;--m:.55;--mr:.6">
+            <div class="lm-head"><span class="lm-name">Wavetable</span><span class="lm-arm lit"></span></div>
+            <div class="lm-ctl">
+              <div class="lm-fader">
+                <div class="lm-groove"><div class="lm-fill"></div></div>
+                <div class="lm-cap"><span class="lm-grip"></span></div>
+              </div>
+              <div class="lm-meter">
+                <span class="lm-bar"><i class="lm-lit"></i></span>
+                <span class="lm-bar"><i class="lm-lit"></i></span>
+              </div>
+            </div>
+            <div class="lm-val">+1.5<span>dB</span></div>
+            <div class="lm-keys"><span class="lm-key">M</span><span class="lm-key">S</span></div>
+          </div>
+          <div class="lm-strip" style="--trk:#ff6542;--v:.45;--m:.7;--mr:.66">
+            <div class="lm-head"><span class="lm-name">808 Core Kit</span><span class="lm-arm"></span></div>
+            <div class="lm-ctl">
+              <div class="lm-fader">
+                <div class="lm-groove"><div class="lm-fill"></div></div>
+                <div class="lm-cap"><span class="lm-grip"></span></div>
+              </div>
+              <div class="lm-meter">
+                <span class="lm-bar"><i class="lm-lit"></i></span>
+                <span class="lm-bar"><i class="lm-lit"></i></span>
+              </div>
+            </div>
+            <div class="lm-val">-2.0<span>dB</span></div>
+            <div class="lm-keys"><span class="lm-key">M</span><span class="lm-key">S</span></div>
+          </div>
+          <div class="lm-strip" style="--trk:#ffbb42;--v:.71;--m:.82;--mr:.5">
+            <div class="lm-head"><span class="lm-name">Lead Vox</span><span class="lm-arm"></span></div>
+            <div class="lm-ctl">
+              <div class="lm-fader">
+                <div class="lm-groove"><div class="lm-fill"></div></div>
+                <div class="lm-cap"><span class="lm-grip"></span></div>
+              </div>
+              <div class="lm-meter">
+                <span class="lm-bar"><i class="lm-lit"></i></span>
+                <span class="lm-bar"><i class="lm-lit"></i></span>
+              </div>
+            </div>
+            <div class="lm-val">+3.0<span>dB</span></div>
+            <div class="lm-keys"><span class="lm-key">M</span><span class="lm-key lit-so">S</span></div>
+          </div>
+          <div class="lm-strip lm-muted" style="--trk:#4570b5;--v:.55;--m:0;--mr:0">
+            <div class="lm-head"><span class="lm-name">Drum Bus</span><span class="lm-arm"></span></div>
+            <div class="lm-ctl">
+              <div class="lm-fader">
+                <div class="lm-groove"><div class="lm-fill"></div></div>
+                <div class="lm-cap"><span class="lm-grip"></span></div>
+              </div>
+              <div class="lm-meter">
+                <span class="lm-bar"><i class="lm-lit"></i></span>
+                <span class="lm-bar"><i class="lm-lit"></i></span>
+              </div>
+            </div>
+            <div class="lm-val">+0.0<span>dB</span></div>
+            <div class="lm-keys"><span class="lm-key lit-mi">M</span><span class="lm-key">S</span></div>
+          </div>
         </div>
-        <div class="app-mixer" style="grid-template-columns:repeat(4,1fr)">
-          <div class="strip">
-            <span class="tname">Drums</span><span class="pan" style="--pan:-24deg"></span>
-            <div class="fader-row">
-              <div class="fader"><div class="cap" style="--a:14%;--b:48%;--dur:6s"></div></div>
-              <div class="meter"><div class="litbar" style="--from:40%;--to:92%;--dur:0.9s"></div></div>
-            </div>
-            <span class="tgl"><i></i><i></i></span>
-          </div>
-          <div class="strip">
-            <span class="tname">Bass</span><span class="pan" style="--pan:18deg"></span>
-            <div class="fader-row">
-              <div class="fader"><div class="cap" style="--a:38%;--b:12%;--dur:8s"></div></div>
-              <div class="meter"><div class="litbar" style="--from:26%;--to:70%;--dur:1.2s;--d:.3s"></div></div>
-            </div>
-            <span class="tgl"><i class="solo"></i><i></i></span>
-          </div>
-          <div class="strip">
-            <span class="tname">Keys</span><span class="pan" style="--pan:-6deg"></span>
-            <div class="fader-row">
-              <div class="fader"><div class="cap" style="--a:22%;--b:56%;--dur:7s"></div></div>
-              <div class="meter"><div class="litbar" style="--from:44%;--to:84%;--dur:1.05s;--d:.15s"></div></div>
-            </div>
-            <span class="tgl"><i></i><i class="arm"></i></span>
-          </div>
-          <div class="strip master">
-            <span class="tname">Master</span><span class="pan"></span>
-            <div class="fader-row">
-              <div class="fader"><div class="cap" style="--a:10%;--b:20%;--dur:9s"></div></div>
-              <div class="meter"><div class="litbar" style="--from:60%;--to:96%;--dur:1.3s"></div></div>
-            </div>
-            <span class="env"></span>
-          </div>
-        </div>
-        <div class="app-rail"><i class="on">TRACK</i><i>SEND</i><i>PAN</i><i>VU</i></div>
-      </div>
+        <figcaption class="lm-note">Live model — drawn from touchAble's own fader code, not a screenshot.</figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -338,30 +283,13 @@
       <div class="copy reveal">
         <p class="eyebrow">Session view</p>
         <h2>The whole set<br>on <span class="grad-text">one screen.</span></h2>
-        <p>Armed red, playing green, stopped and waiting. Every clip colour‑true to Live, every scene a single tap away. Rearrange the song in front of an audience — and all they see is you performing.</p>
+        <p>Armed red, playing with a progress bar, stopped and waiting. Every clip colour‑true to Live, every scene a single tap away. Rearrange the song in front of an audience — and all they see is you performing.</p>
         <p style="font-size:16px;color:var(--zdb-col-light)">And when the moment demands it: stop everything. One&nbsp;button.</p>
       </div>
-      <div class="big-frame reveal" style="--rd:.12s" role="img" aria-label="touchAble's session view with playing clips">
-        <div class="app-topbar">
-          <span class="live-chip"><i class="dot"></i>LIVE 12</span>
-          <span class="mod on">Clips</span>
-          <span class="link-dot"></span>
-        </div>
-        <div class="session">
-          <i class="hdr" style="background:#0098f8">Drums</i>
-          <i class="hdr" style="background:#cc8f3d">Bass</i>
-          <i class="hdr" style="background:#60c878">Synth</i>
-          <i class="hdr" style="background:#4570b5">FX</i>
-          <i class="hdr" style="background:#ff6542">Vox</i>
-          <i class="hdr" style="background:#d08ab5">Pad</i>
-          <i class="playing" style="background:#0098f8"></i><i></i><i style="background:#4570b5"></i><i class="playing" style="background:#4570b5"></i><i></i><i></i>
-          <i></i><i class="playing" style="background:#cc8f3d"></i><i style="background:#0098f8"></i><i></i><i style="background:#ff6542"></i><i></i>
-          <i class="playing" style="background:#60c878"></i><i></i><i></i><i style="background:#cc8f3d"></i><i></i><i class="playing" style="background:#d08ab5"></i>
-          <i></i><i style="background:#ff6542"></i><i class="playing" style="background:#f85700"></i><i></i><i style="background:#d08ab5"></i><i></i>
-          <i style="background:#4570b5"></i><i></i><i></i><i style="background:#60c878"></i><i class="playing" style="background:#ff6542"></i><i></i>
-        </div>
-        <div class="app-rail"><i class="on">SESSION</i><i>ARRANGEMENT</i><span style="flex:1"></span><i>TEMPO 124.0</i></div>
-      </div>
+      <figure class="big-frame big-frame-clips reveal" style="--rd:.12s;margin:0">
+        <img src="assets/screens/clips-mixer.png" width="1334" height="750" loading="lazy"
+             alt="touchAble's Session view: track headers in their Live colours, clips in lanes, playing clips showing their position, the scene column at the right">
+      </figure>
     </div>
 
     <!-- three stage tiles -->
@@ -431,7 +359,7 @@
     <div class="center">
       <p class="eyebrow reveal">Pricing</p>
       <h2 class="headline--md reveal" style="--rd:.05s;margin-bottom:12px;font-weight:700;letter-spacing:-0.022em">Start free.<br>Then make it <span class="grad-text">yours.</span></h2>
-      <p class="lede reveal" style="--rd:.1s">One touchAble — three ways in. Choose your currency:</p>
+      <p class="lede reveal" style="--rd:.1s">One touchAble — three ways in. The same offer you see in the app. Choose your currency:</p>
       <div class="reveal" style="--rd:.14s;margin-bottom:38px">
         <div class="seg" role="group" aria-label="Currency">
           <button type="button" data-cur="eur" aria-pressed="true">€&nbsp;EUR</button>
@@ -442,23 +370,20 @@
 
     <div class="plans">
       <article class="card plan reveal">
-        <p class="plan-name">touchAble Free</p>
-        <p class="price"><b>Free</b></p>
-        <p class="price-note">on iPhone, iPad &amp; Android</p>
+        <p class="plan-name">Pro&nbsp;·&nbsp;Yearly</p>
+        <p class="price"><b style="font-size:clamp(30px,3.6vw,42px)">14&nbsp;days free</b></p>
+        <p class="price-note">then <span class="amount" data-eur="€24.99" data-usd="$24.99">€24.99</span> a year</p>
         <ul>
-          <li>Mixer &amp; Session view essentials</li>
-          <li>Connect over Wi‑Fi</li>
-          <li>The feel of touchAble, no commitment</li>
-          <li class="no">Devices, Keys &amp; XY modules</li>
-          <li class="no">Template editor</li>
-          <li class="no">macOS &amp; Windows apps</li>
+          <li>Every Pro feature from the first tap</li>
+          <li>Cancel anytime during the trial</li>
+          <li>Counts in full if you buy Lifetime later</li>
         </ul>
-        <a class="btn btn-ghost" href="#download">Download free</a>
+        <a class="btn btn-ghost" href="#download">Start free trial</a>
       </article>
 
       <article class="card plan reveal" style="--rd:.08s">
         <p class="plan-name">Pro&nbsp;·&nbsp;Monthly</p>
-        <p class="price"><b class="amount" data-eur="€2.99" data-usd="$2.99">€2.99</b><span>/ month</span></p>
+        <p class="price"><b class="amount" data-eur="€3.99" data-usd="$3.99">€3.99</b><span>/ month</span></p>
         <p class="price-note">cancel anytime</p>
         <ul>
           <li>Everything in touchAble Pro</li>
@@ -472,8 +397,8 @@
       <article class="card plan plan-best reveal" style="--rd:.16s">
         <p class="plan-flag">Best value</p>
         <p class="plan-name">Pro&nbsp;·&nbsp;Lifetime</p>
-        <p class="price"><b class="amount" data-eur="€49.99" data-usd="$49.99">€49.99</b><span>one‑time</span></p>
-        <p class="price-note">yours forever</p>
+        <p class="price"><b class="amount" data-eur="€54.99" data-usd="$54.99">€54.99</b><span>one‑time</span></p>
+        <p class="price-note">every update included — yours forever</p>
         <ul>
           <li>Everything in Pro, all modules</li>
           <li>All platforms, all future versions</li>
@@ -483,8 +408,8 @@
       </article>
     </div>
 
-    <p class="center price-fine reveal">The App&nbsp;Store and Google&nbsp;Play bill in your local currency;
-      the amounts shown are indicative. Desktop downloads follow the same Pro licence.</p>
+    <p class="center price-fine reveal">First install the free <a href="https://zerodebug.com" rel="noopener">touchAble&nbsp;Server</a> on your computer.
+      The App&nbsp;Store and Google&nbsp;Play bill in your local currency; the amounts shown are indicative.</p>
   </div>
 </section>
 
@@ -545,7 +470,7 @@
     <p class="eyebrow reveal">Get started</p>
     <h2 class="headline--md reveal" style="--rd:.05s;margin-bottom:10px;font-weight:700;letter-spacing:-0.022em">We make music<br><span class="grad-text">touchAble.</span></h2>
     <p class="subhead reveal" style="--rd:.1s;font-weight:400">Download the app and the server. Your Live set is one tap away.<br>
-      <span style="font-size:0.75em;color:var(--zdb-col-light)">Free to try · Pro from <span class="amount" data-eur="€2.99" data-usd="$2.99">€2.99</span> a month · Lifetime <span class="amount" data-eur="€49.99" data-usd="$49.99">€49.99</span></span></p>
+      <span style="font-size:0.75em;color:var(--zdb-col-light)">Free to try · Pro from <span class="amount" data-eur="€3.99" data-usd="$3.99">€3.99</span> a month · Lifetime <span class="amount" data-eur="€54.99" data-usd="$54.99">€54.99</span></span></p>
     <div class="stores reveal" style="--rd:.16s">
       <a class="store-badge" href="https://apps.apple.com/de/app/touchable-pro/id1205967746" rel="noopener">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.05 12.54c-.03-2.37 1.93-3.5 2.02-3.56-1.1-1.61-2.81-1.83-3.42-1.85-1.45-.15-2.84.86-3.58.86-.74 0-1.88-.84-3.1-.82-1.59.02-3.06.93-3.88 2.36-1.66 2.87-.42 7.11 1.19 9.44.79 1.14 1.74 2.43 2.98 2.38 1.19-.05 1.65-.77 3.09-.77 1.45 0 1.85.77 3.11.74 1.28-.02 2.1-1.16 2.88-2.31.91-1.32 1.28-2.61 1.3-2.67-.03-.02-2.49-.96-2.59-3.8ZM14.66 5.9c.65-.79 1.09-1.89.97-2.98-.94.04-2.08.63-2.75 1.42-.61.7-1.13 1.8-.99 2.87 1.05.08 2.12-.54 2.77-1.31Z"/></svg>
@@ -596,6 +521,7 @@
     <div class="foot-note">
       zerodebug is a Berlin‑based company. We work passionately since 2009 to make music touchable —
       to give you the freedom to create. touchAble<sup>PRO</sup> is a touch controller for Ableton Live;
+      screen captures shown on this page were recorded from touchAble builds running a live set.
       Ableton Live is a trademark of Ableton AG. This site is not affiliated with Ableton AG.
     </div>
     <div class="foot-cols">

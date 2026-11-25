@@ -382,7 +382,9 @@ section { position: relative; }
 .hero .subhead { max-width: 30em; margin-inline: auto; }
 .hero .btn-row { margin-bottom: clamp(44px, 6vh, 70px); }
 
-/* ---------- 6 · The device (CSS iPad) --------------------- */
+/* ---------- 6 · The device (CSS iPad, real screen) -------- */
+/* the frame is drawn in CSS; the screen shows a capture taken
+   from a touchAble build, so it looks exactly like the app */
 .device-stage { perspective: 1600px; }
 .device {
   width: min(100%, 980px);
@@ -402,174 +404,25 @@ section { position: relative; }
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid rgba(0,0,0,0.6);
-  aspect-ratio: 16 / 10;
-  display: flex;
-  flex-direction: column;
+  aspect-ratio: 16 / 9;
+}
+.device-screen img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.shot-note {
+  margin: 18px auto 0;
+  font-size: 13px;
+  color: var(--zdb-col-light-mid);
+  text-align: center;
 }
 
-/* the app's top bar */
-.app-topbar {
-  background: var(--zdb-topbar);
-  border-bottom: 1px solid #000;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 10px;
-  flex: none;
-}
-.app-topbar .live-chip {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: var(--zdb-mint);
-  border: 1px solid rgba(0,225,129,0.4);
-  border-radius: 6px;
-  padding: 3px 8px;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-}
-.live-chip .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--zdb-mint); animation: pulse 2.4s infinite; }
-.app-topbar .mod {
-  font-size: 10.5px;
-  font-weight: 600;
-  color: var(--zdb-col-light);
-  background: var(--zdb-module);
-  border: 1px solid var(--zdb-hairline);
-  border-radius: 7px;
-  padding: 4px 11px;
-}
-.app-topbar .mod.on {
-  color: var(--zdb-col-extreme-light);
-  background: var(--zdb-col-light-light);   /* key.face.on */
-  color: var(--zdb-col-super-dark);
-  box-shadow: 0 0 14px rgba(244,246,250,0.28);
-}
-.app-topbar .link-dot { margin-left: auto; width: 7px; height: 7px; border-radius: 50%; background: var(--zdb-blue); box-shadow: 0 0 10px var(--zdb-blue); animation: pulse 2.4s infinite; }
-
-/* mixer inside the device */
-.app-mixer {
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr) 1.15fr;
-  gap: 6px;
-  padding: 8px;
-  background:
-    repeating-linear-gradient(90deg, transparent 0 2px, rgba(0,0,0,0.12) 2px 4px),
-    var(--zdb-deep);
-  min-height: 0;
-}
-.strip {
-  background: var(--zdb-dark);            /* fader.ground */
-  border-radius: 8px;
-  border: 1px solid var(--zdb-hairline);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  padding: 6px 4px;
-  min-width: 0;
-}
-.strip.master { background: var(--zdb-module); }
-.strip .tname { font-size: 9px; color: var(--zdb-col-extreme-light); opacity: 0.85; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.strip .tdot { width: 7px; height: 3px; border-radius: 2px; }
-.strip .pan {
-  width: 16px; height: 16px; border-radius: 50%;
-  background: radial-gradient(circle at 50% 32%, var(--zdb-card), var(--zdb-strip));
-  border: 1px solid rgba(0,0,0,0.6);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.5), inset 0 1px 0 rgba(244,246,250,0.14);
-  position: relative; flex: none;
-}
-.strip .pan::before {
-  content: "";
-  position: absolute; left: calc(50% - 1px); top: 2px;
-  width: 2px; height: 42%; border-radius: 1px;
-  background: var(--zdb-col-extreme-light);
-  transform-origin: 50% 95%;
-  transform: rotate(var(--pan, 0deg));
-}
-.fader-row { flex: 1; display: flex; gap: 3px; width: 100%; justify-content: center; min-height: 44px; }
-.fader {
-  position: relative;
-  width: 14px;
-  background: linear-gradient(var(--zdb-col-super-dark), var(--zdb-deep));
-  border-radius: 4px;
-  border: 1px solid rgba(0,0,0,0.65);
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.8);
-  overflow: visible;
-}
-.cap {
-  position: absolute;
-  left: 50%;
-  width: 20px; height: 13px;
-  margin-left: -10px;
-  border-radius: 4px;
-  background: linear-gradient(#dfe3ea, #aab0bc 46%, #6e7482);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.65);
-  animation: glide var(--dur, 7s) ease-in-out var(--d, 0s) infinite alternate;
-}
-.cap::after { content: ""; position: absolute; inset: 0; margin: auto; width: 12px; height: 1px; background: rgba(0,0,0,0.55); }
-@keyframes glide { from { top: var(--a); } to { top: var(--b); } }
-
-.meter {
-  width: 5px;
-  background: var(--zdb-col-light-mid);
-  border-radius: 3px;
+/* image frames for captured app screens */
+.shot {
+  aspect-ratio: 16 / 9;
   overflow: hidden;
-  position: relative;
-  flex: none;
+  background: var(--zdb-strip);
+  border-bottom: 1px solid var(--zdb-hairline);
 }
-/* the colour scale belongs to the track, not to the fill: paint the
-   whole meter, then drop an unlit lid from the top down */
-.litbar {
-  position: absolute;
-  inset: 0;
-  border-radius: 3px;
-  background: linear-gradient(to top, var(--zdb-mint) 0 55%, var(--zdb-sunflower) 55% 82%, var(--zdb-orange) 82% 94%, #ff2d1a 94% 100%);
-}
-.litbar::after {
-  content: "";
-  position: absolute;
-  left: 0; right: 0; top: 0;
-  background: var(--zdb-col-light-mid);
-  animation: lid var(--dur, 1.4s) ease-in-out var(--d, 0s) infinite alternate;
-}
-@keyframes lid {
-  from { height: calc(100% - var(--from)); }
-  to   { height: calc(100% - var(--to)); }
-}
-
-.tgl { display: flex; gap: 3px; }
-.tgl i {
-  width: 12px; height: 11px; border-radius: 3px;
-  background: var(--zdb-col-light-mid);          /* mixer.toggle.off */
-  font-style: normal;
-}
-.tgl i.solo  { background: var(--zdb-yellow); box-shadow: 0 0 8px rgba(204,143,61,0.8); }
-.tgl i.arm   { background: var(--zdb-red); box-shadow: 0 0 8px rgba(204,33,26,0.7); }
-.strip .env { width: 82%; height: 18px; border-radius: 4px; background: var(--zdb-card); position: relative; overflow: hidden; flex: none; }
-.strip .env::before { content: ""; position: absolute; left: 0; bottom: 0; width: 100%; height: 45%; background: linear-gradient(var(--zdb-blue), rgba(0,152,248,0.15)); clip-path: polygon(0 100%, 0 55%, 12% 20%, 30% 70%, 48% 5%, 66% 62%, 84% 30%, 100% 68%, 100% 100%); opacity: 0.85; }
-
-/* app bottom rail */
-.app-rail {
-  flex: none;
-  background: var(--zdb-bar);
-  border-top: 1px solid #000;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 10px;
-}
-.app-rail i {
-  font-style: normal;
-  font-size: 9px;
-  color: var(--zdb-col-light);
-  background: var(--zdb-module);
-  border: 1px solid var(--zdb-hairline);
-  padding: 3px 8px;
-  border-radius: 6px;
-}
-.app-rail i.on { background: var(--zdb-yellow); color: var(--zdb-col-super-dark); border-color: transparent; font-weight: 700; }
+.shot img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+.shot-clips { aspect-ratio: 1334 / 540; }  /* show the clip grid, not the mixer beneath */
 
 /* ---------- 7 · Platform ribbon --------------------------- */
 .ribbon {
@@ -597,55 +450,6 @@ section { position: relative; }
 .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
 .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-
-/* little card illustrations, drawn in the app's control language */
-.viz { height: 172px; display: flex; align-items: center; justify-content: center; gap: 14px; position: relative; }
-
-/* knobs */
-.knob { width: 54px; height: 54px; border-radius: 50%; position: relative;
-  background: radial-gradient(circle at 50% 32%, var(--zdb-card), var(--zdb-col-mid-dark));
-  box-shadow: 0 5px 14px rgba(0,0,0,0.6), inset 0 1px 0 rgba(244,246,250,0.14); }
-.knob::before { content: ""; position: absolute; inset: -7px; border-radius: 50%;
-  background: conic-gradient(from 135deg, var(--kc, var(--zdb-blue)) 0 calc(var(--v, 60) * 2.7deg), transparent 0);
-  -webkit-mask: radial-gradient(circle, transparent 0 30px, #000 31px);
-          mask: radial-gradient(circle, transparent 0 30px, #000 31px); }
-.knob i { position: absolute; left: 50%; top: 8px; width: 3px; height: 14px; border-radius: 2px;
-  background: var(--kc, var(--zdb-blue)); transform: translateX(-50%) rotate(var(--ang, -40deg)); transform-origin: 50% 19px; box-shadow: 0 0 8px var(--kc, var(--zdb-blue)); }
-
-/* pads */
-.pads { display: grid; grid-template-columns: repeat(3, 34px); gap: 7px; }
-.pads i { height: 34px; border-radius: 8px; background: var(--zdb-card); border: 1px solid var(--zdb-hairline); }
-.pads i.hit { background: var(--zdb-yellow); box-shadow: 0 0 16px rgba(204,143,61,0.65); border-color: transparent; animation: pulse 1.9s infinite; }
-.pads i.hit2 { background: var(--zdb-blue); box-shadow: 0 0 16px rgba(0,152,248,0.65); border-color: transparent; }
-
-/* session grid mini */
-.mini-grid { display: grid; grid-template-columns: repeat(5, 34px); grid-auto-rows: 24px; gap: 5px; }
-.mini-grid i { border-radius: 4px; background: rgba(244,246,250,0.06); }
-.mini-grid i.c1 { background: var(--zdb-blue); }
-.mini-grid i.c2 { background: var(--zdb-yellow); }
-.mini-grid i.c3 { background: var(--zdb-green); animation: pulse 1.7s infinite; }
-.mini-grid i.c4 { background: var(--zdb-sunset); }
-.mini-grid i.c5 { background: var(--zdb-device-blue); }
-
-/* EQ lanes (the device editor) */
-.eqviz { display: flex; flex-direction: column; gap: 7px; width: 70%; }
-.eqviz i { height: 8px; border-radius: 4px; background: linear-gradient(90deg, var(--zc) 0 var(--w, 60%), rgba(244,246,250,0.1) var(--w, 60%) 100%); }
-
-/* template editor */
-.editviz { width: 78%; height: 66%; border: 1.5px dashed rgba(244,246,250,0.3); border-radius: 10px; position: relative; }
-.editviz .sel { position: absolute; inset: -7px; border: 1.5px solid var(--zdb-blue); border-radius: 12px; }
-.editviz .sel b { position: absolute; width: 7px; height: 7px; background: var(--zdb-blue); border-radius: 2px; box-shadow: 0 0 8px rgba(0,152,248,0.8); }
-.editviz .sel b:nth-child(1){ left: -4px; top: -4px; } .editviz .sel b:nth-child(2){ right: -4px; top: -4px; }
-.editviz .sel b:nth-child(3){ left: -4px; bottom: -4px; } .editviz .sel b:nth-child(4){ right: -4px; bottom: -4px; }
-.editviz .f2 { position: absolute; right: 8%; top: 16%; width: 16px; height: 60%; background: var(--zdb-card); border-radius: 5px; border: 1px solid var(--zdb-hairline); }
-
-/* XY viz */
-.xyyz { width: 150px; height: 118px; border-radius: 12px; background: var(--zdb-card); border: 1px solid var(--zdb-hairline); position: relative; box-shadow: inset 0 0 30px rgba(0,0,0,0.4); }
-.xyyz b { position: absolute; width: 15px; height: 15px; border-radius: 50%; box-shadow: 0 0 14px currentColor; }
-.xyyz .a { color: var(--zdb-sunflower); background: var(--zdb-sunflower); animation: driftA 6s var(--ease) infinite alternate; }
-.xyyz .b { color: var(--zdb-blue); background: var(--zdb-blue); animation: driftB 7.5s var(--ease) infinite alternate; }
-@keyframes driftA { from { left: 22%; top: 60%; } to { left: 66%; top: 20%; } }
-@keyframes driftB { from { left: 64%; top: 66%; } to { left: 26%; top: 24%; } }
 
 /* performance tiles */
 .stage-tile {
@@ -684,37 +488,190 @@ section { position: relative; }
   box-shadow: var(--lift-2), 0 0 70px rgba(0,152,248,0.10);
   overflow: hidden;
 }
-.big-frame .app-topbar, .big-frame .app-rail { padding: 10px 14px; }
-.big-frame .app-mixer { padding: 14px; gap: 10px; }
-.big-frame .strip { padding: 10px 6px; gap: 7px; }
-.big-frame .strip .tname { font-size: 11px; }
-.big-frame .strip .pan { width: 22px; height: 22px; }
-.big-frame .fader-row { min-height: 120px; }
-.big-frame .fader { width: 22px; }
-.big-frame .cap { width: 32px; height: 20px; margin-left: -16px; border-radius: 6px; }
-.big-frame .cap::after { width: 20px; }
-.big-frame .meter { width: 9px; border-radius: 5px; }
-.big-frame .tgl { gap: 5px; }
-.big-frame .tgl i { width: 21px; height: 17px; border-radius: 4px; }
-.big-frame .env { height: 30px; }
+.big-frame img { width: 100%; display: block; }
+.big-frame-clips { aspect-ratio: 1334 / 470; overflow: hidden; }
+.big-frame-clips img { height: 100%; object-fit: cover; object-position: top center; }
 
-/* session view, big */
-.session {
+/* ---------- 9b · Live mixer model --------------------------
+   Not a screenshot — a working replica of the app's mixer.
+   Every number is touchAble's own, from TATokens.cpp
+   ("Soft Graphite" fader form) and TAVolumeView.cpp:
+     groove  8 pt, depth 0.6 (card → black)   fader.groove.*
+     cap     52 × 22 pt, radius 6, lift 0.16 (card → white),
+             grip line white @ .75 inset 9, shadow 0.5
+     meter   4 pt bars (card_meters), low = meter.low (#575762)
+             mixed ½ with the track colour, top lerps to
+             meter.high (#8e8e9c); above 85 % the hot zone:
+             meter.warm #ffbd00 → meter.hot #ff0000;
+             a muted track's meters draw at 0.07 opacity.   */
+.live-mixer {
+  --cap-h: 22px;          /* fader.cap.height  */
+  --cap-w: 52px;          /* fader.cap.width   */
+  --cap-r: 6px;           /* fader.cap.radius  */
+  --groove-w: 8px;        /* fader.groove.width */
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-auto-rows: 34px;
-  gap: 6px;
-  padding: 14px;
-  background:
-    repeating-linear-gradient(0deg, transparent 0 39px, rgba(244,246,250,0.05) 39px 40px),
-    var(--zdb-deep);
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(10px, 1.6vw, 18px);
+  padding: clamp(16px, 2.6vw, 30px);
+  background: var(--zdb-module);   /* ground.module — the app's mixer ground */
 }
-.session i { border-radius: 6px; background: rgba(244,246,250,0.05); }
-.session i.hdr { display: flex; align-items: center; justify-content: center; font-style: normal; font-size: 10px; font-weight: 650; letter-spacing: 0.06em; text-transform: uppercase; color: var(--zdb-col-extreme-light); border-radius: 6px 6px 3px 3px; }
-.session i.playing { position: relative; animation: clipglow 2.2s ease-in-out infinite; }
-.session i.playing::before { content: ""; position: absolute; left: 6px; top: 50%; translate: 0 -50%; width: 0; height: 0; border-block: 5px solid transparent; border-left: 8px solid var(--zdb-col-super-dark); }
-@keyframes clipglow { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.35); } }
-@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+.lm-strip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 12px 14px;
+  min-width: 0;
+  background: var(--zdb-card);     /* card — every fader sits on one */
+  border: 1px solid var(--zdb-card-line);
+  border-radius: 14px;
+  box-shadow: var(--lift-1);
+}
+.lm-head {
+  position: relative;
+  width: 100%;
+  padding-right: 16px;             /* room for the arm dot, out of flow */
+}
+.lm-name {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--zdb-col-extreme-light);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.lm-arm {                       /* record-activate — palette.red, arm */
+  position: absolute;
+  right: 0; top: 50%; margin-top: -4.5px;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: rgba(244, 246, 250, 0.14);
+}
+.lm-arm.lit {
+  background: var(--zdb-red);
+  box-shadow: 0 0 8px rgba(204, 33, 26, 0.7);
+  animation: lm-arm 1.9s ease-in-out infinite;
+}
+@keyframes lm-arm { 50% { opacity: 0.55; } }
+
+.lm-ctl {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 9px;
+  height: clamp(168px, 24vw, 252px);
+}
+.lm-fader { position: relative; width: var(--cap-w); }
+
+.lm-groove {                    /* fader.groove: card tone sunk by 0.6 */
+  position: absolute;
+  left: 50%; top: 0; bottom: 0;
+  width: var(--groove-w);
+  transform: translateX(-50%);
+  border-radius: calc(var(--groove-w) / 2);
+  background: rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+.lm-fill {                      /* fader.groove.fill: track colour @ 0.9,
+                                   from the bottom up to the cap centre */
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: calc(var(--v, 0.5) * (100% - var(--cap-h)) + var(--cap-h) / 2);
+  background: var(--trk);
+  opacity: 0.9;
+  transition: height 1.6s var(--ease);
+}
+.lm-cap {                       /* fader.cap: card lifted 16 % toward white */
+  position: absolute;
+  left: 50%;
+  width: var(--cap-w); height: var(--cap-h);
+  transform: translateX(-50%);
+  bottom: calc(var(--v, 0.5) * (100% - var(--cap-h)));
+  border-radius: var(--cap-r);
+  background: #4c4d51;                                   /* the mix below, computed */
+  background: color-mix(in srgb, #ffffff 16%, var(--zdb-card));
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5),          /* fader.cap.shadow */
+              inset 0 1px 0 rgba(244, 246, 250, 0.22);
+  transition: bottom 1.6s var(--ease);
+}
+.lm-grip {                      /* fader.cap.grip: white @ .75, inset 9 */
+  position: absolute;
+  left: 9px; right: 9px; top: 50%;
+  height: 2px; margin-top: -1px;
+  border-radius: 1px;
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.lm-meter {
+  display: flex;
+  gap: 2px;                      /* meter_seperator: 2 */
+}
+.lm-bar {
+  position: relative;
+  width: 4px;                    /* card_meters: 4 pt bars */
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+.lm-lit {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: calc(var(--m, 0) * 100%);
+  /* meter.low / meter.high, each mixed half and half with the track
+     colour — exactly what TAVolumeView does before it draws */
+  background: linear-gradient(to top, #575762, #8e8e9c);  /* fallback */
+  background: linear-gradient(to top,
+              color-mix(in srgb, var(--trk) 50%, #575762),
+              color-mix(in srgb, var(--trk) 50%, #8e8e9c));
+  opacity: 0.8;                  /* meter opacity in TAVolumeView */
+  will-change: height;
+}
+.lm-bar:nth-child(2) .lm-lit { height: calc(var(--mr, 0) * 100%); }
+.lm-hot {                        /* above 85 %: meter.warm → meter.hot */
+  position: absolute;
+  left: 0; right: 0;
+  background: linear-gradient(to top, #ffbd00, #ff0000);
+}
+.lm-strip.lm-muted .lm-lit {
+  opacity: 0.07;                 /* meterMuted — the app really does this */
+}
+
+.lm-val {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--zdb-col-extreme-light);   /* fader.legend */
+  font-variant-numeric: tabular-nums;
+}
+.lm-val span { font-size: 9px; color: var(--zdb-col-light); margin-left: 2px; }
+
+.lm-keys { display: flex; gap: 6px; }
+.lm-key {
+  width: 26px; height: 20px;
+  display: grid; place-items: center;
+  font-size: 10.5px; font-weight: 700;
+  border-radius: var(--r-control);
+  background: rgba(0, 0, 0, 0.32);
+  border: 1px solid var(--zdb-hairline);
+  color: var(--zdb-col-light);
+  transition: background 0.3s var(--ease), color 0.3s var(--ease);
+}
+.lm-key.lit-mi {                 /* mute on — control.on, palette.yellow */
+  background: var(--zdb-yellow);
+  border-color: var(--zdb-yellow);
+  color: var(--zdb-col-super-dark);
+}
+.lm-key.lit-so {                 /* solo — the app's square.on blue */
+  background: var(--zdb-device-blue);
+  border-color: var(--zdb-device-blue);
+  color: #fff;
+}
+.lm-note {
+  padding: 14px 0 18px;
+  font-size: 13px;
+  color: var(--zdb-col-light-mid);
+  text-align: center;
+  background: var(--zdb-module);
+}
 
 /* how-it-works chain */
 .chain { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 16px; align-items: stretch; }
@@ -882,11 +839,16 @@ address { font-style: normal; }
 }
 @media (max-width: 640px) {
   .grid-3, .grid-2, .grid-4, .stats { grid-template-columns: 1fr; }
-  .app-mixer { grid-template-columns: repeat(2, 1fr) 1.15fr; }
-  .app-mixer .hide-sm { display: none; }
-  .session { grid-template-columns: repeat(3, 1fr); }
-  .session .hide-sm { display: none; }
-  .session { grid-template-columns: repeat(4, 1fr); }
+  .plans { max-width: 420px; }
+  .live-mixer {
+    --cap-w: 38px; --cap-h: 18px; --cap-r: 5px; --groove-w: 6px;
+    gap: 7px;
+    padding: 14px 8px 18px;
+  }
+  .lm-strip { padding: 9px 6px 11px; gap: 8px; }
+  .lm-ctl { gap: 6px; height: 160px; }
+  .lm-grip { left: 7px; right: 7px; }
+  .lm-name { font-size: 10.5px; }
 }
 
 /* ---------- 15 · Reduced motion --------------------------- */
