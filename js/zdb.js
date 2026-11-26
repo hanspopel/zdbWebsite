@@ -208,3 +208,60 @@
     }
   }
 })();
+
+/* ---- live device views (demos/) --------------------------------
+   The instruments section embeds the real interactive device views:
+   each demos/*.dc.html draws its instrument at touchAble's native
+   1334 × 750. Tabs swap which iframe is shown; an iframe is only
+   fetched the first time its device is asked for — and the default
+   device only once the stage actually scrolls into view. The frame
+   is scaled with a transform (origin top-left), so mouse and touch
+   coordinates arrive at the device undistorted. */
+(() => {
+  "use strict";
+  const stage = document.querySelector(".dev-stage");
+  if (!stage) return;
+  const tabs = Array.from(document.querySelectorAll(".seg--dev [data-dev]"));
+  if (!tabs.length) return;
+
+  const W = 1334;
+  const fit = () => {
+    const k = stage.clientWidth / W;
+    stage.querySelectorAll("iframe").forEach(
+      (f) => { f.style.transform = "scale(" + k + ")"; }
+    );
+  };
+  if ("ResizeObserver" in window) new ResizeObserver(fit).observe(stage);
+  else window.addEventListener("resize", fit);
+
+  const show = (name) => {
+    let f = stage.querySelector('iframe[data-dev="' + name + '"]');
+    if (!f) {
+      f = document.createElement("iframe");
+      f.dataset.dev = name;
+      f.setAttribute("title", tabs.find((b) => b.dataset.dev === name).textContent + " — live device view");
+      f.setAttribute("scrolling", "no");
+      stage.appendChild(f);
+      fit();
+      f.addEventListener("load", () => stage.classList.add("dev-ready"));
+      f.src = "demos/" + name + ".dc.html";
+    }
+    stage.querySelectorAll("iframe").forEach((x) => x.classList.toggle("dev-on", x === f));
+    tabs.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.dev === name)));
+  };
+
+  tabs.forEach((b) => b.addEventListener("click", () => show(b.dataset.dev)));
+
+  const boot = () => {
+    const on = tabs.find((b) => b.getAttribute("aria-pressed") === "true") || tabs[0];
+    show(on.dataset.dev);
+  };
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(([e], obs) => {
+      if (e.isIntersecting) { boot(); obs.disconnect(); }
+    }, { threshold: 0 });
+    io.observe(stage);
+  } else {
+    boot();
+  }
+})();

@@ -495,6 +495,37 @@ section { position: relative; }
 .big-frame-clips { aspect-ratio: 1334 / 470; overflow: hidden; }
 .big-frame-clips img { height: 100%; object-fit: cover; object-position: top center; }
 
+/* ---------- 9c · Live device views -------------------------
+   The instruments section hosts the real thing: each tab mounts
+   a demos/*.dc.html iframe — the device view rendered at the
+   app's native 1334 × 750 — and scales it to the stage, so every
+   pointer gesture lands where the fingers would put it. The
+   stage ground is the Soft Graphite canvas colour (#161412). */
+.big-frame-dev { background: #161412; }
+.dev-stage { position: relative; aspect-ratio: 1334 / 750; overflow: hidden; }
+.dev-stage img.dev-fallback {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; display: block;
+}
+.dev-stage iframe {
+  position: absolute; top: 0; left: 0;
+  width: 1334px; height: 750px;
+  border: 0; background: #161412;
+  transform-origin: 0 0;
+  display: none;
+}
+.dev-stage iframe.dev-on { display: block; }
+.dev-stage.dev-ready img.dev-fallback { display: none; }
+
+/* the device picker rides the same segmented control as the
+   currency switch — here centred under the copy */
+.seg--dev { display: flex; width: fit-content; max-width: 100%; margin: 0 auto 30px; }
+.seg--dev button { padding: 9px 22px; }
+@media (max-width: 520px) {
+  .seg--dev { flex-wrap: wrap; justify-content: center; }
+  .seg--dev button { padding: 8px 15px; font-size: 13px; }
+}
+
 /* ---------- 9b · Live mixer model --------------------------
    Not a screenshot — a working replica of the app's mixer.
    Every number is touchAble's own, from TATokens.cpp

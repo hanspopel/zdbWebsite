@@ -495,6 +495,35 @@
   </div>
 </section>
 
+<!-- ======================= INSTRUMENTS: LIVE ======================= -->
+<section class="sect sect-module" id="instruments">
+  <div class="wrap-wide">
+    <div class="center">
+      <p class="eyebrow reveal">Device views · live</p>
+      <h2 class="headline--md reveal" style="margin-bottom:14px;font-weight:700;letter-spacing:-0.022em">Don't just look.<br><span class="grad-text">Touch the instruments.</span></h2>
+      <p class="lede reveal" style="--rd:.06s">Below is a working rebuild of touchAble's device views — the same shapes, materials and
+        interactions the app draws on your tablet, in its Soft Graphite finish. Grab a knob, drag an EQ band
+        across the spectrum, trigger a pad. It answers like the real thing.</p>
+    </div>
+    <div class="seg seg--dev reveal" style="--rd:.12s" role="group" aria-label="Choose a device to play with">
+      <button data-dev="Eq8Dev" aria-pressed="true">EQ Eight</button>
+      <button data-dev="CompressorDev" aria-pressed="false">Compressor</button>
+      <button data-dev="DrumRackDev" aria-pressed="false">Drum Rack</button>
+      <button data-dev="WavetableDev" aria-pressed="false">Wavetable</button>
+    </div>
+    <figure class="big-frame big-frame-dev reveal" style="--rd:.18s;margin:0">
+      <!-- live iframes are attached by js/zdb.js — each demos/*.dc.html is the device view
+           rendered at the app's native 1334 × 750 and scaled to this stage, so a drag of
+           the mouse moves the knob exactly as a finger would on the tablet -->
+      <div class="dev-stage" id="devstage">
+        <img class="dev-fallback" src="assets/screens/device-eq8.png" width="1334" height="750" loading="lazy"
+             alt="touchAble's EQ Eight: eight draggable bands over the spectrum display, device controls in the app's Soft Graphite look.">
+      </div>
+      <figcaption class="lm-note">Live preview — drag the knobs and bands; press pads on the Drum Rack. Nothing here is a screenshot.</figcaption>
+    </figure>
+  </div>
+</section>
+
 <!-- ======================= SHOWCASE: SESSION ======================= -->
 <section class="sect sect-strip" id="perform">
   <div class="wrap-wide">

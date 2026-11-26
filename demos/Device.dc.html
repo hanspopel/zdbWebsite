@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>touchAble device view</title>
+<script src="./_runtime/react.js"></script>
+<script src="./_runtime/react-dom.js"></script>
+<script src="./_runtime/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div style="width: 1334px; height: 750px; position: relative; overflow: hidden; background: {{T.ground}}; font-family: Roboto, 'Helvetica Neue', Helvetica, sans-serif; color: {{T.text}}; user-select: none; -webkit-user-select: none">
+
+  <sc-for list="{{cards}}" as="c" hint-placeholder-count="12">
+    <div style="position: absolute; left: {{c.x}}px; top: {{c.y}}px; width: {{c.w}}px; height: {{c.h}}px; box-sizing: border-box; border-radius: {{c.r}}px; background: {{c.bg}}; box-shadow: {{c.sh}}; backdrop-filter: {{T.blur}}; -webkit-backdrop-filter: {{T.blur}}">
+      <div style="position: absolute; left: 0; right: 0; top: {{c.ty}}px; text-align: center; font-size: {{c.fs}}px; letter-spacing: 0.08em; text-transform: uppercase; color: {{T.label}}; white-space: nowrap">{{c.title}}</div>
+    </div>
+  </sc-for>
+
+  <sc-for list="{{displays}}" as="dp" hint-placeholder-count="2">
+    <div style="position: absolute; left: {{dp.x}}px; top: {{dp.y}}px; width: {{dp.w}}px; height: {{dp.h}}px; border-radius: 8px; overflow: hidden; background: {{dp.bg}}; box-shadow: {{dp.sh}}">
+      <svg viewBox="{{dp.vb}}" width="{{dp.w}}" height="{{dp.h}}" style="display: block">
+        <sc-for list="{{dp.paths}}" as="p" hint-placeholder-count="3">
+          <path d="{{p.d}}" fill="{{p.fill}}" stroke="{{p.stroke}}" stroke-width="{{p.sw}}" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="{{p.dash}}" opacity="{{p.o}}" style="filter: {{p.f}}; transition: d 120ms linear"></path>
+        </sc-for>
+        <sc-for list="{{dp.texts}}" as="t" hint-placeholder-count="2">
+          <text x="{{t.x}}" y="{{t.y}}" font-size="{{t.fs}}" fill="{{t.col}}" text-anchor="{{t.anchor}}" font-family="Roboto, Helvetica, sans-serif">{{t.t}}</text>
+        </sc-for>
+      </svg>
+    </div>
+  </sc-for>
+
+  <sc-for list="{{blocks}}" as="bk" hint-placeholder-count="5">
+    <div style="position: absolute; left: {{bk.x}}px; top: {{bk.y}}px; width: {{bk.w}}px; height: {{bk.h}}px; box-sizing: border-box; border-radius: {{bk.r}}px; background: {{bk.bg}}; box-shadow: {{bk.sh}}; color: {{bk.fg}}; font-size: {{bk.fs}}px; font-weight: {{bk.fw}}; display: flex; align-items: {{bk.ai}}; justify-content: {{bk.jc}}; padding: {{bk.pad}}; white-space: nowrap; overflow: hidden">
+      {{bk.txt}}
+      <span style="position: absolute; left: 8px; right: 8px; bottom: 4px; height: 3px; border-radius: 2px; background: #ffffff; opacity: {{bk.selO}}; box-shadow: {{bk.selSh}}"></span>
+    </div>
+  </sc-for>
+
+  <sc-for list="{{labels}}" as="l" hint-placeholder-count="10">
+    <div style="position: absolute; left: {{l.x}}px; top: {{l.y}}px; width: {{l.w}}px; text-align: {{l.align}}; font-size: {{l.fs}}px; font-weight: {{l.fw}}; letter-spacing: {{l.ls}}; text-transform: {{l.tt}}; color: {{l.col}}; font-variant-numeric: tabular-nums; white-space: nowrap; line-height: 1.2">{{l.txt}}</div>
+  </sc-for>
+
+  <sc-for list="{{buttons}}" as="b" hint-placeholder-count="30">
+    <button aria-label="{{b.label}}" onPointerDown="{{b.down}}" onPointerUp="{{b.up}}" onPointerLeave="{{b.up}}" onClick="{{b.click}}" style="position: absolute; left: {{b.x}}px; top: {{b.y}}px; width: {{b.w}}px; height: {{b.h}}px; overflow: hidden; border: 0; padding: {{b.pad}}; margin: 0; cursor: pointer; display: flex; flex-direction: {{b.fd}}; align-items: {{b.ai}}; justify-content: {{b.jc}}; gap: {{b.gap}}px; box-sizing: border-box; font-family: inherit; color: {{b.ic}}; text-shadow: {{b.ts}}; border-radius: {{b.rad}}px; background: {{b.bg}}; box-shadow: {{b.sh}}; transform: {{b.tf}}; transition: {{b.tr}}; outline: none">
+      <sc-if value="{{b.hasD}}" hint-placeholder-val="{{true}}">
+        <svg viewBox="0 0 24 24" width="{{b.is}}" height="{{b.is}}" style="flex: none; filter: {{b.icf}}; transition: filter 260ms"><path d="{{b.d}}" fill="none" stroke="{{b.ic}}" stroke-width="{{b.isw}}" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </sc-if>
+      <sc-if value="{{b.hasTxt}}" hint-placeholder-val="{{false}}">
+        <span style="font-size: {{b.fs}}px; font-weight: {{b.fw}}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%">{{b.txt}}</span>
+      </sc-if>
+      <sc-if value="{{b.hasSub}}" hint-placeholder-val="{{false}}">
+        <span style="font-size: {{b.sfs}}px; opacity: 0.7; white-space: nowrap">{{b.sub}}</span>
+      </sc-if>
+      <span style="position: absolute; left: {{b.rx}}%; top: {{b.ry}}%; width: 150%; aspect-ratio: 1; border-radius: 50%; pointer-events: none; background: radial-gradient(circle, {{b.rc}} 0%, rgba(255,255,255,0) 62%); opacity: {{b.ro}}; transform: translate(-50%, -50%) scale({{b.rs}}); transition: {{b.rt}}"></span>
+    </button>
+  </sc-for>
+
+  <sc-for list="{{knobs}}" as="k" hint-placeholder-count="10">
+    <div aria-label="{{k.label}}" onPointerDown="{{k.down}}" onPointerMove="{{k.move}}" onPointerUp="{{k.up}}" onPointerCancel="{{k.up}}" style="position: absolute; left: {{k.x}}px; top: {{k.y}}px; width: {{k.s}}px; touch-action: none; cursor: ns-resize; display: flex; flex-direction: column; align-items: center; gap: 3px">
+      <div style="position: relative; width: {{k.s}}px; height: {{k.s}}px; border-radius: 50%; background: {{k.wellBg}}; box-shadow: {{k.wellSh}}">
+        <svg viewBox="0 0 100 100" width="{{k.s}}" height="{{k.s}}" style="position: absolute; left: 0; top: 0; overflow: visible">
+          <path d="{{k.trackD}}" fill="none" stroke="{{k.trackC}}" stroke-width="7" stroke-linecap="round"></path>
+          <path d="{{k.valD}}" fill="none" stroke="{{k.c}}" stroke-width="7" stroke-linecap="round" style="filter: {{k.arcF}}"></path>
+        </svg>
+        <div style="position: absolute; left: {{k.capOff}}px; top: {{k.capOff}}px; width: {{k.capS}}px; height: {{k.capS}}px; border-radius: 50%; background: {{k.capBg}}; box-shadow: {{k.capSh}}; transform: rotate({{k.rot}}deg) {{k.capTf}}; transition: box-shadow 140ms ease-out">
+          <span style="position: absolute; left: 50%; top: 9%; width: 2px; height: 28%; margin-left: -1px; border-radius: 1px; background: {{k.lineC}}; box-shadow: {{k.lineSh}}"></span>
+        </div>
+      </div>
+      <div style="font-size: 11.5px; color: {{k.vc}}; font-variant-numeric: tabular-nums; white-space: nowrap; margin-top: 2px">{{k.valTxt}}</div>
+      <div style="font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: {{k.lc}}; white-space: nowrap">{{k.name}}</div>
+    </div>
+  </sc-for>
+
+  <sc-for list="{{dots}}" as="dt" hint-placeholder-count="4">
+    <div aria-label="{{dt.label}}" onPointerDown="{{dt.down}}" onPointerMove="{{dt.move}}" onPointerUp="{{dt.up}}" onPointerCancel="{{dt.up}}" style="position: absolute; left: {{dt.x}}px; top: {{dt.y}}px; width: 37px; height: 37px; margin: {{dt.m}}px 0 0 {{dt.m}}px; border-radius: 50%; touch-action: none; cursor: grab; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: {{dt.fg}}; background: {{dt.bg}}; box-shadow: {{dt.sh}}; transform: {{dt.tf}}; transition: box-shadow 200ms ease-out, transform 90ms ease-out">{{dt.txt}}</div>
+  </sc-for>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"device":{"editor":"enum","options":["eq8","compressor","wavetable","drumrack"],"default":"eq8","section":"Device"},"look":{"editor":"enum","options":["soft","backlit","satin","glass"],"default":"soft","section":"Look"},"glow":{"editor":"range","min":0,"max":1.6,"step":0.1,"default":1,"section":"Look"},"depth":{"editor":"range","min":0,"max":1.6,"step":0.1,"default":1,"section":"Look"},"$preview":{"width":1334,"height":750}}'>
+const GREEN = '#3fcf6a', RED = '#ef4b4f', AMBER = '#f0b429', BLUE = '#4c8dff', WARM = '#f2c14e', WHITE = '#e9eef6';
+const BANDC = ['#3d9be9', '#2ec4b6', '#4cc24a', '#e8c21e', '#f08a24', '#e5484d', '#d45dbf', '#8e6bd8'];
+
+function rgb(h) { h = h.replace('#', ''); return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)]; }
+function rgba(h, a) { const c = rgb(h); a = Math.max(0, Math.min(1, a)); return 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a.toFixed(3) + ')'; }
+function mix(a, b, t) { const x = rgb(a), y = rgb(b); return '#' + x.map(function (v, i) { return Math.round(v + (y[i] - v) * t).toString(16).padStart(2, '0'); }).join(''); }
+function lum(h) { const c = rgb(h); return (0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]) / 255; }
+function circ(cx, cy, r) { return 'M' + (cx - r) + ' ' + cy + 'a' + r + ' ' + r + ' 0 1 0 ' + (2 * r) + ' 0a' + r + ' ' + r + ' 0 1 0 ' + (-2 * r) + ' 0'; }
+function f1(v) { return (Math.round(v * 10) / 10).toFixed(1); }
+
+const I = {
+  plusC: circ(12, 12, 9) + 'M12 7.5v9M7.5 12h9', xC: circ(12, 12, 9) + 'M8.8 8.8l6.4 6.4M15.2 8.8l-6.4 6.4',
+  play: 'M7.5 4.8v14.4L19 12z', stop: 'M6 6h12v12H6z', rec: circ(12, 12, 7.5),
+  metro: 'M9 3.5h6l4 17H5z M12 16.5l5.5-10 M7 14.5h10', cue: 'M4.5 15v-3a7.5 7.5 0 0 1 15 0v3 M4.5 14h3v6h-3z M16.5 14h3v6h-3z',
+  tap: circ(12, 12, 8.5) + circ(12, 12, 0.8), undo: 'M4.5 4.5v5h5 M5 9.5A7.8 7.8 0 1 1 6.6 17.5', redo: 'M19.5 4.5v5h-5 M19 9.5A7.8 7.8 0 1 0 17.4 17.5',
+  plus: 'M12 4.5v15M4.5 12h15', auto: circ(6.5, 17.5, 2.5) + circ(17.5, 6.5, 2.5) + 'M8.4 15.6l7.2-7.2', back: 'M19.5 12H5M10 6.5L4.5 12l5.5 5.5',
+  capture: 'M4.5 9V4.5H9M15 4.5h4.5V9M19.5 15v4.5H15M9 19.5H4.5V15', browser: 'M5.5 3.5h13v17h-13z M8.5 7.5h7M8.5 10.5h7M8.5 13.5h7M8.5 16.5h7',
+  display: 'M3.5 4.5h17v11h-17z M9 19.5h6M12 15.5v4', gear: circ(12, 12, 3) + circ(12, 12, 7) + 'M12 2.5V5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8',
+  split: 'M4 4.5h16v6.5H4z M4 13h16v6.5H4z', full: 'M14 4.5h5.5V10 M10 19.5H4.5V14 M19.5 4.5L14 10M4.5 19.5L10 14',
+  overview: 'M20 12H6 M10.5 7.5L6 12l4.5 4.5 M4 5v14', power: 'M12 3.5v8 M7.2 6.2a7.5 7.5 0 1 0 9.6 0', combo: 'M4 4h6v16H4z M14 4h6v7h-6z M14 13h6v7h-6z',
+  snap: 'M3.5 7.5h4l1.6-2.5h5.8l1.6 2.5h4v12h-17z' + circ(12, 13.2, 3.4), editor: 'M3.5 3.5h5v5h-5z M10.5 3.5h5v5h-5z M17.5 3.5h3v5h-3z M3.5 10.5h5v5h-5z M10.5 10.5h10v10h-10z M3.5 17.5h5v3h-5z',
+  menu: circ(12, 12, 8.5) + 'M12 3.5v17',
+  clips: 'M3.5 4h7.5v7H3.5z M13 4h7.5v7H13z M3.5 13h7.5v7H3.5z M13 13h7.5v7H13z', mixer: 'M4.5 20V10h4v10z M10 20V4h4v16z M15.5 20v-7h4v7z',
+  devices: circ(12, 12, 8.5) + 'M12 12l5-5', keys: 'M3.5 4.5h17v15h-17z M9 12v7.5M15 12v7.5 M7.2 4.5v7.5h3.6V4.5 M13.2 4.5v7.5h3.6V4.5',
+  xy: 'M4 4h16v16H4z M4 13.5h16M10.5 4v16' + circ(10.5, 13.5, 2),
+  hp: 'M3 18c4 0 5-10 9-10h9', lp: 'M3 8h9c4 0 5 10 9 10', bell: 'M3 15h4c2 0 3-7 5-7s3 7 5 7h4', lshelf: 'M3 8h5c3 0 4 7 7 7h6', hshelf: 'M3 15h6c3 0 4-7 7-7h5', notch: 'M3 9h6c1.5 0 2 7 3 7s1.5-7 3-7h6'
+};
+
+function tokens(look, g, d) {
+  const S = function (x, y, b, a, sp) { return (x * d).toFixed(1) + 'px ' + (y * d).toFixed(1) + 'px ' + (b * d).toFixed(1) + 'px ' + (sp ? (sp * d).toFixed(1) + 'px ' : '') + 'rgba(0,0,0,' + Math.min(1, a * (0.55 + 0.45 * d)).toFixed(3) + ')'; };
+  const J = function (arr) { return arr.join(', '); };
+  if (look === 'backlit') {
+    const glow = function (c, k) { k *= g; return [ '0 0 1.5px 1px ' + rgba(c, 0.8 * k), '0 0 8px 2px ' + rgba(c, 0.5 * k), '0 0 22px 5px ' + rgba(c, 0.2 * k) ]; };
+    const ksh = [S(1, 2, 3, 0.75), 'inset 1px 1px 0 rgba(255,255,255,0.06)', 'inset -1px -1px 0 rgba(0,0,0,0.35)'];
+    const kshP = [S(0.3, 0.6, 1.2, 0.7), 'inset 1px 1px 3px rgba(0,0,0,0.5)'];
+    return {
+      ground: 'radial-gradient(1500px 1000px at -6% -12%, #24262b 0%, #121316 48%, #0b0b0d 100%)', text: '#e6e9ee', label: '#7f8691',
+      pbg: 'linear-gradient(160deg, #1d1f23 0%, #17181b 100%)', psh: J([S(2, 3, 8, 0.6), 'inset 1px 1px 0 rgba(255,255,255,0.045)']), pr: 12, blur: 'none',
+      kbg: 'linear-gradient(160deg, #27292e 0%, #1b1c20 100%)', ksh: J(ksh), kshP: J(kshP), kr: 8,
+      ic: 'rgba(228,233,241,0.82)', icf: 'drop-shadow(0 0 2px rgba(255,255,255,0.32))', ts: '0 0 4px rgba(255,255,255,0.3)',
+      onFace: function (c) { return 'linear-gradient(160deg, ' + mix('#27292e', c, 0.16) + ' 0%, ' + mix('#1b1c20', c, 0.1) + ' 100%)'; },
+      onSh: function (c, k, p) { return J((p ? kshP : ksh).concat(['inset 0 0 7px ' + rgba(c, 0.35 * k * g)], glow(c, k))); },
+      onIc: function (c) { return mix(c, '#ffffff', 0.35); },
+      onIcf: function (c) { return 'drop-shadow(0 0 3px ' + rgba(c, 0.95) + ') drop-shadow(0 0 8px ' + rgba(c, 0.55) + ')'; },
+      onTs: function (c) { return '0 0 5px ' + rgba(c, 0.95) + ', 0 0 12px ' + rgba(c, 0.5); },
+      glow: glow, sink: 'translate(0px, ' + (1 * d).toFixed(1) + 'px) scale(0.97)',
+      well: '#101114', wellSh: 'inset 1px 1px 3px rgba(0,0,0,0.75), inset -1px -1px 0 rgba(255,255,255,0.03)',
+      lineF: function (c) { return 'drop-shadow(0 0 3px ' + rgba(c, 0.9 * g) + ') drop-shadow(0 0 9px ' + rgba(c, 0.45 * g) + ')'; },
+      sheen: 'linear-gradient(160deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 50%)', hdrSh: J([S(1, 2, 4, 0.7)]),
+      capBg: 'linear-gradient(160deg, #2e3035 0%, #1d1e22 100%)', capSh: J([S(2, 3, 5, 0.75), 'inset 1px 1px 0 rgba(255,255,255,0.08)']), capShP: J([S(1, 1, 2, 0.7), 'inset 1px 1px 3px rgba(0,0,0,0.45)']),
+      capLine: function (c) { return mix(c, '#ffffff', 0.35); }, capLineSh: function (c) { return '0 0 5px ' + rgba(c, 0.9 * g); },
+      rippleC: 'rgba(255,255,255,0.40)', grid: 'rgba(255,255,255,0.06)', curve: '#f2f5fa'
+    };
+  }
+  if (look === 'satin') {
+    const glow = function (c, k) { k *= g; return [ '0 0 16px 2px ' + rgba(c, 0.5 * k), '0 0 40px 6px ' + rgba(c, 0.16 * k) ]; };
+    const ksh = [S(3, 5, 9, 0.55), S(1, 1.5, 2, 0.45), 'inset 1px 1px 1px rgba(255,245,230,0.15)', 'inset -1px -2px 2px rgba(0,0,0,0.32)'];
+    const kshP = [S(1, 1, 2, 0.5), 'inset 2px 2px 4px rgba(0,0,0,0.45)', 'inset -1px -1px 1px rgba(255,245,230,0.06)'];
+    return {
+      ground: 'radial-gradient(1500px 1000px at -6% -12%, #3b3732 0%, #221f1c 48%, #161412 100%)', text: '#ebe5da', label: '#968d80',
+      pbg: 'linear-gradient(150deg, #322e29 0%, #27241f 100%)', psh: J([S(5, 7, 16, 0.5), S(1, 2, 3, 0.35), 'inset 1px 1px 1px rgba(255,240,220,0.07)']), pr: 14, blur: 'none',
+      kbg: 'radial-gradient(130% 130% at 22% 18%, #57524b 0%, #3c3833 45%, #2c2925 100%)', ksh: J(ksh), kshP: J(kshP), kr: 10,
+      ic: '#e4ddcf', icf: 'none', ts: 'none',
+      onFace: function (c) { return 'radial-gradient(130% 130% at 22% 18%, ' + mix(c, '#ffffff', 0.45) + ' 0%, ' + c + ' 48%, ' + mix(c, '#000000', 0.32) + ' 100%)'; },
+      onSh: function (c, k, p) { return J((p ? kshP : ksh.slice(0, 2).concat(['inset 1px 1px 1px rgba(255,255,255,0.35)'])).concat(glow(c, k))); },
+      onIc: function (c) { return lum(c) > 0.6 ? '#1d1a16' : '#ffffff'; }, onIcf: function () { return 'none'; }, onTs: function () { return 'none'; },
+      glow: glow, sink: 'translate(' + (1 * d).toFixed(1) + 'px, ' + (1.6 * d).toFixed(1) + 'px) scale(0.97)',
+      well: '#1e1b18', wellSh: 'inset 2px 2px 4px rgba(0,0,0,0.55), inset -1px -1px 1px rgba(255,240,220,0.05)',
+      lineF: function (c) { return 'drop-shadow(0 0 4px ' + rgba(c, 0.5 * g) + ')'; },
+      sheen: 'linear-gradient(150deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 52%, rgba(0,0,0,0.16) 100%)', hdrSh: J([S(3, 4, 8, 0.5), 'inset 1px 1px 1px rgba(255,255,255,0.18)']),
+      capBg: 'radial-gradient(130% 130% at 25% 20%, #6e685f 0%, #48433d 45%, #302c28 100%)', capSh: J([S(3, 5, 8, 0.6), S(1, 1.5, 2, 0.45), 'inset 1px 1px 1px rgba(255,245,230,0.2)']), capShP: J([S(1, 2, 3, 0.55), 'inset 1px 1px 3px rgba(0,0,0,0.4)']),
+      capLine: function () { return 'rgba(255,248,235,0.85)'; }, capLineSh: function () { return 'none'; },
+      rippleC: 'rgba(255,240,215,0.45)', grid: 'rgba(255,240,220,0.06)', curve: '#fbf3e4'
+    };
+  }
+  if (look === 'glass') {
+    const glow = function (c, k) { k *= g; return [ 'inset 0 0 12px ' + rgba(c, 0.5 * k), '0 0 14px 2px ' + rgba(c, 0.42 * k) ]; };
+    const ksh = [S(2, 4, 10, 0.35), 'inset 1px 1px 0 rgba(255,255,255,0.22)', 'inset -1px -1px 0 rgba(255,255,255,0.04)'];
+    const kshP = [S(1, 1, 3, 0.3), 'inset 1px 1px 4px rgba(0,0,0,0.3)'];
+    return {
+      ground: 'radial-gradient(900px 640px at 2% 0%, rgba(150,180,240,0.28) 0%, rgba(150,180,240,0) 70%), radial-gradient(700px 500px at 96% 104%, rgba(70,110,200,0.18) 0%, rgba(70,110,200,0) 70%), linear-gradient(150deg, #1c2333 0%, #121722 55%, #0c0f16 100%)',
+      text: '#e9eef7', label: '#8f9bb0',
+      pbg: 'linear-gradient(150deg, rgba(255,255,255,0.11) 0%, rgba(255,255,255,0.04) 100%)', psh: J([S(6, 10, 24, 0.45), 'inset 1px 1px 0 rgba(255,255,255,0.16)', 'inset -1px -1px 0 rgba(255,255,255,0.03)']), pr: 14, blur: 'blur(18px) saturate(150%)',
+      kbg: 'linear-gradient(150deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.05) 100%)', ksh: J(ksh), kshP: J(kshP), kr: 10,
+      ic: '#e6ecf7', icf: 'none', ts: 'none',
+      onFace: function (c) { return 'linear-gradient(150deg, ' + rgba(c, 0.62) + ' 0%, ' + rgba(c, 0.3) + ' 100%)'; },
+      onSh: function (c, k, p) { return J((p ? kshP : [S(2, 4, 10, 0.3), 'inset 1px 1px 0 rgba(255,255,255,0.35)']).concat(glow(c, k))); },
+      onIc: function () { return '#ffffff'; }, onIcf: function () { return 'drop-shadow(0 0 3px rgba(255,255,255,0.6))'; }, onTs: function () { return '0 0 6px rgba(255,255,255,0.6)'; },
+      glow: glow, sink: 'translate(0px, ' + (1 * d).toFixed(1) + 'px) scale(0.965)',
+      well: 'rgba(0,0,0,0.30)', wellSh: 'inset 1px 1px 3px rgba(0,0,0,0.4)',
+      lineF: function (c) { return 'drop-shadow(0 0 3px ' + rgba(c, 0.8 * g) + ') drop-shadow(0 0 8px ' + rgba(c, 0.35 * g) + ')'; },
+      sheen: 'linear-gradient(150deg, rgba(255,255,255,0.26) 0%, rgba(255,255,255,0.04) 55%, rgba(255,255,255,0) 100%)', hdrSh: J([S(3, 5, 12, 0.4), 'inset 1px 1px 0 rgba(255,255,255,0.3)']),
+      capBg: 'linear-gradient(150deg, rgba(255,255,255,0.32) 0%, rgba(255,255,255,0.12) 100%)', capSh: J([S(3, 5, 10, 0.45), 'inset 1px 1px 0 rgba(255,255,255,0.45)']), capShP: J([S(1, 2, 3, 0.35), 'inset 1px 1px 3px rgba(0,0,0,0.25)']),
+      capLine: function () { return 'rgba(255,255,255,0.95)'; }, capLineSh: function () { return '0 0 4px rgba(255,255,255,0.6)'; },
+      rippleC: 'rgba(255,255,255,0.5)', grid: 'rgba(255,255,255,0.07)', curve: '#ffffff'
+    };
+  }
+  const glow = function (c, k) { k *= g; return [ '0 0 4px ' + rgba(c, 0.55 * k), '0 0 16px 1px ' + rgba(c, 0.42 * k) ]; };
+  const ksh = [S(2, 3, 6, 0.5), S(0.5, 1, 1.5, 0.42), 'inset 1px 1px 0 rgba(255,255,255,0.075)'];
+  const kshP = [S(0.4, 0.6, 1.2, 0.5), 'inset 1px 1px 3px rgba(0,0,0,0.45)'];
+  return {
+    ground: 'radial-gradient(1500px 1000px at -6% -12%, #31353c 0%, #1c1e23 46%, #131418 100%)', text: '#dadee5', label: '#8b919b',
+    pbg: 'linear-gradient(145deg, #2b2e34 0%, #212328 100%)', psh: J([S(3, 4, 12, 0.42), S(1, 1, 2, 0.3), 'inset 1px 1px 0 rgba(255,255,255,0.045)']), pr: 12, blur: 'none',
+    kbg: 'linear-gradient(145deg, #3c4047 0%, #2d3036 100%)', ksh: J(ksh), kshP: J(kshP), kr: 9,
+    ic: '#c4c9d1', icf: 'none', ts: 'none',
+    onFace: function (c) { return 'linear-gradient(145deg, ' + mix(c, '#ffffff', 0.14) + ' 0%, ' + mix(c, '#26282d', 0.22) + ' 100%)'; },
+    onSh: function (c, k, p) { return J((p ? kshP : [S(2, 3, 6, 0.45), 'inset 1px 1px 0 rgba(255,255,255,0.25)']).concat(glow(c, k))); },
+    onIc: function (c) { return lum(c) > 0.62 ? '#1b1c1f' : '#ffffff'; }, onIcf: function () { return 'none'; }, onTs: function () { return 'none'; },
+    glow: glow, sink: 'translate(' + (0.8 * d).toFixed(1) + 'px, ' + (1.2 * d).toFixed(1) + 'px) scale(0.975)',
+    well: '#17181c', wellSh: 'inset 1px 1px 3px rgba(0,0,0,0.6), inset -1px -1px 0 rgba(255,255,255,0.035)',
+    lineF: function (c) { return 'drop-shadow(0 0 3px ' + rgba(c, 0.55 * g) + ')'; },
+    sheen: 'linear-gradient(150deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0) 55%, rgba(0,0,0,0.12) 100%)', hdrSh: J([S(2, 3, 6, 0.45)]),
+    capBg: 'linear-gradient(145deg, #4a4e56 0%, #33363c 100%)', capSh: J([S(3, 4, 7, 0.55), S(1, 1, 2, 0.4), 'inset 1px 1px 0 rgba(255,255,255,0.12)']), capShP: J([S(1, 1, 2, 0.55), 'inset 1px 1px 3px rgba(0,0,0,0.4)']),
+    capLine: function () { return 'rgba(255,255,255,0.8)'; }, capLineSh: function () { return 'none'; },
+    rippleC: 'rgba(255,255,255,0.42)', grid: 'rgba(255,255,255,0.06)', curve: '#f3f5f8'
+  };
+}
+
+// ---- device data --------------------------------------------------------
+const TRACKS = {
+  eq8: { track: 'Perc Chance', c: '#8fea5e', chain: ['Pandeiro 110 bpm', 'EQ Eight', 'Spectral Time', 'Overdrive', 'Knob 1 Fade to Grey'], sel: 1 },
+  compressor: { track: 'Perc Hits', c: '#4ea64a', chain: ['Spectral Resonator', 'Delay', 'Compressor', 'EQ Eight', 'Reverb', 'A Standard Multiband'], sel: 2 },
+  wavetable: { track: 'Lead', c: '#bd7a22', chain: ['Wavetable', 'EQ Eight', 'Saturator', 'Compressor', 'Reverb'], sel: 0 },
+  drumrack: { track: 'Drum Rack', c: '#3e5fae', chain: ['Drum Rack', 'Glue Compressor', 'EQ Eight', 'Drum Buss'], sel: 0 }
+};
+const NAMES = { eq8: 'EQ Eight', compressor: 'Compressor', wavetable: 'Wavetable', drumrack: 'Drum Rack' };
+const PADS = ['Kick 808', 'Kick Tight', 'Snare Crack', 'Clap Wide', 'Rim', 'Snare Ghost', 'Hat Closed', 'Hat Pedal', 'Hat Open', 'Shaker', 'Tom Low', 'Tom High', 'Conga', 'Cowbell', 'Crash', 'FX Rise'];
+const PADC = ['#e5484d', '#e5484d', '#f08a24', '#f08a24', '#e8c21e', '#f08a24', '#4cc24a', '#4cc24a', '#2ec4b6', '#2ec4b6', '#3d9be9', '#3d9be9', '#8e6bd8', '#d45dbf', '#c9ced6', '#d45dbf'];
+// 16 steps; pad indices are in grid order: row 0 = bottom (pads 0-3)
+const PATTERN = [[0, 6], [6], [6, 9], [6], [2, 6, 3], [6], [6, 9], [7], [0, 6], [6], [0, 6, 9], [6], [2, 6, 3], [6], [8, 9], [6, 12]];
+
+function knobArc(v0, v1) {
+  const a0 = -135 + 270 * v0, a1 = -135 + 270 * v1;
+  const lo = Math.min(a0, a1), hi = Math.max(a0, a1);
+  const P = function (a) { const r = a * Math.PI / 180; return [50 + 42 * Math.sin(r), 50 - 42 * Math.cos(r)]; };
+  if (hi - lo < 0.5) { const p = P(lo); return 'M' + p[0].toFixed(2) + ' ' + p[1].toFixed(2) + 'l0.01 0'; }
+  const p0 = P(lo), p1 = P(hi);
+  return 'M' + p0[0].toFixed(2) + ' ' + p0[1].toFixed(2) + 'A42 42 0 ' + (hi - lo > 180 ? 1 : 0) + ' 1 ' + p1[0].toFixed(2) + ' ' + p1[1].toFixed(2);
+}
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      pressed: null, rip: { id: null, x: 50, y: 50, go: false, n: 0 }, drag: null, playing: true, step: 0, beat: 0,
+      v: {
+        eqFreq1: 60, eqGain1: 0, eqQ1: 0.71, eqFreq2: 320, eqGain2: 3.5, eqQ2: 1.0, eqFreq3: 1250, eqGain3: -4.5, eqQ3: 1.6, eqFreq4: 5200, eqGain4: 4, eqQ4: 0.71,
+        eqFreq5: 2600, eqGain5: 0, eqQ5: 0.71, eqFreq6: 4000, eqGain6: 0, eqQ6: 0.71, eqFreq7: 8000, eqGain7: 0, eqQ7: 0.71, eqFreq8: 17500, eqGain8: 0, eqQ8: 0.71,
+        eqScale: 0.5, eqOut: 0.5,
+        cThr: 0.62, cRatio: 0.55, cKnee: 0.4, cAtt: 0.15, cRel: 0.35, cMix: 1, cScGain: 0.5, cScMix: 1, cScFreq: 0.35, cScQ: 0.3,
+        wPos1: 0.38, wFm1: 0.2, wFx1: 0.0, wGain1: 0.75, wPos2: 0.72, wFm2: 0.0, wFx2: 0.35, wGain2: 0.55, subGain: 0.4, subTone: 0.3,
+        fFreq: 0.55, fRes: 0.35, fDrive: 0.2, eA: 0.05, eD: 0.35, eS: 0.65, eR: 0.3, lRate: 0.45, lAmt: 0.6, lShape: 0.3,
+        pVol: 0.78, pPan: 0.5, pTune: 0.5, pDecay: 0.55, pSendA: 0.25, pSendB: 0.1,
+        m1: 0.5, m2: 0.35, m3: 0.6, m4: 0.2, m5: 0.45, m6: 0.15, m7: 0.7, m8: 0.4
+      },
+      on: { eqb1: true, eqb2: true, eqb3: true, eqb4: true, eqb5: false, eqb6: false, eqb7: false, eqb8: true, adaptQ: true, cMakeup: true, cAutoRel: false, cScOn: true, cScListen: false, cScEqOn: true, osc1: true, osc2: true, sub: true, lSync: true },
+      sel: { eqBand: 2, eqMode: 'stereo', eqOver: 'off', cScType: 'hp', cMode: 'peak', cLook: '0', cCurve: 'log', fType: 'lp', envTab: 'amp', lfoTab: 'lfo1', pad: 0, oct: '0' },
+      eqType: ['hp', 'bell', 'bell', 'hshelf', 'bell', 'bell', 'bell', 'lp'],
+      matrix: { 'env2-f': 0.6, 'lfo1-p1': 0.45, 'lfo2-p2': -0.3, 'env3-p2': 0.25, 'midi-a': 0.5, 'lfo1-f': 0.2 },
+      hits: {}, gr: 0, rack: 2
+    };
+  }
+  componentDidMount() {
+    this.stepT = setInterval(() => this.tick(), 125);
+  }
+  componentWillUnmount() { clearInterval(this.stepT); }
+  tick() {
+    if (!this.state.playing) return;
+    const dev = this.props.device || 'eq8';
+    const next = (this.state.step + 1) % 16;
+    if (dev === 'drumrack') {
+      PATTERN[next].forEach((p) => setTimeout(() => this.setState((t) => { const h = Object.assign({}, t.hits); h[p] = 0; return { hits: h }; }), 70));
+    }
+    this.setState((s) => {
+      const step = next, n = { step: step, beat: s.beat + 1 };
+      if (dev === 'drumrack') {
+        const hits = Object.assign({}, s.hits);
+        PATTERN[step].forEach(function (p) { hits[p] = 1; });
+        n.hits = hits;
+      }
+      if (dev === 'compressor') {
+        const kick = step % 4 === 0;
+        n.gr = kick ? 0.6 + Math.random() * 0.3 : Math.max(0, s.gr * 0.55);
+      }
+      return n;
+    });
+  }
+  down(id, e) {
+    const r = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - r.left) / Math.max(1, r.width)) * 100, y = ((e.clientY - r.top) / Math.max(1, r.height)) * 100;
+    const n = this.state.rip.n + 1;
+    this.setState({ pressed: id, rip: { id: id, x: x, y: y, go: false, n: n } });
+    requestAnimationFrame(() => requestAnimationFrame(() => { if (this.state.rip.n === n) this.setState((s) => ({ rip: Object.assign({}, s.rip, { go: true }) })); }));
+  }
+  up(id) { if (this.state.pressed === id) this.setState({ pressed: null }); }
+  setV(k, val) { this.setState((s) => ({ v: Object.assign({}, s.v, { [k]: val }) })); }
+  setOn(k) { this.setState((s) => ({ on: Object.assign({}, s.on, { [k]: !s.on[k] }) })); }
+  setSel(k, val) { this.setState((s) => ({ sel: Object.assign({}, s.sel, { [k]: val }) })); }
+  knobDrag(key, e, phase, lo, hi, lg) {
+    const norm = function (x) { return lg ? Math.log(x / lo) / Math.log(hi / lo) : (x - lo) / (hi - lo); };
+    const denorm = function (n) { return lg ? lo * Math.pow(hi / lo, n) : lo + n * (hi - lo); };
+    if (phase === 'down') {
+      try { e.currentTarget.setPointerCapture(e.pointerId); } catch (x) {}
+      const r = e.currentTarget.getBoundingClientRect();
+      this.dragInfo = { key: key, y: e.clientY, n: norm(this.state.v[key]), h: r.height };
+      this.setState({ drag: key });
+      return;
+    }
+    if (phase === 'up') { this.dragInfo = null; this.setState({ drag: null }); return; }
+    const di = this.dragInfo;
+    if (!di || di.key !== key) return;
+    const n = Math.max(0, Math.min(1, di.n + (di.y - e.clientY) / (di.h * 2.2)));
+    this.setV(key, denorm(n));
+  }
+  ballDrag(b, e, phase) {
+    if (phase === 'down') {
+      try { e.currentTarget.setPointerCapture(e.pointerId); } catch (x) {}
+      this.ballInfo = { b: b, parent: e.currentTarget.parentElement };
+      this.setState((s) => ({ drag: 'ball' + b, sel: Object.assign({}, s.sel, { eqBand: b }) }));
+      return;
+    }
+    if (phase === 'up') { this.ballInfo = null; this.setState({ drag: null }); return; }
+    if (!this.ballInfo || this.ballInfo.b !== b) return;
+    // the display occupies artboard x 128..968, y 128..590; map through the artboard's own scale
+    const root = this.ballInfo.parent.getBoundingClientRect();
+    const sx = root.width / 1334, sy = root.height / 750;
+    const px = (e.clientX - root.left) / sx, py = (e.clientY - root.top) / sy;
+    const fx = Math.max(0, Math.min(1, (px - 128) / 840)), fy = Math.max(0, Math.min(1, (py - 128) / 462));
+    const freq = 20 * Math.pow(1000, fx);
+    const gain = (0.5 - fy) * 30;
+    this.setState((s) => {
+      const v = Object.assign({}, s.v);
+      v['eqFreq' + b] = freq;
+      if (s.eqType[b - 1] !== 'hp' && s.eqType[b - 1] !== 'lp') v['eqGain' + b] = gain;
+      return { v: v };
+    });
+  }
+
+  renderVals() {
+    const dev = this.props.device || 'eq8', look = this.props.look || 'soft';
+    const g = this.props.glow ?? 1, d = this.props.depth ?? 1;
+    const T = tokens(look, g, d), s = this.state, self = this;
+    const cards = [], buttons = [], knobs = [], labels = [], displays = [], dots = [], blocks = [];
+
+    const card = function (x, y, w, h, title, o) { cards.push(Object.assign({ x: x, y: y, w: w, h: h, title: title || '', r: T.pr, bg: T.pbg, sh: T.psh, ty: 6, fs: 10 }, o || {})); };
+    const label = function (x, y, w, txt, o) { labels.push(Object.assign({ x: x, y: y, w: w, txt: txt, align: 'center', fs: 11, fw: 400, ls: 'normal', tt: 'none', col: T.label }, o || {})); };
+    const btn = function (id, x, y, w, h, o) {
+      const pressed = s.pressed === id, on = !!o.on, c = o.color || BLUE, k = o.k ?? 1;
+      let bg, sh, ic, icf, ts;
+      if (on) { bg = T.onFace(c); sh = T.onSh(c, k, pressed); ic = T.onIc(c); icf = T.onIcf(c); ts = T.onTs(c); }
+      else { bg = T.kbg; sh = pressed ? T.kshP : T.ksh; ic = T.ic; icf = T.icf; ts = T.ts; }
+      const rp = s.rip.id === id;
+      buttons.push({
+        id: id, x: x, y: y, w: w, h: h, label: o.label || o.txt || id, d: o.d || '', hasD: !!o.d, txt: o.txt || '', hasTxt: !!o.txt, sub: o.sub || '', hasSub: !!o.sub,
+        fs: o.fs || 13, fw: o.fw || 400, sfs: o.sfs || 9, is: o.is || 22, isw: o.isw || 1.7, fd: o.fd || 'row', ai: o.ai || 'center', jc: o.jc || 'center', gap: o.gap ?? 4, pad: o.pad || '0',
+        bg: bg, sh: sh, ic: ic, icf: icf, ts: ts, rad: o.rad ?? T.kr,
+        tf: pressed ? T.sink : 'translate(0px, 0px) scale(1)',
+        tr: o.tr || 'transform 90ms ease-out, box-shadow 220ms ease-out, background 260ms ease-out, color 260ms',
+        rx: rp ? s.rip.x : 50, ry: rp ? s.rip.y : 50, ro: rp ? (s.rip.go ? 0 : 0.6) : 0, rs: rp ? (s.rip.go ? 1 : 0.1) : 0.1,
+        rt: rp && s.rip.go ? 'transform 540ms cubic-bezier(0.2, 0.7, 0.3, 1), opacity 640ms ease-out' : 'none',
+        rc: on ? 'rgba(255,255,255,0.75)' : T.rippleC,
+        down: function (e) { self.down(id, e); }, up: function () { self.up(id); }, click: o.click || function () {}
+      });
+    };
+    const knob = function (key, x, y, size, name, valTxt, o) {
+      o = o || {};
+      const lo = o.lo ?? 0, hi = o.hi ?? 1, lg = !!o.log, c = o.c || BLUE, bip = !!o.bip;
+      const v = lg ? Math.log(s.v[key] / lo) / Math.log(hi / lo) : (s.v[key] - lo) / (hi - lo);
+      const dragging = s.drag === key, capS = Math.round(size * 0.6), capOff = Math.round((size - capS) / 2);
+      knobs.push({
+        label: name, name: name, valTxt: valTxt, x: x, y: y, s: size, c: c, wellBg: T.well, wellSh: T.wellSh,
+        trackD: knobArc(0, 1), trackC: look === 'glass' ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.05)',
+        valD: knobArc(bip ? 0.5 : 0, v), arcF: T.lineF(c),
+        capS: capS, capOff: capOff, capBg: T.capBg, capSh: dragging ? T.capShP : T.capSh, capTf: dragging ? 'scale(0.96)' : 'scale(1)',
+        rot: -135 + 270 * v, lineC: T.capLine(c), lineSh: T.capLineSh(c), vc: dragging ? mix(c, '#ffffff', 0.4) : T.text, lc: T.label,
+        down: function (e) { self.knobDrag(key, e, 'down', lo, hi, lg); }, move: function (e) { self.knobDrag(key, e, 'move', lo, hi, lg); }, up: function (e) { self.knobDrag(key, e, 'up', lo, hi, lg); }
+      });
+    };
+    const disp = function (x, y, w, h, paths, texts) {
+      displays.push({ x: x, y: y, w: w, h: h, vb: '0 0 ' + w + ' ' + h, bg: T.well, sh: T.wellSh, paths: paths.map(function (p) { return Object.assign({ fill: 'none', stroke: T.curve, sw: 2, dash: 'none', o: 1, f: 'none' }, p); }), texts: (texts || []).map(function (t) { return Object.assign({ fs: 11, col: T.label, anchor: 'middle' }, t); }) });
+    };
+    const seg = function (prefix, x, y, w, h, items, selKey, color, o) {
+      const gap = 6, bw = (w - gap * (items.length - 1)) / items.length;
+      items.forEach(function (it, i) {
+        btn(prefix + it[0], x + i * (bw + gap), y, bw, h, Object.assign({ txt: it[1], on: s.sel[selKey] === it[0], color: color || BLUE, k: 0.8, click: function () { self.setSel(selKey, it[0]); } }, o || {}));
+      });
+    };
+
+    // ---- top bar
+    const groups = [['Edit', 2, [['add', I.plusC], ['del', I.xC]]], ['Transport', 3, [['play', I.play, s.playing, GREEN], ['stop', I.stop], ['arec', I.rec]]],
+      ['Timing', 3, [['metro', I.metro], ['cue', I.cue], ['tap', I.tap]]], ['Undo / Redo', 2, [['undo', I.undo], ['redo', I.redo]]], ['Song', 1.5, []],
+      ['Record', 5, [['new', I.plus], ['auto', I.auto], ['back', I.back], ['capture', I.capture], ['srec', I.rec]]], ['Browser', 1, [['browser', I.browser]]],
+      ['Setup', 2, [['display', I.display, true, GREEN], ['gear', I.gear]]], ['View', 2, [['split', I.split], ['full', I.full]]]];
+    const unit = (1322 - 8 * 6) / 21.5;
+    let gx = 6;
+    groups.forEach((gr) => {
+      const w = gr[1] * unit;
+      card(gx, 6, w, 58, gr[0], { ty: 3, fs: 9 });
+      if (gr[0] === 'Song') {
+        displays.push({ x: gx + 6, y: 20, w: w - 12, h: 38, vb: '0 0 ' + (w - 12) + ' 38', bg: T.well, sh: T.wellSh, paths: [], texts: [
+          { x: (w - 12) / 2, y: 15, t: s.playing ? (Math.floor(s.beat / 16) + 1) + ':' + (Math.floor(s.beat / 4) % 4 + 1) + ':' + (s.beat % 4 + 1) : '1:1:1', fs: 12, col: T.label, anchor: 'middle' },
+          { x: (w - 12) / 2, y: 32, t: '120.00', fs: 14, col: T.text, anchor: 'middle' }] });
+      }
+      const n = gr[2].length, bw = n ? (w - 10 - 5 * (n - 1)) / n : 0;
+      gr[2].forEach((b, i) => btn(b[0], gx + 5 + i * (bw + 5), 20, bw, 39, { d: b[1], label: b[0], on: !!b[2], color: b[3] || BLUE, k: 0.7,
+        click: b[0] === 'play' ? () => this.setState({ playing: true }) : (b[0] === 'stop' ? () => this.setState({ playing: false, step: 0, beat: 0, gr: 0 }) : undefined) }));
+      gx += w + 6;
+    });
+
+    // ---- side: chain column, sub menu, rail
+    const tr = TRACKS[dev];
+    card(1098, 70, 118, 674, '');
+    label(1098, 80, 118, tr.track, { fs: 11, col: T.text });
+    tr.chain.forEach(function (nm, i) {
+      blocks.push({ x: 1104, y: 102 + i * 52, w: 106, h: 46, r: 7, bg: T.sheen + ', ' + tr.c, sh: T.hdrSh, fg: lum(tr.c) > 0.6 ? '#16220f' : '#ffffff', fs: 11.5, fw: 500, ai: 'flex-end', jc: 'flex-start', pad: '0 8px 11px',
+        txt: nm, selO: i === tr.sel ? 0.95 : 0, selSh: look === 'backlit' || look === 'glass' ? '0 0 8px rgba(255,255,255,0.8)' : 'none' });
+    });
+    card(1220, 70, 52, 674, '');
+    [['ov', I.overview, 'Overview'], ['onoff', I.power, 'On/Off', true], ['combo', I.combo, 'Combo'], ['snap', I.snap, 'Snap'], ['edt', I.editor, 'Editor'], ['mnu', I.menu, 'Menu']].forEach(function (it, i) {
+      btn('sub' + it[0], 1224, 78 + i * 110, 44, 100, { d: it[1], sub: it[2], sfs: 8.5, fd: 'column', gap: 4, on: !!it[3], color: BLUE, k: 0.6 });
+    });
+    card(1276, 70, 54, 674, '');
+    [['Clips', I.clips], ['Mixer', I.mixer], ['Devices', I.devices, true], ['Keys', I.keys], ['XY', I.xy], ['Editor', I.editor]].forEach(function (it, i) {
+      btn('rail' + it[0], 1280, 78 + i * 110, 46, 100, { d: it[1], is: 26, isw: 1.6, sub: it[0], sfs: 9, fd: 'column', gap: 5, on: !!it[2], color: BLUE, k: 0.75 });
+    });
+
+    // ---- device header
+    card(6, 70, 1088, 54, '');
+    label(18, 76, 300, NAMES[dev], { align: 'left', fs: 18, fw: 500, col: T.text });
+    blocks.push({ x: 18, y: 100, w: Math.max(70, tr.track.length * 7 + 18), h: 18, r: 9, bg: T.sheen + ', ' + tr.c, sh: T.hdrSh, fg: lum(tr.c) > 0.6 ? '#16220f' : '#ffffff', fs: 10.5, fw: 500, ai: 'center', jc: 'center', pad: '0 8px', txt: tr.track, selO: 0, selSh: 'none' });
+    card(790, 74, 298, 46, 'Compare', { ty: 3, fs: 9, sh: 'none', bg: 'transparent' });
+    btn('cmpA', 796, 89, 92, 27, { txt: 'A', on: true, color: AMBER, k: 0.7 });
+    btn('cmpB', 893, 89, 92, 27, { txt: 'B' });
+    btn('cmpCopy', 990, 89, 92, 27, { txt: 'Copy to B', fs: 12 });
+
+    if (dev === 'eq8') this.buildEQ(T, s, look, g, card, btn, knob, label, disp, seg, dots);
+    else if (dev === 'compressor') this.buildComp(T, s, look, g, card, btn, knob, label, disp, seg);
+    else if (dev === 'wavetable') this.buildWT(T, s, look, g, card, btn, knob, label, disp, seg);
+    else this.buildDrum(T, s, look, g, card, btn, knob, label, disp, seg);
+
+    return { T: T, cards: cards, buttons: buttons, knobs: knobs, labels: labels, displays: displays, dots: dots, blocks: blocks };
+  }
+
+  // ---- EQ Eight ------------------------------------------------------------
+  buildEQ(T, s, look, g, card, btn, knob, label, disp, seg, dots) {
+    const self = this, b = s.sel.eqBand, bc = BANDC[b - 1];
+    const fmtF = function (f) { return f >= 1000 ? f1(f / 1000) + ' kHz' : Math.round(f) + ' Hz'; };
+    card(6, 128, 118, 462, 'Band ' + b);
+    knob('eqFreq' + b, 25, 166, 80, 'Freq', fmtF(s.v['eqFreq' + b]), { lo: 20, hi: 20000, log: true, c: bc });
+    knob('eqGain' + b, 25, 304, 80, 'Gain', f1(s.v['eqGain' + b]) + ' dB', { lo: -15, hi: 15, c: bc, bip: true });
+    knob('eqQ' + b, 25, 442, 80, 'Q', s.v['eqQ' + b].toFixed(2), { lo: 0.1, hi: 6, log: true, c: bc });
+
+    // display 840 x 462
+    const W = 840, H = 462, fx = function (f) { return Math.log(f / 20) / Math.log(1000) * W; }, fy = function (db) { return H / 2 - db / 15 * (H / 2) * 0.92; };
+    const resp = function (band, f) {
+      const t = s.eqType[band - 1], fc = s.v['eqFreq' + band], gn = s.v['eqGain' + band], q = s.v['eqQ' + band], o = Math.log2(f / fc);
+      if (t === 'bell') return gn / (1 + Math.pow(o * q * 2.2, 2));
+      if (t === 'hshelf') return gn / (1 + Math.exp(-o * 4));
+      if (t === 'lshelf') return gn / (1 + Math.exp(o * 4));
+      if (t === 'hp') return -10 * Math.log10(1 + Math.pow(fc / f, 8));
+      if (t === 'lp') return -10 * Math.log10(1 + Math.pow(f / fc, 8));
+      return 0;
+    };
+    const paths = [];
+    [30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 20000].forEach(function (f) {
+      const x = fx(f).toFixed(1); paths.push({ d: 'M' + x + ' 0V' + H, stroke: T.grid, sw: (f === 100 || f === 1000 || f === 10000) ? 1.4 : 1 });
+    });
+    [-12, -6, 6, 12].forEach(function (db) { paths.push({ d: 'M0 ' + fy(db).toFixed(1) + 'H' + W, stroke: T.grid, sw: 1 }); });
+    paths.push({ d: 'M0 ' + fy(0).toFixed(1) + 'H' + W, stroke: 'rgba(255,255,255,0.14)', sw: 1 });
+    // selected band's own shape, filled in its colour
+    let sp = 'M0 ' + fy(0).toFixed(1), cp = '';
+    for (let i = 0; i <= 220; i++) {
+      const f = 20 * Math.pow(1000, i / 220);
+      sp += 'L' + (i / 220 * W).toFixed(1) + ' ' + fy(s.on['eqb' + b] ? resp(b, f) : 0).toFixed(1);
+      let tot = 0;
+      for (let k = 1; k <= 8; k++) if (s.on['eqb' + k]) tot += resp(k, f);
+      cp += (i ? 'L' : 'M') + (i / 220 * W).toFixed(1) + ' ' + Math.max(-20, Math.min(H + 20, fy(tot))).toFixed(1);
+    }
+    sp += 'L' + W + ' ' + fy(0).toFixed(1) + 'Z';
+    paths.push({ d: sp, fill: rgba(bc, 0.16), stroke: rgba(bc, 0.55), sw: 1.2 });
+    paths.push({ d: cp + 'L' + W + ' ' + H + 'L0 ' + H + 'Z', fill: look === 'satin' ? 'rgba(255,240,220,0.035)' : 'rgba(255,255,255,0.035)', stroke: 'none', sw: 0 });
+    paths.push({ d: cp, stroke: T.curve, sw: 2.6, f: T.lineF('#ffffff') });
+    disp(128, 128, W, H, paths, [{ x: fx(100), y: H - 10, t: '100' }, { x: fx(1000), y: H - 10, t: '1000' }, { x: fx(10000), y: H - 10, t: '10000' }, { x: 12, y: fy(12) + 4, t: '+12', anchor: 'start' }, { x: 12, y: fy(-12) + 4, t: '-12', anchor: 'start' }]);
+
+    for (let k = 1; k <= 8; k++) {
+      if (!s.on['eqb' + k]) continue;
+      const t = s.eqType[k - 1], gx = fx(s.v['eqFreq' + k]), gy = (t === 'hp' || t === 'lp') ? fy(0) : fy(s.v['eqGain' + k]);
+      const selB = k === b, c = BANDC[k - 1], sz = selB ? 30 : 24, drag = s.drag === 'ball' + k;
+      dots.push({
+        label: 'Band ' + k, txt: String(k), x: 128 + gx, y: 128 + gy, s: sz, m: -sz / 2,
+        fg: selB ? (lum(c) > 0.6 ? '#1a1a1a' : '#ffffff') : mix(c, '#ffffff', 0.25),
+        bg: selB ? 'radial-gradient(circle at 35% 30%, ' + mix(c, '#ffffff', 0.35) + ', ' + c + ' 70%)' : rgba(c, 0.18),
+        sh: selB ? ['2px 3px 6px rgba(0,0,0,0.5)'].concat(T.glow(c, 1)).join(', ') : 'inset 0 0 0 2px ' + c + ', 1px 2px 4px rgba(0,0,0,0.45)',
+        tf: drag ? 'scale(1.15)' : 'scale(1)',
+        down: function (e) { self.ballDrag(k, e, 'down'); }, move: function (e) { self.ballDrag(k, e, 'move'); }, up: function (e) { self.ballDrag(k, e, 'up'); }
+      });
+    }
+
+    card(972, 128, 122, 462, 'Mode');
+    [['stereo', 'Stereo'], ['lr', 'L/R'], ['ms', 'M/S']].forEach(function (m, i) {
+      btn('mode' + m[0], 980, 150 + i * 84, 106, 72, { txt: m[1], fs: 14, on: s.sel.eqMode === m[0], color: BLUE, k: 0.8, click: function () { self.setSel('eqMode', m[0]); } });
+    });
+    label(972, 420, 122, 'Oversampling', { fs: 10, tt: 'uppercase', ls: '0.06em' });
+    seg('ovs', 980, 440, 106, 48, [['off', 'Off'], ['on', 'On']], 'eqOver', BLUE);
+
+    card(6, 594, 118, 150, 'Adaptive Q');
+    btn('aqOff', 14, 640, 48, 60, { txt: 'Off', on: !s.on.adaptQ, color: BLUE, k: 0.8, click: function () { if (s.on.adaptQ) self.setOn('adaptQ'); } });
+    btn('aqOn', 68, 640, 48, 60, { txt: 'On', on: s.on.adaptQ, color: BLUE, k: 0.8, click: function () { if (!s.on.adaptQ) self.setOn('adaptQ'); } });
+
+    card(128, 594, 840, 150, 'Bands');
+    label(136, 632, 40, 'On', { align: 'left', fs: 12 });
+    label(136, 694, 40, 'Type', { align: 'left', fs: 12 });
+    const bw = (840 - 56 - 7 * 6) / 8;
+    for (let k = 1; k <= 8; k++) {
+      const x = 176 + (k - 1) * (bw + 6);
+      btn('eqb' + k, x, 614, bw, 56, { txt: String(k), fs: 15, on: s.on['eqb' + k], color: BANDC[k - 1], k: 0.75, click: function () { self.setOn('eqb' + k); self.setSel('eqBand', k); } });
+      const types = ['hp', 'lshelf', 'bell', 'notch', 'hshelf', 'lp'];
+      btn('eqt' + k, x, 678, bw, 56, { d: I[s.eqType[k - 1]], is: 30, isw: 2, label: 'Band ' + k + ' type', click: function () {
+        self.setState(function (st) { const et = st.eqType.slice(); et[k - 1] = types[(types.indexOf(et[k - 1]) + 1) % types.length]; return { eqType: et }; });
+      } });
+    }
+    card(972, 594, 122, 150, 'Output');
+    knob('eqScale', 984, 618, 44, 'Scale', Math.round(s.v.eqScale * 200) + ' %', { c: BLUE });
+    knob('eqOut', 1040, 618, 44, 'Gain', f1((s.v.eqOut - 0.5) * 24) + ' dB', { c: BLUE, bip: true });
+  }
+
+  // ---- Compressor -------------------------------------------------------------
+  buildComp(T, s, look, g, card, btn, knob, label, disp, seg) {
+    const self = this, C = '#4c9bff', v = s.v;
+    const thr = -40 + v.cThr * 40, ratio = 1 + Math.pow(v.cRatio, 2) * 19, knee = v.cKnee * 18;
+    // transfer curve display
+    card(6, 128, 196, 312, 'Transfer');
+    const W = 176, H = 230, map = function (db) { return (db + 48) / 48; };
+    const pts = [];
+    for (let i = 0; i <= 80; i++) {
+      const x = -48 + 48 * i / 80;
+      let y;
+      if (x < thr - knee / 2) y = x;
+      else if (x > thr + knee / 2) y = thr + (x - thr) / ratio;
+      else { const t = x - thr + knee / 2; y = x + (1 / ratio - 1) * t * t / (2 * Math.max(0.01, knee)); }
+      pts.push((map(x) * W).toFixed(1) + ' ' + ((1 - map(y)) * H).toFixed(1));
+    }
+    const grid = [];
+    for (let i = 1; i < 6; i++) { grid.push({ d: 'M' + (W * i / 6).toFixed(1) + ' 0V' + H, stroke: T.grid, sw: 1 }); grid.push({ d: 'M0 ' + (H * i / 6).toFixed(1) + 'H' + W, stroke: T.grid, sw: 1 }); }
+    const tx = map(thr) * W;
+    const grH = s.gr * 0.55 * H;
+    disp(16, 150, W, H, grid.concat([
+      { d: 'M' + tx.toFixed(1) + ' 0V' + H, stroke: rgba(AMBER, 0.6), sw: 1.2, dash: '4 4' },
+      { d: 'M0 ' + H + 'L' + pts.join('L'), stroke: T.curve, sw: 2.4, f: T.lineF(C) },
+      { d: 'M' + (W - 10) + ' 0h7v' + grH.toFixed(1) + 'h-7z', fill: AMBER, stroke: 'none', sw: 0, o: 0.85, f: T.lineF(AMBER) }
+    ]), [{ x: 6, y: H - 8, t: 'Thr ' + f1(thr) + ' dB', anchor: 'start', fs: 10 }]);
+    label(16, 388, 176, 'GR ' + f1(-s.gr * 9) + ' dB', { fs: 11, col: s.gr > 0.1 ? mix(AMBER, '#ffffff', 0.2) : T.label });
+
+    card(206, 128, 552, 312, 'Compression');
+    knob('cThr', 256, 158, 84, 'Threshold', f1(thr) + ' dB', { c: C });
+    knob('cRatio', 440, 158, 84, 'Ratio', ratio >= 19.5 ? 'inf : 1' : f1(ratio) + ' : 1', { c: C });
+    knob('cKnee', 624, 158, 84, 'Knee', f1(knee) + ' dB', { c: C });
+    knob('cAtt', 263, 300, 70, 'Attack', f1(0.01 + Math.pow(v.cAtt, 2) * 30) + ' ms', { c: C });
+    knob('cRel', 447, 300, 70, 'Release', Math.round(1 + Math.pow(v.cRel, 2) * 1000) + ' ms', { c: C });
+    btn('cAutoRel', 586, 318, 160, 52, { txt: 'Auto Release', on: s.on.cAutoRel, color: AMBER, k: 0.8, click: function () { self.setOn('cAutoRel'); } });
+
+    card(762, 128, 332, 312, 'Output');
+    knob('cMix', 880, 160, 96, 'Dry / Wet', Math.round(v.cMix * 100) + ' %', { c: C });
+    btn('cMakeup', 790, 330, 276, 52, { txt: 'Makeup Gain', on: s.on.cMakeup, color: AMBER, k: 0.8, click: function () { self.setOn('cMakeup'); } });
+
+    card(6, 444, 352, 300, 'Sidechain');
+    btn('cScOn', 18, 470, 70, 52, { txt: 'On', on: s.on.cScOn, color: AMBER, k: 0.8, click: function () { self.setOn('cScOn'); } });
+    btn('cScListen', 18, 530, 70, 52, { txt: 'Listen', on: s.on.cScListen, color: AMBER, k: 0.8, click: function () { self.setOn('cScListen'); } });
+    label(96, 470, 150, 'Audio From', { fs: 10, tt: 'uppercase', ls: '0.06em' });
+    btn('cScSrc', 100, 488, 142, 44, { txt: 'Drum Rack', fs: 14 });
+    label(96, 560, 150, 'Position', { fs: 10, tt: 'uppercase', ls: '0.06em' });
+    btn('cScPos', 100, 578, 142, 44, { txt: 'Post FX', fs: 14 });
+    knob('cScGain', 262, 466, 66, 'Gain', f1((v.cScGain - 0.5) * 48) + ' dB', { c: C, bip: true });
+    knob('cScMix', 262, 600, 66, 'Mix', Math.round(v.cScMix * 100) + ' %', { c: C });
+
+    card(362, 444, 396, 300, 'Sidechain EQ');
+    btn('cScEqOn', 374, 470, 70, 112, { txt: 'On', on: s.on.cScEqOn, color: AMBER, k: 0.8, click: function () { self.setOn('cScEqOn'); } });
+    const types = [['ls', 'Low Shelf'], ['bell', 'Bell'], ['hs', 'High Shelf'], ['lpf', 'Low pass'], ['peak', 'Peak'], ['hp', 'High pass']];
+    types.forEach(function (t, i) {
+      btn('csc' + t[0], 452 + (i % 3) * 74, 470 + Math.floor(i / 3) * 60, 68, 52, { txt: t[1], fs: 12, on: s.sel.cScType === t[0], color: AMBER, k: 0.8, click: function () { self.setSel('cScType', t[0]); } });
+    });
+    knob('cScFreq', 680, 466, 62, 'Freq', Math.round(30 * Math.pow(500, v.cScFreq)) + ' Hz', { c: AMBER });
+    knob('cScQ', 680, 600, 62, 'Q', (0.1 + v.cScQ * 2).toFixed(2), { c: AMBER });
+    label(374, 610, 290, 'Sidechain filter shapes what the detector hears.', { fs: 11, align: 'left', col: T.label });
+
+    card(762, 444, 332, 300, 'Detection');
+    label(762, 462, 332, 'Mode', { fs: 10, tt: 'uppercase', ls: '0.06em' });
+    seg('cm', 776, 478, 304, 50, [['peak', 'Peak'], ['rms', 'RMS'], ['exp', 'Expand']], 'cMode', AMBER);
+    label(762, 544, 332, 'Look Ahead', { fs: 10, tt: 'uppercase', ls: '0.06em' });
+    seg('cl', 776, 560, 304, 50, [['0', '0 ms'], ['1', '1 ms'], ['10', '10 ms']], 'cLook', AMBER);
+    label(762, 626, 332, 'Release Curve', { fs: 10, tt: 'uppercase', ls: '0.06em' });
+    seg('cc', 776, 642, 304, 50, [['lin', 'Lin'], ['log', 'Log']], 'cCurve', AMBER);
+  }
+
+  // ---- Wavetable --------------------------------------------------------------
+  buildWT(T, s, look, g, card, btn, knob, label, disp, seg) {
+    const self = this, v = s.v, OC = '#f2a12e', FC = '#4c9bff', EC = '#4cc24a', LC = '#d45dbf';
+    const wave = function (shape, t, ph) {
+      // morph sine -> saw -> square by t, shape offsets the table
+      const x = ph * 2 * Math.PI, sine = Math.sin(x), saw = 1 - 2 * ph, sq = ph < 0.5 ? 1 : -1;
+      const tt = (t + shape) % 1;
+      if (tt < 0.5) { const k = tt * 2; return sine * (1 - k) + saw * k; }
+      const k = (tt - 0.5) * 2; return saw * (1 - k) + sq * k * 0.9;
+    };
+    const table = function (key, shape, c, on) {
+      const W = 336, H = 150, N = 14, pos = v[key], cur = Math.round(pos * (N - 1)), paths = [];
+      for (let i = N - 1; i >= 0; i--) {
+        const ox = i * 6, oy = -i * 5, amp = 30, base = 112;
+        let p = '';
+        for (let j = 0; j <= 90; j++) {
+          const ph = j / 90, y = base + oy - wave(shape, i / (N - 1), ph) * amp;
+          p += (j ? 'L' : 'M') + (16 + ox + ph * 230).toFixed(1) + ' ' + y.toFixed(1);
+        }
+        const isCur = i === cur;
+        paths.push({ d: p, stroke: isCur ? c : (look === 'satin' ? 'rgba(255,240,220,0.22)' : 'rgba(255,255,255,0.18)'), sw: isCur ? 2.4 : 1, o: on ? (isCur ? 1 : 0.4 + 0.6 * (1 - Math.abs(i - cur) / N)) : 0.25, f: isCur && on ? T.lineF(c) : 'none' });
+      }
+      return paths;
+    };
+    const osc = function (n, x, key, shape, tableName) {
+      const on = s.on['osc' + n];
+      card(x, 128, 360, 312, '');
+      btn('osc' + n, x + 12, 136, 92, 30, { txt: 'Osc ' + n, fs: 13, fw: 500, on: on, color: OC, k: 0.8, click: function () { self.setOn('osc' + n); } });
+      btn('tbl' + n, x + 112, 136, 236, 30, { txt: tableName, fs: 12, jc: 'flex-start', pad: '0 12px' });
+      disp(x + 12, 174, 336, 150, table('wPos' + n, shape, OC, on), []);
+      knob('wPos' + n, x + 20, 336, 52, 'Position', Math.round(v['wPos' + n] * 100) + ' %', { c: OC });
+      knob('wFm' + n, x + 106, 336, 52, 'FM', Math.round(v['wFm' + n] * 100) + ' %', { c: OC });
+      knob('wFx' + n, x + 192, 336, 52, 'Classic', Math.round(v['wFx' + n] * 100) + ' %', { c: OC });
+      knob('wGain' + n, x + 278, 336, 52, 'Gain', f1((v['wGain' + n] - 0.75) * 40) + ' dB', { c: OC });
+    };
+    osc(1, 6, 'wPos1', 0, 'Basics · Basic Shapes');
+    osc(2, 370, 'wPos2', 0.35, 'Distortion · Harmonic Fold');
+    card(734, 128, 118, 312, '');
+    btn('sub', 744, 136, 98, 30, { txt: 'Sub', fs: 13, fw: 500, on: s.on.sub, color: OC, k: 0.8, click: function () { self.setOn('sub'); } });
+    knob('subGain', 760, 186, 66, 'Gain', f1((v.subGain - 0.75) * 40) + ' dB', { c: OC });
+    knob('subTone', 760, 292, 66, 'Tone', Math.round(v.subTone * 100) + ' %', { c: OC });
+    seg('oct', 744, 396, 98, 32, [['-1', '-1'], ['0', '0'], ['1', '+1']], 'oct', OC, { fs: 12 });
+
+    // filter
+    card(856, 128, 238, 312, '');
+    btn('flt', 866, 136, 218, 30, { txt: 'Filter 1 · Lowpass · Clean', fs: 12 });
+    const FW = 218, FH = 120, fc = v.fFreq, res = v.fRes, fp = [];
+    for (let i = 0; i <= 80; i++) {
+      const x = i / 80, o = (x - fc) * 8;
+      let db = o <= 0 ? 0 : -o * 6;
+      db += res * 12 * Math.exp(-Math.pow((x - fc) * 14, 2));
+      fp.push((x * FW).toFixed(1) + ' ' + (FH * 0.55 - db * 2.6).toFixed(1));
+    }
+    disp(866, 174, FW, FH, [{ d: 'M' + fp.join('L'), stroke: T.curve, sw: 2.2, f: T.lineF(FC) }, { d: 'M' + fp.join('L') + 'L' + FW + ' ' + FH + 'L0 ' + FH + 'Z', fill: rgba(FC, 0.12), stroke: 'none', sw: 0 }]);
+    knob('fFreq', 868, 312, 54, 'Freq', Math.round(20 * Math.pow(1000, fc)) + ' Hz', { c: FC });
+    knob('fRes', 940, 312, 54, 'Res', Math.round(res * 100) + ' %', { c: FC });
+    knob('fDrive', 1012, 312, 54, 'Drive', f1(v.fDrive * 24) + ' dB', { c: FC });
+
+    // envelope
+    card(6, 444, 360, 300, '');
+    seg('env', 18, 452, 336, 30, [['amp', 'Amp'], ['env2', 'Env 2'], ['env3', 'Env 3']], 'envTab', EC, { fs: 12 });
+    const EW = 336, EH = 110, a = v.eA, dd = v.eD, su = v.eS, r = v.eR;
+    const xa = 8 + a * 80, xd = xa + dd * 90, xs = xd + 70, xr = Math.min(EW - 8, xs + r * 90);
+    const ep = 'M8 ' + (EH - 8) + 'L' + xa.toFixed(1) + ' 10L' + xd.toFixed(1) + ' ' + (10 + (1 - su) * (EH - 18)).toFixed(1) + 'L' + xs.toFixed(1) + ' ' + (10 + (1 - su) * (EH - 18)).toFixed(1) + 'L' + xr.toFixed(1) + ' ' + (EH - 8);
+    disp(18, 490, EW, EH, [{ d: ep + 'Z', fill: rgba(EC, 0.12), stroke: 'none', sw: 0 }, { d: ep, stroke: T.curve, sw: 2.2, f: T.lineF(EC) }]);
+    knob('eA', 22, 616, 52, 'Attack', Math.round(Math.pow(a, 2) * 2000) + ' ms', { c: EC });
+    knob('eD', 108, 616, 52, 'Decay', Math.round(Math.pow(dd, 2) * 3000) + ' ms', { c: EC });
+    knob('eS', 194, 616, 52, 'Sustain', Math.round(su * 100) + ' %', { c: EC });
+    knob('eR', 280, 616, 52, 'Release', Math.round(Math.pow(r, 2) * 4000) + ' ms', { c: EC });
+
+    // LFO
+    card(370, 444, 360, 300, '');
+    seg('lfo', 382, 452, 236, 30, [['lfo1', 'LFO 1'], ['lfo2', 'LFO 2']], 'lfoTab', LC, { fs: 12 });
+    btn('lSync', 626, 452, 92, 30, { txt: 'Sync', fs: 12, on: s.on.lSync, color: LC, k: 0.8, click: function () { self.setOn('lSync'); } });
+    const LW = 336, LH = 110, lp = [];
+    const ph0 = s.playing ? (s.beat % 32) / 32 : 0;
+    for (let i = 0; i <= 120; i++) {
+      const x = i / 120, ph = x * (1 + v.lRate * 3) + ph0;
+      const tri = 1 - 4 * Math.abs((ph % 1) - 0.5), sine = Math.sin(ph * 2 * Math.PI), yv = sine * (1 - v.lShape) + tri * v.lShape;
+      lp.push((x * LW).toFixed(1) + ' ' + (LH / 2 - yv * v.lAmt * (LH / 2 - 10)).toFixed(1));
+    }
+    disp(382, 490, LW, LH, [{ d: 'M0 ' + LH / 2 + 'H' + LW, stroke: T.grid, sw: 1 }, { d: 'M' + lp.join('L'), stroke: T.curve, sw: 2.2, f: T.lineF(LC) }]);
+    knob('lRate', 410, 616, 56, 'Rate', ['1/1', '1/2', '1/4', '1/8', '1/16'][Math.min(4, Math.floor(v.lRate * 5))], { c: LC });
+    knob('lAmt', 522, 616, 56, 'Amount', Math.round(v.lAmt * 100) + ' %', { c: LC });
+    knob('lShape', 634, 616, 56, 'Shape', Math.round(v.lShape * 100) + ' %', { c: LC });
+
+    // mod matrix
+    card(734, 444, 360, 300, 'Matrix');
+    const cols = [['p1', 'Osc 1 Pos'], ['p2', 'Osc 2 Pos'], ['f', 'Filter Freq'], ['a', 'Amp']];
+    const rows = [['env2', 'Env 2', EC], ['env3', 'Env 3', EC], ['lfo1', 'LFO 1', LC], ['lfo2', 'LFO 2', LC], ['midi', 'Velocity', OC]];
+    cols.forEach(function (c, ci) { label(812 + ci * 70, 466, 66, c[1], { fs: 9.5 }); });
+    rows.forEach(function (rw, ri) {
+      label(744, 492 + ri * 48, 64, rw[1], { align: 'left', fs: 11.5, col: T.text });
+      cols.forEach(function (c, ci) {
+        const key = rw[0] + '-' + c[0], amt = s.matrix[key] || 0;
+        btn('mx' + key, 812 + ci * 70, 482 + ri * 48, 64, 40, { txt: amt ? (amt > 0 ? '+' : '') + Math.round(amt * 100) : '', fs: 12, on: amt !== 0, color: rw[2], k: 0.3 + Math.abs(amt), click: function () {
+          self.setState(function (st) {
+            const m = Object.assign({}, st.matrix), steps = [0, 0.25, 0.5, 1, -0.5], idx = steps.indexOf(m[key] || 0);
+            m[key] = idx < 0 ? 0 : steps[(idx + 1) % steps.length];
+            return { matrix: m };
+          });
+        } });
+      });
+    });
+  }
+
+  // ---- Drum Rack --------------------------------------------------------------
+  buildDrum(T, s, look, g, card, btn, knob, label, disp, seg) {
+    const self = this, v = s.v;
+    // header extras
+    [['Labels', false], ['Arm', false], ['Pads', true], ['Steps', false], ['Mix', false]].forEach(function (it, i) {
+      btn('dh' + it[0], 220 + i * 72, 82, 66, 32, { txt: it[0], fs: 12, on: it[1], color: BLUE, k: 0.7 });
+    });
+    const rk = [['Rand', 584, 44], ['Store', 632, 48], ['<', 686, 28], [s.rack + ' / 4', 718, 40], ['>', 762, 28]];
+    rk.forEach(function (it, i) {
+      btn('rk' + i, it[1] - 8, 82, it[2], 32, { txt: it[0], fs: 12, label: 'Rack ' + it[0],
+        click: i === 2 ? function () { self.setState(function (st) { return { rack: Math.max(1, st.rack - 1) }; }); } : (i === 4 ? function () { self.setState(function (st) { return { rack: Math.min(4, st.rack + 1) }; }); } : undefined) });
+    });
+
+    card(6, 128, 620, 616, 'Pads · C1 – D#2');
+    const pw = 142, ph = 140, gap = 8;
+    for (let i = 0; i < 16; i++) {
+      const col = i % 4, row = Math.floor(i / 4), x = 18 + col * (pw + gap), y = 150 + (3 - row) * (ph + gap);
+      const hit = (s.hits[i] || 0) > 0, selP = s.sel.pad === i, c = PADC[i];
+      const notes = ['C1', 'C#1', 'D1', 'D#1', 'E1', 'F1', 'F#1', 'G1', 'G#1', 'A1', 'A#1', 'B1', 'C2', 'C#2', 'D2', 'D#2'];
+      btn('pad' + i, x, y, pw, ph, {
+        txt: PADS[i], sub: notes[i], fs: 13.5, fw: 500, sfs: 10.5, fd: 'column', ai: 'flex-start', jc: 'flex-end', gap: 3, pad: '0 12px 12px',
+        on: hit || selP, color: hit ? c : '#cfd6e2', k: hit ? 1.2 : 0.25, rad: 12,
+        tr: hit ? 'transform 60ms ease-out, box-shadow 40ms linear, background 40ms linear, color 40ms' : 'transform 90ms ease-out, box-shadow 520ms ease-out, background 520ms ease-out, color 400ms',
+        click: function () {
+          self.setSel('pad', i);
+          self.setState(function (st) { const h = Object.assign({}, st.hits); h[i] = 1; return { hits: h }; });
+          setTimeout(function () { self.setState(function (st) { const h = Object.assign({}, st.hits); h[i] = 0; return { hits: h }; }); }, 90);
+        }
+      });
+    }
+
+    const pc = PADC[s.sel.pad];
+    card(630, 128, 464, 312, PADS[s.sel.pad] + ' · Simpler');
+    const WW = 440, WH = 130, wp = [];
+    const seed = s.sel.pad * 7.3 + 1;
+    for (let i = 0; i <= 220; i++) {
+      const x = i / 220, env = Math.exp(-x * (3 + (s.sel.pad % 4) * 2) * (1.6 - v.pDecay)), n = Math.sin(i * seed) * 0.5 + Math.sin(i * seed * 0.37) * 0.5;
+      wp.push({ x: x * WW, a: Math.abs(n) * env * (WH / 2 - 8) + 1 });
+    }
+    const top = 'M' + wp.map(function (p) { return p.x.toFixed(1) + ' ' + (WH / 2 - p.a).toFixed(1); }).join('L');
+    const bot = wp.slice().reverse().map(function (p) { return p.x.toFixed(1) + ' ' + (WH / 2 + p.a).toFixed(1); }).join('L');
+    disp(642, 150, WW, WH, [{ d: 'M0 ' + WH / 2 + 'H' + WW, stroke: T.grid, sw: 1 }, { d: top + 'L' + bot + 'Z', fill: rgba(pc, 0.35), stroke: mix(pc, '#ffffff', 0.25), sw: 1, f: T.lineF(pc) }]);
+    knob('pVol', 652, 296, 56, 'Volume', f1((v.pVol - 0.85) * 60) + ' dB', { c: pc });
+    knob('pPan', 724, 296, 56, 'Pan', v.pPan === 0.5 ? 'C' : Math.round(Math.abs(v.pPan - 0.5) * 100) + (v.pPan < 0.5 ? 'L' : 'R'), { c: pc, bip: true });
+    knob('pTune', 796, 296, 56, 'Tune', Math.round((v.pTune - 0.5) * 48) + ' st', { c: pc, bip: true });
+    knob('pDecay', 868, 296, 56, 'Decay', Math.round(Math.pow(v.pDecay, 2) * 2000) + ' ms', { c: pc });
+    knob('pSendA', 940, 296, 56, 'Send A', Math.round(v.pSendA * 100) + ' %', { c: pc });
+    knob('pSendB', 1012, 296, 56, 'Send B', Math.round(v.pSendB * 100) + ' %', { c: pc });
+
+    card(630, 444, 464, 300, 'Macros');
+    const MN = ['Tune', 'Decay', 'Tone', 'Drive', 'Space', 'Swing', 'Body', 'Snap'];
+    for (let i = 0; i < 8; i++) {
+      const key = 'm' + (i + 1);
+      knob(key, 652 + (i % 4) * 112, 472 + Math.floor(i / 4) * 136, 64, MN[i], Math.round(v[key] * 127), { c: '#4c9bff' });
+    }
+  }
+}
+</script>
+</body>
+</html>

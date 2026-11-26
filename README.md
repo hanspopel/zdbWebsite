@@ -19,11 +19,21 @@ design-token system
 | greyscale ramp `244→161→142→87→69→51→33→16` | text hierarchy and hairlines |
 | `state.play` / clip colours | the live mixer model's meters and track fills |
 
-## Previews: real captures + two live models
+## Previews: real captures, live models — and playable instruments
 
 Product previews in the feature cards and the Session showcase are **real
 screen captures** recorded from touchAble builds running a live Ableton
 set (from `touchAble/docs/screenshots/`).
+
+The **Instruments section embeds the actual device views as live,
+playable demos**: EQ Eight, Compressor, Drum Rack and Wavetable run in
+iframes (`demos/*.dc.html`) at the app's native 1334 × 750 and scale to
+the stage, so dragging a knob or an EQ band behaves exactly like on the
+tablet. They are pinned to the **Soft Graphite** finish (`look="soft"`) —
+the site's colour scheme; the mockups' other looks (backlit, satin,
+glass) are deliberately not shipped. Tabs lazy-load an iframe on first
+use, and the default device only once the stage scrolls into view;
+without JS the stage shows the captured EQ Eight frame instead.
 
 The **hero goes further than a capture: it is a live model of the whole
 split screen** — Session view with playing clips above, mixer with live
@@ -83,8 +93,11 @@ python3 -m http.server 8080
 index.html      the landing page (hero holds the live touchAble model)
 css/zdb.css     design tokens + corporate styles + the live mixer model
 css/ta-ui.css   the hero's full touchAble UI replica, at app points
-js/zdb.js       scroll reveal, nav states, currency localization, mixer animation
+js/zdb.js       scroll reveal, nav states, currency localization, mixer animation,
+                live device-view tabs
 js/ta-live.js   the hero's transport clock, scene launches, meters, fader ride
+demos/          live Soft Graphite device views (EQ Eight, Compressor, Drum
+                Rack, Wavetable) — *.dc.html + Device.dc.html + _runtime/
 assets/screens/ real screen captures from touchAble builds
 assets/favicon/  the live favicon — Soft Geometry mark, black lines on transparent
 assets/zerodebug-logo-favicon/  the Soft Geometry logo masters + navy favicon set
