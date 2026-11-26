@@ -28,6 +28,14 @@ its capture full-width at the tablet's native 1334 × 750 aspect — every
 clip, fader lane and scene plate stays readable, nothing is cropped into
 a half-column.
 
+Each of the six feature cards ("Every part of Live…") shows a **tight
+4:3 crop** of the matching capture (`assets/screens/card-*.png`), framed
+in a `4 / 3` box so the image fills its slot exactly — never stretched,
+never letterboxed, never cramped. The crops are pre-computed windows
+onto the 1334 × 750 originals, chosen so the module's own controls fill
+the frame (`card-session.png` is 540 × 405, the rest 840 × 630 — all the
+same 4:3 ratio).
+
 The **Instruments section embeds the actual device views as live,
 playable demos**: EQ Eight, Compressor, Drum Rack and Wavetable run in
 iframes (`demos/*.dc.html`) at the app's native 1334 × 750 and scale to
@@ -59,6 +67,22 @@ also rebuilt from the app's own drawing code:
 
 Store badges are drawn in SVG — no store-supplied images, no build step.
 
+## Brand mark: the real touchAble app icon
+
+The touchAble icon in the navigation bar and the product sub-nav is the
+**actual shipping app icon** (`assets/brand/touchable-app-icon.png`) —
+the five-colour bar mark (orange/white/blue/green/red on dark), extracted
+as the highest-resolution bitmap embedded in the app's master Sketch art
+(`touchAble/source/graphics/app/iOS/touchable_ios_icon_set_color2.sketch`).
+It replaced an early placeholder that was still carrying a "zdb" wordmark.
+
+## Placeholder product pages
+
+`studiomux.html` and `soda.html` are live placeholder pages (new-GUI-in-
+progress) built on the same corporate shell — global nav, footer and
+`css/zdb.css` — so the nav and footer links to every product resolve.
+They are stubs until each product's refreshed interface ships.
+
 ## Pricing
 
 Mirrors the real offer shown in the app (`docs/screenshots/licence-2026-11-14`):
@@ -82,16 +106,19 @@ python3 -m http.server 8080
 
 ```
 index.html      the landing page (hero holds the live touchAble model)
+studiomux.html  placeholder product page (new GUI pending)
+soda.html       placeholder product page (new GUI pending)
 css/zdb.css     design tokens + corporate styles + the live mixer model
 js/zdb.js       scroll reveal, nav states, currency localization, mixer animation,
                 live device-view tabs, hero + device iframe scaling
 demos/          live Soft Graphite interactive mockups — Main.dc.html (the hero's
                 Session + mixer) and the device views (EQ Eight, Compressor, Drum
                 Rack, Wavetable) + Device.dc.html + _runtime/
-assets/screens/ real screen captures from touchAble builds
+assets/screens/ real screen captures from touchAble builds; card-*.png are the
+                exact 4:3 crops behind the six feature cards
 assets/favicon/  the live favicon — Soft Geometry mark, black lines on transparent
 assets/zerodebug-logo-favicon/  the Soft Geometry logo masters + navy favicon set
-assets/brand/   the touchAble app icon (from the app's asset catalogue)
+assets/brand/   the real touchAble app icon (extracted from the app's Sketch master)
 ```
 
 Deployed via GitHub Pages from `main` (`.nojekyll` included).
