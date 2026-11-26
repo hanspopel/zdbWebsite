@@ -505,8 +505,18 @@ section { position: relative; }
   overflow: hidden;
 }
 .big-frame img { width: 100%; display: block; }
-.big-frame-clips { aspect-ratio: 1334 / 470; overflow: hidden; }
-.big-frame-clips img { height: 100%; object-fit: cover; object-position: top center; }
+/* The Session-view showcase shows the whole app window — so give it the
+   whole width instead of a cramped half-column letterbox. The capture is
+   shown at its natural 1334 × 750 aspect, full-bleed across the wide
+   container, so every clip, header and fader reads clearly. */
+.showcase-full { display: flex; flex-direction: column; align-items: center;
+  gap: clamp(30px, 4.5vw, 54px); }
+.showcase-full .copy { max-width: 660px; }
+.showcase-full .copy h2 { font-size: clamp(30px, 4.4vw, 48px); letter-spacing: -0.022em;
+  line-height: 1.08; margin: 0 0 14px; }
+.showcase-full .copy p { color: var(--zdb-col-light-light); font-size: 18px;
+  line-height: 1.6; margin: 0; }
+.big-frame-wide { width: 100%; }
 
 /* ---------- 9c · Live device views -------------------------
    The instruments section hosts the real thing: each tab mounts

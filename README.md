@@ -23,7 +23,10 @@ design-token system
 
 Product previews in the feature cards and the Session showcase are **real
 screen captures** recorded from touchAble builds running a live Ableton
-set (from `touchAble/docs/screenshots/`).
+set (from `touchAble/docs/screenshots/`). The Session showcase presents
+its capture full-width at the tablet's native 1334 × 750 aspect — every
+clip, fader lane and scene plate stays readable, nothing is cropped into
+a half-column.
 
 The **Instruments section embeds the actual device views as live,
 playable demos**: EQ Eight, Compressor, Drum Rack and Wavetable run in
