@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>touchAble Clips and Mixer</title>
+<script src="./_runtime/react.js"></script>
+<script src="./_runtime/react-dom.js"></script>
+<script src="./_runtime/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+
+<sc-if value="{{isScreen}}" hint-placeholder-val="{{true}}">
+<div style="width: 1334px; height: 750px; position: relative; overflow: hidden; background: {{T.ground}}; font-family: Roboto, 'Helvetica Neue', Helvetica, sans-serif; color: {{T.text}}; user-select: none; -webkit-user-select: none">
+
+  <div style="position: absolute; left: 6px; top: 6px; right: 6px; height: 58px; display: flex; gap: 6px">
+    <sc-for list="{{groups}}" as="g" hint-placeholder-count="9">
+      <div style="flex: {{g.n}} 1 0; min-width: 0; display: flex; flex-direction: column; gap: 2px; padding: 3px 5px 5px; box-sizing: border-box; border-radius: {{g.pr}}px; background: {{g.pbg}}; box-shadow: {{g.psh}}; backdrop-filter: {{g.blur}}; -webkit-backdrop-filter: {{g.blur}}">
+        <div style="font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; text-align: center; color: {{g.lc}}; line-height: 11px; white-space: nowrap">{{g.label}}</div>
+        <div style="flex: 1; display: flex; gap: 5px; min-height: 0">
+          <sc-for list="{{g.items}}" as="b" hint-placeholder-count="2">
+            <button aria-label="{{b.label}}" onPointerDown="{{b.down}}" onPointerUp="{{b.up}}" onPointerLeave="{{b.up}}" onClick="{{b.click}}" style="position: relative; overflow: hidden; flex: 1; min-width: 0; border: 0; padding: 0; margin: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; font-family: inherit; border-radius: {{b.rad}}px; background: {{b.bg}}; box-shadow: {{b.sh}}; transform: {{b.tf}}; transition: transform 90ms ease-out, box-shadow 220ms ease-out, background 260ms ease-out; outline: none">
+              <svg viewBox="0 0 24 24" width="24" height="24" style="filter: {{b.icf}}; transition: filter 260ms"><path d="{{b.d}}" fill="none" stroke="{{b.ic}}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              <span style="position: absolute; left: {{b.rx}}%; top: {{b.ry}}%; width: 150%; aspect-ratio: 1; border-radius: 50%; pointer-events: none; background: radial-gradient(circle, {{b.rc}} 0%, rgba(255,255,255,0) 62%); opacity: {{b.ro}}; transform: translate(-50%, -50%) scale({{b.rs}}); transition: {{b.rt}}"></span>
+            </button>
+          </sc-for>
+          <sc-if value="{{g.isSong}}" hint-placeholder-val="{{false}}">
+            <div style="flex: 1; border-radius: 7px; background: {{g.dbg}}; box-shadow: {{g.dsh}}; display: flex; flex-direction: column; align-items: center; justify-content: center; font-variant-numeric: tabular-nums; line-height: 15px">
+              <span style="font-size: 12px; color: {{g.lc}}">{{g.pos}}</span>
+              <span style="font-size: 14px; font-weight: 500">{{g.bpm}}</span>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="position: absolute; left: 6px; top: 70px; width: 1206px; display: flex; flex-direction: column; gap: 4px">
+    <div style="display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)) 118px; gap: 4px; height: 44px">
+      <sc-for list="{{tracks}}" as="t" hint-placeholder-count="8">
+        <div style="position: relative; border-radius: 8px; background: {{t.bg}}; box-shadow: {{t.sh}}; color: {{t.fg}}; font-size: 13px; font-weight: 500; padding: 0 10px; display: flex; align-items: center; overflow: hidden; white-space: nowrap">
+          {{t.n}}
+          <span style="position: absolute; left: 10px; right: 10px; bottom: 5px; height: 4px; border-radius: 2px; background: #ffffff; opacity: {{t.selO}}; box-shadow: {{t.selSh}}"></span>
+        </div>
+      </sc-for>
+      <button aria-label="Stop all clips" onPointerDown="{{stops.down}}" onPointerUp="{{stops.up}}" onPointerLeave="{{stops.up}}" onClick="{{stops.click}}" style="position: relative; overflow: hidden; border: 0; padding: 0 10px; margin: 0; cursor: pointer; display: flex; align-items: center; justify-content: space-between; font-family: inherit; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; color: {{stops.ic}}; border-radius: {{stops.rad}}px; background: {{stops.bg}}; box-shadow: {{stops.sh}}; transform: {{stops.tf}}; transition: transform 90ms ease-out, box-shadow 220ms ease-out, background 260ms ease-out; outline: none">
+        STOPS
+        <svg viewBox="0 0 24 24" width="22" height="22" style="filter: {{stops.icf}}"><path d="{{stops.d}}" fill="none" stroke="{{stops.ic}}" stroke-width="1.7" stroke-linecap="round"></path></svg>
+        <span style="position: absolute; left: {{stops.rx}}%; top: {{stops.ry}}%; width: 150%; aspect-ratio: 1; border-radius: 50%; pointer-events: none; background: radial-gradient(circle, {{stops.rc}} 0%, rgba(255,255,255,0) 62%); opacity: {{stops.ro}}; transform: translate(-50%, -50%) scale({{stops.rs}}); transition: {{stops.rt}}"></span>
+      </button>
+    </div>
+
+    <sc-for list="{{rows}}" as="row" hint-placeholder-count="5">
+      <div style="display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)) 118px; gap: 4px; height: 46px">
+        <sc-for list="{{row.cells}}" as="cl" hint-placeholder-count="8">
+          <button aria-label="{{cl.label}}" onPointerDown="{{cl.down}}" onPointerUp="{{cl.up}}" onPointerLeave="{{cl.up}}" onClick="{{cl.click}}" style="position: relative; overflow: hidden; border: 0; padding: 0; margin: 0; cursor: pointer; font-family: inherit; border-radius: 6px; background: {{cl.bg}}; box-shadow: {{cl.sh}}; transform: {{cl.tf}}; transition: transform 90ms ease-out, box-shadow 460ms ease-in-out, background 460ms ease-in-out; outline: none">
+            <sc-if value="{{cl.has}}" hint-placeholder-val="{{true}}">
+              <span style="position: absolute; left: 8px; top: 7px; right: 8px; font-size: 11px; color: {{cl.fg}}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; gap: 5px; align-items: center; text-align: left">
+                <svg viewBox="0 0 8 8" width="8" height="8" style="flex: none; opacity: {{cl.playO}}; filter: {{cl.glyphF}}"><path d="M1 0.5v7l6-3.5z" fill="{{cl.c}}"></path></svg>
+                {{cl.name}}
+              </span>
+              <span style="position: absolute; left: 5px; right: 5px; bottom: 5px; height: 5px; border-radius: 3px; background: {{cl.c}}; box-shadow: {{cl.barSh}}; opacity: {{cl.barO}}; overflow: hidden">
+                <span style="display: block; height: 100%; width: {{cl.prog}}%; background: rgba(255,255,255,0.55); transition: {{cl.progT}}"></span>
+              </span>
+            </sc-if>
+            <sc-if value="{{cl.empty}}" hint-placeholder-val="{{false}}">
+              <span style="position: absolute; left: 50%; top: 50%; width: {{cl.dotW}}px; height: {{cl.dotW}}px; transform: translate(-50%, -50%); border-radius: {{cl.dotR}}; background: {{cl.dotBg}}; box-shadow: {{cl.dotSh}}"></span>
+            </sc-if>
+            <span style="position: absolute; left: {{cl.rx}}%; top: {{cl.ry}}%; width: 150%; aspect-ratio: 1; border-radius: 50%; pointer-events: none; background: radial-gradient(circle, {{cl.rc}} 0%, rgba(255,255,255,0) 62%); opacity: {{cl.ro}}; transform: translate(-50%, -50%) scale({{cl.rs}}); transition: {{cl.rt}}"></span>
+          </button>
+        </sc-for>
+        <button aria-label="{{row.sc.label}}" onPointerDown="{{row.sc.down}}" onPointerUp="{{row.sc.up}}" onPointerLeave="{{row.sc.up}}" onClick="{{row.sc.click}}" style="position: relative; overflow: hidden; border: 0; padding: 0 8px 0 10px; margin: 0; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 6px; font-family: inherit; font-size: 12.5px; color: {{row.sc.tc}}; border-radius: {{row.sc.rad}}px; background: {{row.sc.bg}}; box-shadow: {{row.sc.sh}}; transform: {{row.sc.tf}}; transition: transform 90ms ease-out, box-shadow 300ms ease-out, background 300ms ease-out; outline: none">
+          <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{row.sc.name}}</span>
+          <svg viewBox="0 0 24 24" width="16" height="16" style="flex: none; filter: {{row.sc.icf}}"><path d="M16 6v12L7 12z" fill="{{row.sc.ic}}" stroke="{{row.sc.ic}}" stroke-width="1.2" stroke-linejoin="round"></path></svg>
+          <span style="position: absolute; left: {{row.sc.rx}}%; top: {{row.sc.ry}}%; width: 150%; aspect-ratio: 1; border-radius: 50%; pointer-events: none; background: radial-gradient(circle, {{row.sc.rc}} 0%, rgba(255,255,255,0) 62%); opacity: {{row.sc.ro}}; transform: translate(-50%, -50%) scale({{row.sc.rs}}); transition: {{row.sc.rt}}"></span>
+        </button>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="position: absolute; left: 5px; top: 359px; width: 1206px; height: 374px; display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)) 118px; gap: 4px">
+    <sc-for list="{{strips}}" as="m" hint-placeholder-count="9">
+      <div style="display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 6px 6px 7px; box-sizing: border-box; border-radius: {{m.pr}}px; background: {{m.pbg}}; box-shadow: {{m.psh}}; backdrop-filter: {{m.blur}}; -webkit-backdrop-filter: {{m.blur}}">
+        <div style="align-self: stretch; height: 22px; border-radius: 6px; background: {{m.hbg}}; box-shadow: {{m.hsh}}; color: {{m.hfg}}; font-size: 11.5px; font-weight: 500; display: flex; align-items: center; padding: 0 8px; white-space: nowrap; overflow: hidden">{{m.n}}</div>
+        <div style="width: 30px; height: 30px; border-radius: 50%; background: {{m.kbg}}; box-shadow: {{m.ksh}}; position: relative; transform: rotate({{m.pan}}deg)">
+          <span style="position: absolute; left: 14px; top: 3px; width: 2px; height: 9px; border-radius: 1px; background: {{m.kline}}; box-shadow: {{m.klineSh}}"></span>
+        </div>
+        <div style="height: 216px; display: flex; gap: 8px; justify-content: center">
+          <div aria-label="{{m.vlabel}}" onPointerDown="{{m.fdown}}" onPointerMove="{{m.fmove}}" onPointerUp="{{m.fup}}" onPointerCancel="{{m.fup}}" style="position: relative; width: 52px; height: 216px; touch-action: none; cursor: ns-resize">
+            <span style="position: absolute; left: 22px; top: 11px; bottom: 11px; width: 8px; border-radius: 4px; background: {{m.gbg}}; box-shadow: {{m.gsh}}; overflow: hidden">
+              <span style="position: absolute; left: 0; right: 0; bottom: 0; height: {{m.fill}}%; background: {{m.fillBg}}; opacity: 0.9"></span>
+            </span>
+            <span style="position: absolute; left: 4px; width: 44px; height: 22px; top: {{m.capTop}}px; border-radius: 6px; background: {{m.capBg}}; box-shadow: {{m.capSh}}; transform: {{m.capTf}}; transition: box-shadow 140ms ease-out, transform 90ms ease-out">
+              <span style="position: absolute; left: 9px; right: 9px; top: 10px; height: 2px; border-radius: 1px; background: {{m.capLine}}; box-shadow: {{m.capLineSh}}"></span>
+            </span>
+          </div>
+          <div style="width: 9px; height: 216px; padding: 11px 0; box-sizing: border-box; display: flex; gap: 2px">
+            <span style="flex: 1; position: relative; border-radius: 2px; background: {{m.mbg}}; box-shadow: {{m.msh}}; overflow: hidden">
+              <span style="position: absolute; inset: 0; background: linear-gradient(to top, #35c46a 0%, #35c46a 68%, #e3c443 84%, #e5533d 100%); clip-path: inset({{m.l1}}% 0 0 0); transition: clip-path 130ms linear"></span>
+            </span>
+            <span style="flex: 1; position: relative; border-radius: 2px; background: {{m.mbg}}; box-shadow: {{m.msh}}; overflow: hidden">
+              <span style="position: absolute; inset: 0; background: linear-gradient(to top, #35c46a 0%, #35c46a 68%, #e3c443 84%, #e5533d 100%); clip-path: inset({{m.l2}}% 0 0 0); transition: clip-path 130ms linear"></span>
+            </span>
+          </div>
+        </div>
+        <div style="font-size: 11px; color: {{m.lc}}; font-variant-numeric: tabular-nums; height: 14px; line-height: 14px">{{m.db}}</div>
+        <div style="align-self: stretch; display: flex; gap: 5px; height: 30px">
+          <sc-for list="{{m.tg}}" as="b" hint-placeholder-count="3">
+            <button aria-label="{{b.label}}" onPointerDown="{{b.down}}" onPointerUp="{{b.up}}" onPointerLeave="{{b.up}}" onClick="{{b.click}}" style="position: relative; overflow: hidden; flex: 1; min-width: 0; border: 0; padding: 0; margin: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; font-family: inherit; font-size: 12px; font-weight: 700; color: {{b.ic}}; text-shadow: {{b.ts}}; border-radius: 7px; background: {{b.bg}}; box-shadow: {{b.sh}}; transform: {{b.tf}}; transition: transform 90ms ease-out, box-shadow 220ms ease-out, background 260ms ease-out, color 260ms; outline: none">
+              <sc-if value="{{b.hasTxt}}" hint-placeholder-val="{{true}}">{{b.txt}}</sc-if>
+              <sc-if value="{{b.hasD}}" hint-placeholder-val="{{false}}">
+                <svg viewBox="0 0 24 24" width="16" height="16" style="filter: {{b.icf}}"><path d="{{b.d}}" fill="none" stroke="{{b.ic}}" stroke-width="2.2" stroke-linecap="round"></path></svg>
+              </sc-if>
+              <span style="position: absolute; left: {{b.rx}}%; top: {{b.ry}}%; width: 150%; aspect-ratio: 1; border-radius: 50%; pointer-events: none; background: radial-gradient(circle, {{b.rc}} 0%, rgba(255,255,255,0) 62%); opacity: {{b.ro}}; transform: translate(-50%, -50%) scale({{b.rs}}); transition: {{b.rt}}"></span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+    </sc-for>
+    <div style="display: flex; flex-direction: column; gap: 8px; padding: 10px 7px; box-sizing: border-box; border-radius: {{show.pr}}px; background: {{show.pbg}}; box-shadow: {{show.psh}}; backdrop-filter: {{show.blur}}; -webkit-backdrop-filter: {{show.blur}}">
+      <div style="font-size: 15px; text-align: center; color: {{show.text}}; height: 22px; line-height: 22px">Show</div>
+      <sc-for list="{{show.items}}" as="b" hint-placeholder-count="4">
+        <button aria-label="{{b.label}}" onPointerDown="{{b.down}}" onPointerUp="{{b.up}}" onPointerLeave="{{b.up}}" onClick="{{b.click}}" style="position: relative; overflow: hidden; flex: 1; border: 0; padding: 0; margin: 0; cursor: pointer; font-family: inherit; font-size: 15px; color: {{b.ic}}; text-shadow: {{b.ts}}; border-radius: 8px; background: {{b.bg}}; box-shadow: {{b.sh}}; transform: {{b.tf}}; transition: transform 90ms ease-out, box-shadow 220ms ease-out, background 260ms ease-out, color 260ms; outline: none">
+          {{b.txt}}
+          <span style="position: absolute; left: {{b.rx}}%; top: {{b.ry}}%; width: 150%; aspect-ratio: 1; border-radius: 50%; pointer-events: none; background: radial-gradient(circle, {{b.rc}} 0%, rgba(255,255,255,0) 62%); opacity: {{b.ro}}; transform: translate(-50%, -50%) scale({{b.rs}}); transition: {{b.rt}}"></span>
+        </button>
+      </sc-for>
+    </div>
+  </div>
+
+  <sc-for list="{{sidePanels}}" as="sp" hint-placeholder-count="3">
+    <div style="position: absolute; left: {{sp.x}}px; top: {{sp.y}}px; width: 54px; height: {{sp.h}}px; box-sizing: border-box; padding: 6px 5px; display: flex; flex-direction: column; justify-content: space-around; gap: 6px; border-radius: {{sp.pr}}px; background: {{sp.pbg}}; box-shadow: {{sp.psh}}; backdrop-filter: {{sp.blur}}; -webkit-backdrop-filter: {{sp.blur}}">
+      <sc-for list="{{sp.items}}" as="b" hint-placeholder-count="4">
+        <button aria-label="{{b.label}}" onPointerDown="{{b.down}}" onPointerUp="{{b.up}}" onPointerLeave="{{b.up}}" onClick="{{b.click}}" style="position: relative; overflow: hidden; height: {{sp.bh}}px; border: 0; padding: 0; margin: 0; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-family: inherit; border-radius: {{b.rad}}px; background: {{b.bg}}; box-shadow: {{b.sh}}; transform: {{b.tf}}; transition: transform 90ms ease-out, box-shadow 220ms ease-out, background 260ms ease-out; outline: none">
+          <svg viewBox="0 0 24 24" width="24" height="24" style="filter: {{b.icf}}; transition: filter 260ms"><path d="{{b.d}}" fill="none" stroke="{{b.ic}}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <span style="font-size: 8.5px; color: {{b.ic}}; text-shadow: {{b.ts}}; white-space: nowrap">{{b.label}}</span>
+          <span style="position: absolute; left: {{b.rx}}%; top: {{b.ry}}%; width: 150%; aspect-ratio: 1; border-radius: 50%; pointer-events: none; background: radial-gradient(circle, {{b.rc}} 0%, rgba(255,255,255,0) 62%); opacity: {{b.ro}}; transform: translate(-50%, -50%) scale({{b.rs}}); transition: {{b.rt}}"></span>
+        </button>
+      </sc-for>
+    </div>
+  </sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{isStates}}" hint-placeholder-val="{{false}}">
+<div style="width: 1560px; height: 880px; box-sizing: border-box; background: #0e0f12; font-family: Roboto, 'Helvetica Neue', Helvetica, sans-serif; color: #e3e6eb; display: flex; flex-direction: column">
+  <div style="height: 96px; box-sizing: border-box; padding: 26px 40px 0; display: flex; flex-direction: column; gap: 6px">
+    <div style="font-size: 26px; font-weight: 500">Close-up at twice the size</div>
+    <div style="font-size: 14px; color: #9aa1ab">One light from the top left. Pressed = the control sinks and a light ring spreads from the finger. On = the surface or its edge glows in the state colour.</div>
+  </div>
+  <sc-for list="{{stateRows}}" as="r" hint-placeholder-count="4">
+    <div style="height: 196px; box-sizing: border-box; padding: 16px 40px; display: flex; gap: 30px; align-items: center; background: {{r.ground}}">
+      <div style="width: 230px; flex: none; display: flex; flex-direction: column; gap: 6px">
+        <div style="font-size: 20px; font-weight: 500; color: {{r.text}}">{{r.title}}</div>
+        <div style="font-size: 13px; line-height: 18px; color: {{r.lc}}">{{r.sub}}</div>
+      </div>
+      <div style="width: 1152px; height: 164px; position: relative">
+        <div style="position: absolute; left: 0; top: 0; width: 576px; height: 82px; transform: scale(2); transform-origin: 0 0; display: flex; gap: 8px">
+          <sc-for list="{{r.cells}}" as="c" hint-placeholder-count="8">
+            <div style="width: 64px; display: flex; flex-direction: column; gap: 4px; align-items: center">
+              <div style="width: 64px; height: 64px; box-sizing: border-box; border-radius: {{r.pr}}px; background: {{r.pbg}}; box-shadow: {{r.psh}}; backdrop-filter: {{r.blur}}; -webkit-backdrop-filter: {{r.blur}}; display: flex; align-items: center; justify-content: center; position: relative">
+                <sc-if value="{{c.isKey}}" hint-placeholder-val="{{true}}">
+                  <div style="position: relative; overflow: hidden; width: 40px; height: 36px; border-radius: {{c.rad}}px; background: {{c.bg}}; box-shadow: {{c.sh}}; transform: {{c.tf}}; display: flex; align-items: center; justify-content: center">
+                    <svg viewBox="0 0 24 24" width="22" height="22" style="filter: {{c.icf}}"><path d="{{c.d}}" fill="none" stroke="{{c.ic}}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                    <span style="position: absolute; left: 38%; top: 42%; width: 150%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, {{c.rc}} 0%, rgba(255,255,255,0) 62%); opacity: {{c.ro}}; transform: translate(-50%, -50%) scale(0.62)"></span>
+                  </div>
+                </sc-if>
+                <sc-if value="{{c.isSlot}}" hint-placeholder-val="{{false}}">
+                  <div style="position: relative; overflow: hidden; width: 54px; height: 34px; border-radius: 5px; background: {{c.bg}}; box-shadow: {{c.sh}}">
+                    <span style="position: absolute; left: 6px; top: 5px; font-size: 8px; color: {{c.fg}}; display: flex; gap: 3px; align-items: center"><svg viewBox="0 0 8 8" width="6" height="6" style="opacity: {{c.playO}}; filter: {{c.glyphF}}"><path d="M1 0.5v7l6-3.5z" fill="{{c.col}}"></path></svg>Beat A</span>
+                    <span style="position: absolute; left: 4px; right: 4px; bottom: 4px; height: 4px; border-radius: 2px; background: {{c.col}}; box-shadow: {{c.barSh}}"></span>
+                  </div>
+                </sc-if>
+                <sc-if value="{{c.isFader}}" hint-placeholder-val="{{false}}">
+                  <div style="position: relative; width: 34px; height: 56px">
+                    <span style="position: absolute; left: 14px; top: 4px; bottom: 4px; width: 6px; border-radius: 3px; background: {{c.gbg}}; box-shadow: {{c.gsh}}; overflow: hidden"><span style="position: absolute; left: 0; right: 0; bottom: 0; height: 62%; background: {{c.col}}; opacity: 0.9"></span></span>
+                    <span style="position: absolute; left: 1px; top: 15px; width: 32px; height: 15px; border-radius: 4px; background: {{c.capBg}}; box-shadow: {{c.capSh}}"><span style="position: absolute; left: 6px; right: 6px; top: 6.5px; height: 2px; border-radius: 1px; background: {{c.capLine}}; box-shadow: {{c.capLineSh}}"></span></span>
+                  </div>
+                </sc-if>
+                <sc-if value="{{c.isKnob}}" hint-placeholder-val="{{false}}">
+                  <div style="width: 32px; height: 32px; border-radius: 50%; background: {{c.bg}}; box-shadow: {{c.sh}}; position: relative; transform: rotate(-40deg)"><span style="position: absolute; left: 15px; top: 3px; width: 2px; height: 10px; border-radius: 1px; background: {{c.kline}}; box-shadow: {{c.klineSh}}"></span></div>
+                </sc-if>
+              </div>
+              <div style="font-size: 7px; letter-spacing: 0.06em; text-transform: uppercase; color: {{r.lc}}; white-space: nowrap">{{c.cap}}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </sc-for>
+</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"look":{"editor":"enum","options":["soft","backlit","satin","glass"],"default":"soft","section":"Look"},"glow":{"editor":"range","min":0,"max":1.6,"step":0.1,"default":1,"section":"Look"},"depth":{"editor":"range","min":0,"max":1.6,"step":0.1,"default":1,"section":"Look"},"view":{"editor":null,"default":"screen"},"$preview":{"width":1334,"height":750}}'>
+const GREEN = '#3fcf6a', RED = '#ef4b4f', AMBER = '#f0b429', BLUE = '#4c8dff', SOLO = '#4aa3ff', WARM = '#f2c14e';
+
+function rgb(h) { h = h.replace('#', ''); return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)]; }
+function rgba(h, a) { const c = rgb(h); a = Math.max(0, Math.min(1, a)); return 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a.toFixed(3) + ')'; }
+function mix(a, b, t) { const x = rgb(a), y = rgb(b); return '#' + x.map(function (v, i) { return Math.round(v + (y[i] - v) * t).toString(16).padStart(2, '0'); }).join(''); }
+function lum(h) { const c = rgb(h); return (0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]) / 255; }
+function circ(cx, cy, r) { return 'M' + (cx - r) + ' ' + cy + 'a' + r + ' ' + r + ' 0 1 0 ' + (2 * r) + ' 0a' + r + ' ' + r + ' 0 1 0 ' + (-2 * r) + ' 0'; }
+
+const I = {
+  plusC: circ(12, 12, 9) + 'M12 7.5v9M7.5 12h9',
+  xC: circ(12, 12, 9) + 'M8.8 8.8l6.4 6.4M15.2 8.8l-6.4 6.4',
+  play: 'M7.5 4.8v14.4L19 12z',
+  stop: 'M6 6h12v12H6z',
+  rec: circ(12, 12, 7.5),
+  metro: 'M9 3.5h6l4 17H5z M12 16.5l5.5-10 M7 14.5h10',
+  cue: 'M4.5 15v-3a7.5 7.5 0 0 1 15 0v3 M4.5 14h3v6h-3z M16.5 14h3v6h-3z',
+  tap: circ(12, 12, 8.5) + circ(12, 7, 0.6) + circ(16.3, 9.5, 0.6) + circ(16.3, 14.5, 0.6) + circ(12, 17, 0.6) + circ(7.7, 14.5, 0.6) + circ(7.7, 9.5, 0.6),
+  undo: 'M4.5 4.5v5h5 M5 9.5A7.8 7.8 0 1 1 6.6 17.5',
+  redo: 'M19.5 4.5v5h-5 M19 9.5A7.8 7.8 0 1 0 17.4 17.5',
+  plus: 'M12 4.5v15M4.5 12h15',
+  auto: circ(6.5, 17.5, 2.5) + circ(17.5, 6.5, 2.5) + 'M8.4 15.6l7.2-7.2',
+  back: 'M19.5 12H5M10 6.5L4.5 12l5.5 5.5',
+  capture: 'M4.5 9V4.5H9M15 4.5h4.5V9M19.5 15v4.5H15M9 19.5H4.5V15',
+  browser: 'M5.5 3.5h13v17h-13z M8.5 7.5h7M8.5 10.5h7M8.5 13.5h7M8.5 16.5h7',
+  display: 'M3.5 4.5h17v11h-17z M9 19.5h6M12 15.5v4',
+  gear: circ(12, 12, 3) + circ(12, 12, 7) + 'M12 2.5V5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8',
+  split: 'M4 4.5h16v6.5H4z M4 13h16v6.5H4z',
+  full: 'M14 4.5h5.5V10 M10 19.5H4.5V14 M19.5 4.5L14 10M4.5 19.5L10 14',
+  stopsAll: circ(12, 12, 8.5) + 'M12 3.5v17',
+  editClip: 'M19.5 4.5l-8.5 8.5-3 1 1-3 8.5-8.5z M10.5 5.5H4.5v14h14v-6',
+  eye: 'M2.5 12s3.6-6.5 9.5-6.5 9.5 6.5 9.5 6.5-3.6 6.5-9.5 6.5S2.5 12 2.5 12z' + circ(12, 12, 2.8),
+  loop: circ(12, 12, 8.5) + 'M7.5 12h9 M9.8 9.6L7.4 12l2.4 2.4 M14.2 9.6l2.4 2.4-2.4 2.4',
+  jump: circ(12, 12, 8.5) + 'M7.8 9l3 3-3 3 M12.6 9l3 3-3 3',
+  toggles: 'M6 20L12 4l6 16 M8.4 14h7.2',
+  volume: 'M5 20V12M5 9V4 M12 20V16M12 13V4 M19 20V10M19 7V4 M3 10.5h4M10 14.5h4M17 8.5h4',
+  sends: circ(12, 12, 8.5) + 'M8.5 15.5l7-7 M10.5 8.5h5v5',
+  io: 'M4 8.5h12 M12.5 5l3.5 3.5-3.5 3.5 M20 15.5H8 M11.5 12L8 15.5l3.5 3.5',
+  clips: 'M3.5 4h7.5v7H3.5z M13 4h7.5v7H13z M3.5 13h7.5v7H3.5z M13 13h7.5v7H13z',
+  mixer: 'M4.5 20V10h4v10z M10 20V4h4v16z M15.5 20v-7h4v7z',
+  devices: circ(12, 12, 8.5) + 'M12 12l5-5',
+  keys: 'M3.5 4.5h17v15h-17z M9 12v7.5M15 12v7.5 M7.2 4.5v7.5h3.6V4.5 M13.2 4.5v7.5h3.6V4.5',
+  xy: 'M4 4h16v16H4z M4 13.5h16M10.5 4v16' + circ(10.5, 13.5, 2),
+  master: 'M5 19V5l7 8.5L19 5v14',
+  multi: 'M4.5 4h6v16h-6z M13.5 4h6v16h-6z M7.5 8v8M16.5 8v8',
+  snap: 'M3.5 7.5h4l1.6-2.5h5.8l1.6 2.5h4v12h-17z' + circ(12, 13.2, 3.4),
+  xfade: 'M4 5c6 0 10 14 16 14M20 5C14 5 10 19 4 19',
+  allTracks: 'M4 4.5h16v4H4z M4 10h16v4H4z M4 15.5h16v4H4z',
+  editor: 'M3.5 3.5h5v5h-5z M10.5 3.5h5v5h-5z M17.5 3.5h3v5h-3z M3.5 10.5h5v5h-5z M10.5 10.5h10v10h-10z M3.5 17.5h5v3h-5z'
+};
+
+const TRACKS = [
+  { n: 'Drum Rack', c: '#3e5fae', clip: '#5b84e6' },
+  { n: 'Perc Chance', c: '#8fea5e', clip: '#8fea5e' },
+  { n: 'Perc Hits', c: '#4ea64a', clip: '#5cc257' },
+  { n: 'Clap Loop', c: '#7d5296', clip: '#b981d4' },
+  { n: 'Hihat Loop', c: '#7d5296', clip: '#b981d4' },
+  { n: 'Break Loop', c: '#7d5296', clip: '#b981d4' },
+  { n: 'Vocals', c: '#b8761f', clip: '#f2a12e' },
+  { n: 'Lead', c: '#b8761f', clip: '#f2a12e' }
+];
+const SCENES = ['Intro', 'Verse A', 'Verse B', 'Breakdown', 'Chopped Breaks'];
+const CLIPS0 = [
+  { 0: 'Beat Intro', 1: 'Shaker', 7: 'Lead Pad' },
+  { 0: 'Beat A', 1: 'Perc A', 2: 'Hits A', 3: 'Clap A', 7: 'Lead A' },
+  { 0: 'Beat B', 1: 'Perc B', 3: 'Clap B', 7: 'Lead B' },
+  { 0: 'Fill', 1: 'Perc Break', 3: 'Clap Break', 4: 'Hats Break', 5: 'Breaks 1' },
+  { 0: 'Chop', 1: 'Perc Chop', 3: 'Clap Chop', 4: 'Hats Chop', 5: 'Breaks 2' }
+];
+
+function tokens(look, g, d) {
+  const S = function (x, y, b, a, sp) { return (x * d).toFixed(1) + 'px ' + (y * d).toFixed(1) + 'px ' + (b * d).toFixed(1) + 'px ' + (sp ? (sp * d).toFixed(1) + 'px ' : '') + 'rgba(0,0,0,' + Math.min(1, a * (0.55 + 0.45 * d)).toFixed(3) + ')'; };
+  const J = function (arr) { return arr.join(', '); };
+  if (look === 'backlit') {
+    const glow = function (c, k) { k *= g; return [ '0 0 1.5px 1px ' + rgba(c, 0.8 * k), '0 0 8px 2px ' + rgba(c, 0.5 * k), '0 0 22px 5px ' + rgba(c, 0.2 * k) ]; };
+    const ksh = [S(1, 2, 3, 0.75), 'inset 1px 1px 0 rgba(255,255,255,0.06)', 'inset -1px -1px 0 rgba(0,0,0,0.35)'];
+    const kshP = [S(0.3, 0.6, 1.2, 0.7), 'inset 1px 1px 3px rgba(0,0,0,0.5)'];
+    return {
+      name: 'B · Backlit Keys', sub: 'Dark keys, every legend softly lit from inside. A switched-on key leaks its colour around the edges, like a keyboard backlight.',
+      ground: 'radial-gradient(1500px 1000px at -6% -12%, #24262b 0%, #121316 48%, #0b0b0d 100%)',
+      text: '#e6e9ee', label: '#7f8691',
+      pbg: 'linear-gradient(160deg, #1d1f23 0%, #17181b 100%)', psh: J([S(2, 3, 8, 0.6), 'inset 1px 1px 0 rgba(255,255,255,0.045)']), pr: 12, blur: 'none',
+      kbg: 'linear-gradient(160deg, #27292e 0%, #1b1c20 100%)', ksh: J(ksh), kshP: J(kshP), kr: 8,
+      ic: 'rgba(228,233,241,0.82)', icf: 'drop-shadow(0 0 2px rgba(255,255,255,0.32))', ts: '0 0 4px rgba(255,255,255,0.3)',
+      onFace: function (c) { return 'linear-gradient(160deg, ' + mix('#27292e', c, 0.16) + ' 0%, ' + mix('#1b1c20', c, 0.1) + ' 100%)'; },
+      onSh: function (c, k, p) { return J((p ? kshP : ksh).concat(['inset 0 0 7px ' + rgba(c, 0.35 * k * g)], glow(c, k))); },
+      onIc: function (c) { return mix(c, '#ffffff', 0.35); },
+      onIcf: function (c) { return 'drop-shadow(0 0 3px ' + rgba(c, 0.95) + ') drop-shadow(0 0 8px ' + rgba(c, 0.55) + ')'; },
+      onTs: function (c) { return '0 0 5px ' + rgba(c, 0.95) + ', 0 0 12px ' + rgba(c, 0.5); },
+      glow: glow, sink: 'translate(0px, ' + (1 * d).toFixed(1) + 'px) scale(0.97)',
+      slotE: '#131417', slotEsh: 'inset 1px 1px 2px rgba(0,0,0,0.65), inset -1px -1px 0 rgba(255,255,255,0.025)',
+      clipFace: function (c, t) { return 'linear-gradient(160deg, ' + mix('#25272b', c, 0.14 * t) + ' 0%, ' + mix('#1c1d21', c, 0.1 * t) + ' 100%)'; },
+      clipSh: J(ksh), dot: 'rgba(225,230,238,0.55)', dotSh: '0 0 4px rgba(255,255,255,0.35)',
+      sheen: 'linear-gradient(160deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 50%)', hdrSh: J([S(1, 2, 4, 0.7)]),
+      gbg: '#0c0d0f', gsh: 'inset 1px 1px 2px rgba(0,0,0,0.8)', fillGlow: true,
+      capBg: 'linear-gradient(160deg, #2c2e33 0%, #1d1e22 100%)', capSh: J([S(2, 3, 5, 0.75), 'inset 1px 1px 0 rgba(255,255,255,0.08)']), capShP: J([S(1, 1, 2, 0.7), 'inset 1px 1px 3px rgba(0,0,0,0.45)']),
+      capLine: function (c) { return mix(c, '#ffffff', 0.35); }, capLineSh: function (c) { return '0 0 5px ' + rgba(c, 0.9 * g); },
+      mbg: '#0a0a0c', msh: 'inset 1px 1px 1px rgba(0,0,0,0.7)', rippleC: 'rgba(255,255,255,0.40)', displayBg: '#0f1012'
+    };
+  }
+  if (look === 'satin') {
+    const glow = function (c, k) { k *= g; return [ '0 0 16px 2px ' + rgba(c, 0.5 * k), '0 0 40px 6px ' + rgba(c, 0.16 * k) ]; };
+    const ksh = [S(3, 5, 9, 0.55), S(1, 1.5, 2, 0.45), 'inset 1px 1px 1px rgba(255,245,230,0.15)', 'inset -1px -2px 2px rgba(0,0,0,0.32)'];
+    const kshP = [S(1, 1, 2, 0.5), 'inset 2px 2px 4px rgba(0,0,0,0.45)', 'inset -1px -1px 1px rgba(255,245,230,0.06)'];
+    return {
+      name: 'C · Satin Console', sub: 'Warm charcoal, slightly domed controls with a satin sheen where the light hits. A switched-on control glows through its whole face.',
+      ground: 'radial-gradient(1500px 1000px at -6% -12%, #3b3732 0%, #221f1c 48%, #161412 100%)',
+      text: '#ebe5da', label: '#968d80',
+      pbg: 'linear-gradient(150deg, #322e29 0%, #27241f 100%)', psh: J([S(5, 7, 16, 0.5), S(1, 2, 3, 0.35), 'inset 1px 1px 1px rgba(255,240,220,0.07)']), pr: 14, blur: 'none',
+      kbg: 'radial-gradient(130% 130% at 22% 18%, #57524b 0%, #3c3833 45%, #2c2925 100%)', ksh: J(ksh), kshP: J(kshP), kr: 10,
+      ic: '#e4ddcf', icf: 'none', ts: 'none',
+      onFace: function (c) { return 'radial-gradient(130% 130% at 22% 18%, ' + mix(c, '#ffffff', 0.45) + ' 0%, ' + c + ' 48%, ' + mix(c, '#000000', 0.32) + ' 100%)'; },
+      onSh: function (c, k, p) { return J((p ? kshP : ksh.slice(0, 2).concat(['inset 1px 1px 1px rgba(255,255,255,0.35)'])).concat(glow(c, k))); },
+      onIc: function (c) { return lum(c) > 0.6 ? '#1d1a16' : '#ffffff'; },
+      onIcf: function () { return 'none'; }, onTs: function () { return 'none'; },
+      glow: glow, sink: 'translate(' + (1 * d).toFixed(1) + 'px, ' + (1.6 * d).toFixed(1) + 'px) scale(0.97)',
+      slotE: '#221f1c', slotEsh: 'inset 2px 2px 3px rgba(0,0,0,0.5), inset -1px -1px 1px rgba(255,240,220,0.04)',
+      clipFace: function (c, t) { return 'radial-gradient(130% 130% at 22% 18%, ' + mix('#4d4943', c, 0.35 * t) + ' 0%, ' + mix('#37332f', c, 0.3 * t) + ' 50%, ' + mix('#2b2825', c, 0.25 * t) + ' 100%)'; },
+      clipSh: J([S(2, 3, 6, 0.5), 'inset 1px 1px 1px rgba(255,245,230,0.10)']), dot: '#8c857a', dotSh: 'none',
+      sheen: 'linear-gradient(150deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 52%, rgba(0,0,0,0.16) 100%)', hdrSh: J([S(3, 4, 8, 0.5), 'inset 1px 1px 1px rgba(255,255,255,0.18)']),
+      gbg: '#171512', gsh: 'inset 2px 2px 3px rgba(0,0,0,0.7), inset -1px -1px 0 rgba(255,240,220,0.05)', fillGlow: false,
+      capBg: 'radial-gradient(130% 160% at 22% 15%, #6a645b 0%, #45403a 45%, #2f2b27 100%)', capSh: J([S(4, 6, 10, 0.6), S(1, 2, 2, 0.45), 'inset 1px 1px 1px rgba(255,245,230,0.2)']), capShP: J([S(1, 2, 3, 0.55), 'inset 1px 1px 3px rgba(0,0,0,0.4)']),
+      capLine: function () { return 'rgba(255,248,235,0.75)'; }, capLineSh: function () { return 'none'; },
+      mbg: '#141210', msh: 'inset 1px 1px 2px rgba(0,0,0,0.7)', rippleC: 'rgba(255,240,215,0.45)', displayBg: '#1c1a17'
+    };
+  }
+  if (look === 'glass') {
+    const glow = function (c, k) { k *= g; return [ 'inset 0 0 12px ' + rgba(c, 0.5 * k), '0 0 14px 2px ' + rgba(c, 0.42 * k) ]; };
+    const ksh = [S(2, 4, 10, 0.35), 'inset 1px 1px 0 rgba(255,255,255,0.22)', 'inset -1px -1px 0 rgba(255,255,255,0.04)'];
+    const kshP = [S(1, 1, 3, 0.3), 'inset 1px 1px 4px rgba(0,0,0,0.3)'];
+    return {
+      name: 'D · Smoked Glass', sub: 'Bars and side panels as frosted glass over a softly lit ground. A switched-on control tints its glass from inside and spills light.',
+      ground: 'radial-gradient(900px 640px at 2% 0%, rgba(150,180,240,0.28) 0%, rgba(150,180,240,0) 70%), radial-gradient(700px 500px at 96% 104%, rgba(70,110,200,0.18) 0%, rgba(70,110,200,0) 70%), linear-gradient(150deg, #1c2333 0%, #121722 55%, #0c0f16 100%)',
+      text: '#e9eef7', label: '#8f9bb0',
+      pbg: 'linear-gradient(150deg, rgba(255,255,255,0.11) 0%, rgba(255,255,255,0.04) 100%)', psh: J([S(6, 10, 24, 0.45), 'inset 1px 1px 0 rgba(255,255,255,0.16)', 'inset -1px -1px 0 rgba(255,255,255,0.03)']), pr: 14, blur: 'blur(18px) saturate(150%)',
+      kbg: 'linear-gradient(150deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.05) 100%)', ksh: J(ksh), kshP: J(kshP), kr: 10,
+      ic: '#e6ecf7', icf: 'none', ts: 'none',
+      onFace: function (c) { return 'linear-gradient(150deg, ' + rgba(c, 0.62) + ' 0%, ' + rgba(c, 0.3) + ' 100%)'; },
+      onSh: function (c, k, p) { return J((p ? kshP : [S(2, 4, 10, 0.3), 'inset 1px 1px 0 rgba(255,255,255,0.35)']).concat(glow(c, k))); },
+      onIc: function () { return '#ffffff'; }, onIcf: function () { return 'drop-shadow(0 0 3px rgba(255,255,255,0.6))'; }, onTs: function () { return '0 0 6px rgba(255,255,255,0.6)'; },
+      glow: glow, sink: 'translate(0px, ' + (1 * d).toFixed(1) + 'px) scale(0.965)',
+      slotE: 'rgba(255,255,255,0.035)', slotEsh: 'inset 1px 1px 3px rgba(0,0,0,0.35)',
+      clipFace: function (c, t) { return t > 0 ? 'linear-gradient(150deg, ' + rgba(c, 0.16 + 0.2 * t) + ' 0%, ' + rgba(c, 0.06 + 0.12 * t) + ' 100%)' : 'linear-gradient(150deg, rgba(255,255,255,0.11) 0%, rgba(255,255,255,0.045) 100%)'; },
+      clipSh: J([S(2, 3, 8, 0.3), 'inset 1px 1px 0 rgba(255,255,255,0.18)']), dot: 'rgba(230,236,247,0.5)', dotSh: 'none',
+      sheen: 'linear-gradient(150deg, rgba(255,255,255,0.26) 0%, rgba(255,255,255,0.04) 55%, rgba(255,255,255,0) 100%)', hdrSh: J([S(3, 5, 12, 0.4), 'inset 1px 1px 0 rgba(255,255,255,0.3)']),
+      gbg: 'rgba(0,0,0,0.38)', gsh: 'inset 1px 1px 2px rgba(0,0,0,0.5)', fillGlow: true,
+      capBg: 'linear-gradient(150deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.12) 100%)', capSh: J([S(3, 5, 10, 0.45), 'inset 1px 1px 0 rgba(255,255,255,0.45)']), capShP: J([S(1, 2, 3, 0.35), 'inset 1px 1px 3px rgba(0,0,0,0.25)']),
+      capLine: function () { return 'rgba(255,255,255,0.9)'; }, capLineSh: function () { return '0 0 4px rgba(255,255,255,0.6)'; },
+      mbg: 'rgba(0,0,0,0.4)', msh: 'none', rippleC: 'rgba(255,255,255,0.5)', displayBg: 'rgba(0,0,0,0.28)'
+    };
+  }
+  const glow = function (c, k) { k *= g; return [ '0 0 4px ' + rgba(c, 0.55 * k), '0 0 16px 1px ' + rgba(c, 0.42 * k) ]; };
+  const ksh = [S(2, 3, 6, 0.5), S(0.5, 1, 1.5, 0.42), 'inset 1px 1px 0 rgba(255,255,255,0.075)'];
+  const kshP = [S(0.4, 0.6, 1.2, 0.5), 'inset 1px 1px 3px rgba(0,0,0,0.45)'];
+  return {
+    name: 'A · Soft Graphite', sub: 'Closest to today. Matte graphite, short soft shadows to the lower right. A switched-on control lights up in its colour with a soft halo.',
+    ground: 'radial-gradient(1500px 1000px at -6% -12%, #31353c 0%, #1c1e23 46%, #131418 100%)',
+    text: '#dadee5', label: '#8b919b',
+    pbg: 'linear-gradient(145deg, #2b2e34 0%, #212328 100%)', psh: J([S(3, 4, 12, 0.42), S(1, 1, 2, 0.3), 'inset 1px 1px 0 rgba(255,255,255,0.045)']), pr: 12, blur: 'none',
+    kbg: 'linear-gradient(145deg, #3c4047 0%, #2d3036 100%)', ksh: J(ksh), kshP: J(kshP), kr: 9,
+    ic: '#c4c9d1', icf: 'none', ts: 'none',
+    onFace: function (c) { return 'linear-gradient(145deg, ' + mix(c, '#ffffff', 0.14) + ' 0%, ' + mix(c, '#26282d', 0.22) + ' 100%)'; },
+    onSh: function (c, k, p) { return J((p ? kshP : [S(2, 3, 6, 0.45), 'inset 1px 1px 0 rgba(255,255,255,0.25)']).concat(glow(c, k))); },
+    onIc: function (c) { return lum(c) > 0.62 ? '#1b1c1f' : '#ffffff'; },
+    onIcf: function () { return 'none'; }, onTs: function () { return 'none'; },
+    glow: glow, sink: 'translate(' + (0.8 * d).toFixed(1) + 'px, ' + (1.2 * d).toFixed(1) + 'px) scale(0.975)',
+    slotE: '#1c1e22', slotEsh: 'inset 1px 1px 2px rgba(0,0,0,0.55), inset -1px -1px 0 rgba(255,255,255,0.03)',
+    clipFace: function (c, t) { return 'linear-gradient(145deg, ' + mix('#383b42', c, 0.3 * t) + ' 0%, ' + mix('#2b2e33', c, 0.22 * t) + ' 100%)'; },
+    clipSh: J([S(1.5, 2, 4, 0.45), 'inset 1px 1px 0 rgba(255,255,255,0.06)']), dot: '#848a93', dotSh: 'none',
+    sheen: 'linear-gradient(150deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0) 55%, rgba(0,0,0,0.12) 100%)', hdrSh: J([S(2, 3, 6, 0.45)]),
+    gbg: '#111215', gsh: 'inset 1px 1px 2px rgba(0,0,0,0.7), inset -1px -1px 0 rgba(255,255,255,0.05)', fillGlow: false,
+    capBg: 'linear-gradient(145deg, #4a4e56 0%, #33363c 100%)', capSh: J([S(3, 5, 8, 0.6), S(1, 1, 2, 0.4), 'inset 1px 1px 0 rgba(255,255,255,0.12)']), capShP: J([S(1, 1, 2, 0.55), 'inset 1px 1px 3px rgba(0,0,0,0.4)']),
+    capLine: function () { return 'rgba(255,255,255,0.7)'; }, capLineSh: function () { return 'none'; },
+    mbg: '#101114', msh: 'inset 1px 1px 1px rgba(0,0,0,0.6)', rippleC: 'rgba(255,255,255,0.42)', displayBg: '#16171a'
+  };
+}
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      pressed: null, rip: { id: null, x: 50, y: 50, go: false, n: 0 },
+      playing: true, beat: 4, pulse: false,
+      play: [1, 1, 1, 1, -1, -1, -1, 1], queue: [null, null, null, null, null, null, null, null], rec: [null, null, null, null, null, null, null, null],
+      clips: CLIPS0.map(function (r) { return Object.assign({}, r); }), takes: 0, sceneFlash: -1,
+      t: { metro: false, cue: false, arec: false, auto: false, srec: false, display: true, split: true },
+      on: [true, true, true, true, false, true, true, true], solo: [false, true, false, false, false, false, false, false], arm: [false, false, false, false, false, false, true, false],
+      vol: [0.78, 0.82, 0.70, 0.75, 0.66, 0.72, 0.85, 0.80, 0.85], pan: [0, -20, 25, -35, 35, 0, 0, 10, 0],
+      lvl: [0, 0, 0, 0, 0, 0, 0, 0, 0], drag: null, upper: 'Clips', lower: 'Mixer', page: 'volume'
+    };
+  }
+  componentDidMount() {
+    this.beatT = setInterval(() => this.tick(), 500);
+    this.meterT = setInterval(() => this.meters(), 140);
+  }
+  componentWillUnmount() { clearInterval(this.beatT); clearInterval(this.meterT); }
+  tick() {
+    this.setState((s) => {
+      if (!s.playing) return { pulse: !s.pulse };
+      const beat = s.beat + 1, n = { beat: beat, pulse: !s.pulse };
+      if (beat % 4 === 0) {
+        const play = s.play.slice(), queue = s.queue.slice();
+        queue.forEach(function (q, c) { if (q === null) return; play[c] = q === -2 ? -1 : q; queue[c] = null; });
+        n.play = play; n.queue = queue; n.sceneFlash = -1;
+      }
+      return n;
+    });
+  }
+  meters() {
+    if (!this.state.playing && this.state.lvl.every(function (v) { return v < 0.01; })) return;
+    this.setState((s) => {
+      const lvl = s.lvl.map(function (v, i) {
+        if (i === 8) return v;
+        const live = s.playing && s.on[i] && (s.play[i] >= 0 || s.rec[i] !== null);
+        const target = live ? (0.45 + Math.random() * 0.4) * (0.6 + 0.5 * s.vol[i]) : 0;
+        return target > v ? target : v * 0.72;
+      });
+      lvl[8] = Math.min(1, Math.max.apply(null, lvl.slice(0, 8)) * 0.95);
+      return { lvl: lvl };
+    });
+  }
+  down(id, e) {
+    const r = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - r.left) / Math.max(1, r.width)) * 100, y = ((e.clientY - r.top) / Math.max(1, r.height)) * 100;
+    const n = this.state.rip.n + 1;
+    this.setState({ pressed: id, rip: { id: id, x: x, y: y, go: false, n: n } });
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      if (this.state.rip.n === n) this.setState((s) => ({ rip: Object.assign({}, s.rip, { go: true }) }));
+    }));
+  }
+  up(id) { if (this.state.pressed === id) this.setState({ pressed: null }); }
+  tog(k) { this.setState((s) => ({ t: Object.assign({}, s.t, { [k]: !s.t[k] }) })); }
+  arr(k, i) { this.setState((s) => { const a = s[k].slice(); a[i] = !a[i]; return { [k]: a }; }); }
+  stopAll() { this.setState({ playing: false, beat: 4, play: [-1, -1, -1, -1, -1, -1, -1, -1], queue: [null, null, null, null, null, null, null, null], rec: [null, null, null, null, null, null, null, null], sceneFlash: -1 }); }
+  launch(r, c) {
+    this.setState((s) => {
+      const play = s.play.slice(), queue = s.queue.slice(), rec = s.rec.slice(), clips = s.clips.map(function (x) { return Object.assign({}, x); });
+      let takes = s.takes, playing = s.playing, beat = s.beat;
+      const has = clips[r][c] !== undefined;
+      if (rec[c] === r) { takes++; clips[r][c] = 'Take ' + takes; rec[c] = null; play[c] = r; return { play: play, rec: rec, clips: clips, takes: takes }; }
+      if (has) {
+        if (!playing) { playing = true; beat = 4; play[c] = r; queue[c] = null; }
+        else if (play[c] !== r) queue[c] = r;
+      } else if (s.arm[c]) {
+        if (!playing) { playing = true; beat = 4; }
+        rec[c] = r; play[c] = -1;
+      } else if (play[c] >= 0) queue[c] = -2;
+      return { play: play, queue: queue, rec: rec, playing: playing, beat: beat };
+    });
+  }
+  scene(r) {
+    this.setState((s) => {
+      const play = s.play.slice(), queue = s.queue.slice();
+      const start = !s.playing;
+      for (let c = 0; c < 8; c++) {
+        const has = s.clips[r][c] !== undefined;
+        if (start) { play[c] = has ? r : -1; queue[c] = null; }
+        else queue[c] = has ? (play[c] === r ? null : r) : (play[c] >= 0 ? -2 : null);
+      }
+      return { play: play, queue: queue, playing: true, beat: start ? 4 : s.beat, sceneFlash: r };
+    });
+  }
+  stopClips() { this.setState((s) => ({ queue: s.play.map(function (p) { return p >= 0 ? -2 : null; }) })); }
+  fader(i, e, phase) {
+    if (phase === 'down') { try { e.currentTarget.setPointerCapture(e.pointerId); } catch (x) {} this.setState({ drag: i }); }
+    if (phase === 'up') { this.setState({ drag: null }); return; }
+    if (this.state.drag !== i && phase !== 'down') return;
+    const r = e.currentTarget.getBoundingClientRect();
+    const yy = ((e.clientY - r.top) / Math.max(1, r.height)) * 216;
+    const v = Math.max(0, Math.min(1, 1 - (yy - 11) / 194));
+    this.setState((s) => { const vol = s.vol.slice(); vol[i] = v; return { vol: vol }; });
+  }
+
+  renderVals() {
+    const look = this.props.look || 'soft';
+    const g = this.props.glow ?? 1, d = this.props.depth ?? 1;
+    const view = this.props.view || 'screen';
+    if (view === 'states') return { isScreen: false, isStates: true, stateRows: this.stateRows(g, d), T: {} };
+    const T = tokens(look, g, d), s = this.state;
+    const self = this;
+    const mk = function (id, o) {
+      const pressed = s.pressed === id, on = !!o.on, c = o.color || BLUE, k = o.k ?? 1;
+      let bg, sh, ic, icf, ts;
+      if (on) { bg = T.onFace(c); sh = T.onSh(c, k, pressed); ic = T.onIc(c); icf = T.onIcf(c); ts = T.onTs(c); }
+      else { bg = T.kbg; sh = pressed ? T.kshP : T.ksh; ic = T.ic; icf = T.icf; ts = T.ts; }
+      const rp = s.rip.id === id;
+      return {
+        id: id, label: o.label, d: o.d || '', txt: o.txt || '', hasTxt: !!o.txt, hasD: !o.txt, bg: bg, sh: sh, ic: ic, icf: icf, ts: ts, rad: o.rad ?? T.kr,
+        tf: pressed ? T.sink : 'translate(0px, 0px) scale(1)',
+        rx: rp ? s.rip.x : 50, ry: rp ? s.rip.y : 50, ro: rp ? (s.rip.go ? 0 : 0.6) : 0, rs: rp ? (s.rip.go ? 1 : 0.1) : 0.1,
+        rt: rp && s.rip.go ? 'transform 540ms cubic-bezier(0.2, 0.7, 0.3, 1), opacity 640ms ease-out' : 'none',
+        rc: on ? 'rgba(255,255,255,0.75)' : T.rippleC,
+        down: function (e) { self.down(id, e); }, up: function () { self.up(id); }, click: o.click || function () {}
+      };
+    };
+    const panel = { pr: T.pr, pbg: T.pbg, psh: T.psh, blur: T.blur, lc: T.label };
+    const G = function (label, n, items, extra) { return Object.assign({ label: label, n: n, items: items, isSong: false }, panel, extra || {}); };
+    const bar = (s.beat - 4);
+    const pos = s.playing ? (Math.floor(bar / 4) + 1) + ':' + ((bar % 4) + 1) + ':1' : '1:1:1';
+    const groups = [
+      G('Edit', 2, [mk('add', { d: I.plusC, label: 'Add' }), mk('del', { d: I.xC, label: 'Delete' })]),
+      G('Transport', 3, [
+        mk('play', { d: I.play, label: 'Play', on: s.playing, color: GREEN, click: () => this.setState({ playing: true }) }),
+        mk('stop', { d: I.stop, label: 'Stop', click: () => this.stopAll() }),
+        mk('arec', { d: I.rec, label: 'Arrangement record', on: s.t.arec, color: RED, click: () => this.tog('arec') })]),
+      G('Timing', 3, [
+        mk('metro', { d: I.metro, label: 'Metronome', on: s.t.metro, color: AMBER, click: () => this.tog('metro') }),
+        mk('cue', { d: I.cue, label: 'Cue', on: s.t.cue, color: BLUE, click: () => this.tog('cue') }),
+        mk('tap', { d: I.tap, label: 'Tap tempo' })]),
+      G('Undo / Redo', 2, [mk('undo', { d: I.undo, label: 'Undo' }), mk('redo', { d: I.redo, label: 'Redo' })]),
+      G('Song', 1.5, [], { isSong: true, pos: pos, bpm: '165.00', dbg: T.displayBg, dsh: T.slotEsh }),
+      G('Record', 5, [
+        mk('new', { d: I.plus, label: 'New clip' }),
+        mk('auto', { d: I.auto, label: 'Automation arm', on: s.t.auto, color: RED, click: () => this.tog('auto') }),
+        mk('back', { d: I.back, label: 'Back to arrangement' }),
+        mk('capture', { d: I.capture, label: 'Capture MIDI' }),
+        mk('srec', { d: I.rec, label: 'Session record', on: s.t.srec, color: RED, click: () => this.tog('srec') })]),
+      G('Browser', 1, [mk('browser', { d: I.browser, label: 'Browser' })]),
+      G('Setup', 2, [
+        mk('display', { d: I.display, label: 'Screen', on: s.t.display, color: GREEN, k: 0.7, click: () => this.tog('display') }),
+        mk('gear', { d: I.gear, label: 'Settings' })]),
+      G('View', 2, [
+        mk('split', { d: I.split, label: 'Split view', on: s.t.split, color: WARM, k: 0.7, click: () => this.tog('split') }),
+        mk('full', { d: I.full, label: 'Full screen' })])
+    ];
+
+    const tracks = TRACKS.map(function (t, i) {
+      const sel = i === 1;
+      return { n: t.n, bg: T.sheen + ', ' + t.c, sh: T.hdrSh, fg: lum(t.c) > 0.6 ? '#16220f' : '#ffffff', selO: sel ? 0.95 : 0, selSh: look === 'backlit' || look === 'glass' ? '0 0 8px rgba(255,255,255,0.8)' : 'none' };
+    });
+    const stops = Object.assign(mk('stops', { d: I.stopsAll, label: 'Stop all clips', click: () => this.stopClips() }), {});
+
+    const rows = SCENES.map((name, r) => {
+      const cells = TRACKS.map((t, c) => {
+        const id = 's' + r + '-' + c, clipName = s.clips[r][c];
+        const has = clipName !== undefined, col = t.clip;
+        const st = has ? (s.play[c] === r ? 'play' : (s.queue[c] === r ? 'queue' : 'idle')) : (s.rec[c] === r ? 'rec' : 'empty');
+        const base = mk(id, { label: has ? clipName : 'Empty slot ' + (r + 1) + ' on ' + t.n, click: () => this.launch(r, c) });
+        const pressed = s.pressed === id;
+        let bg, sh;
+        if (st === 'empty') { bg = T.slotE; sh = T.slotEsh; }
+        else if (st === 'idle') { bg = T.clipFace(col, 0); sh = pressed ? T.kshP : T.clipSh; }
+        else if (st === 'play') { bg = T.clipFace(col, 1); sh = [pressed ? T.kshP : T.clipSh].concat(T.glow(col, s.pulse ? 0.95 : 0.55)).join(', '); }
+        else if (st === 'queue') { bg = T.clipFace(col, s.pulse ? 0.7 : 0); sh = s.pulse ? [T.clipSh].concat(T.glow(col, 0.75)).join(', ') : T.clipSh; }
+        else { bg = T.clipFace(RED, 0.9); sh = [T.clipSh].concat(T.glow(RED, s.pulse ? 1.05 : 0.45)).join(', '); }
+        const beatInBar = ((s.beat % 4) + 4) % 4;
+        const playing = st === 'play' && s.playing;
+        return Object.assign(base, {
+          bg: bg, sh: sh, tf: pressed ? (st === 'empty' ? 'scale(0.975)' : T.sink) : 'translate(0px, 0px) scale(1)',
+          has: has || st === 'rec', empty: !has && st !== 'rec', name: st === 'rec' ? 'Recording' : clipName, c: st === 'rec' ? RED : col,
+          fg: T.text, playO: (st === 'play' || st === 'rec') ? 1 : 0, glyphF: look === 'backlit' ? 'drop-shadow(0 0 3px ' + rgba(st === 'rec' ? RED : col, 0.9) + ')' : 'none',
+          barSh: (st === 'play' || st === 'rec') && T.fillGlow ? '0 0 6px ' + rgba(st === 'rec' ? RED : col, 0.85 * g) : 'none',
+          barO: st === 'idle' && look === 'backlit' ? 0.7 : 1,
+          prog: playing ? ((beatInBar + 1) / 4) * 100 : 0, progT: playing && beatInBar !== 0 ? 'width 480ms linear' : 'none',
+          dotW: s.arm[c] ? 11 : 8, dotR: s.arm[c] ? '50%' : '2px', dotBg: s.arm[c] ? rgba(RED, 0.85) : T.dot,
+          dotSh: s.arm[c] ? (look === 'backlit' || look === 'glass' ? '0 0 6px ' + rgba(RED, 0.8) : 'none') : T.dotSh
+        });
+      });
+      const flash = s.sceneFlash === r;
+      const sc = mk('scene' + r, { label: 'Launch scene ' + name, on: flash, color: '#e7edf7', k: 0.7, click: () => this.scene(r) });
+      sc.name = name; sc.tc = flash ? sc.ic : T.text;
+      return { cells: cells, sc: sc };
+    });
+
+    const strips = TRACKS.map((t, i) => {
+      const master = i === 8, v = s.vol[i], dragging = s.drag === i;
+      const db = v < 0.02 ? '-inf dB' : ((v - 0.85) * 60).toFixed(1).replace('-0.0', '0.0') + ' dB';
+      const capTop = (1 - v) * 194;
+      const tg = master ? [] : [
+        mk('on' + i, { txt: String(i + 1), label: 'Track On ' + t.n, on: s.on[i], color: AMBER, k: 0.5, rad: 7, click: () => this.arr('on', i) }),
+        mk('solo' + i, { txt: 'S', label: 'Solo ' + t.n, on: s.solo[i], color: SOLO, rad: 7, click: () => this.arr('solo', i) }),
+        mk('arm' + i, { d: circ(12, 12, 5.5), label: 'Arm ' + t.n, on: s.arm[i], color: RED, rad: 7, click: () => this.arr('arm', i) })
+      ];
+      return Object.assign({}, panel, {
+        n: t.n, hbg: T.sheen + ', ' + t.c, hsh: T.hdrSh, hfg: lum(t.c) > 0.6 ? '#16220f' : '#ffffff',
+        kbg: T.kbg, ksh: T.ksh, pan: s.pan[i] * 1.35, kline: look === 'backlit' ? mix(t.clip, '#ffffff', 0.3) : (look === 'satin' ? 'rgba(255,248,235,0.8)' : 'rgba(255,255,255,0.8)'), klineSh: look === 'backlit' ? '0 0 5px ' + rgba(t.clip, 0.9 * g) : 'none',
+        gbg: T.gbg, gsh: T.gsh, fill: v * 100, fillBg: look === 'backlit' ? 'linear-gradient(to top, ' + rgba(t.clip, 0.35) + ', ' + rgba(t.clip, 0.95) + ')' : t.clip,
+        capTop: capTop, capBg: T.capBg, capSh: dragging ? T.capShP : T.capSh, capTf: dragging ? T.sink : 'translate(0px, 0px) scale(1)',
+        capLine: T.capLine(t.clip), capLineSh: T.capLineSh(t.clip),
+        mbg: T.mbg, msh: T.msh, l1: (1 - s.lvl[i]) * 100, l2: (1 - s.lvl[i] * 0.94) * 100,
+        db: db, vlabel: 'Volume ' + t.n, tg: tg,
+        fdown: (e) => this.fader(i, e, 'down'), fmove: (e) => this.fader(i, e, 'move'), fup: (e) => this.fader(i, e, 'up')
+      });
+    });
+
+    const side = function (x, y, h, bh, items) { return Object.assign({ x: x, y: y, h: h, bh: bh, items: items }, panel); };
+    const sub = (id, d, label) => mk(id, { d: d, label: label });
+    const MODULES = [['Clips', I.clips], ['Mixer', I.mixer], ['Devices', I.devices], ['Keys', I.keys], ['XY', I.xy], ['Editor', I.editor]];
+    const rail = (half, picked, color) => MODULES.map((m) => mk(half + m[0], { d: m[1], label: m[0], on: picked === m[0], color: color, k: 0.75,
+      click: () => this.setState({ [half]: m[0] }) }));
+    const sidePanels = [
+      side(1216, 70, 294, 42, [sub('ce', I.editClip, 'ClipEditor'), sub('ov', I.eye, 'Overview'), sub('ls', I.loop, 'Loop Size'), sub('lj', I.jump, 'Loop Jump'), sub('tg', I.toggles, 'Toggles'), sub('mu', I.stopsAll, 'Menu')]),
+      side(1216, 370, 374, 54, [sub('ma', I.master, 'Master'), sub('mm', I.multi, 'Multi'), sub('sn', I.snap, 'Snap'), sub('xf', I.xfade, 'Crossfader'), sub('at', I.allTracks, 'All Tracks'), sub('ml', I.stopsAll, 'Menu')]),
+      side(1274, 70, 294, 42, rail('upper', s.upper, WARM)),
+      side(1274, 370, 374, 54, rail('lower', s.lower, BLUE))
+    ];
+    const show = Object.assign({}, panel, { text: T.text, items: [['volume', 'Volume'], ['panning', 'Panning'], ['toggles', 'Toggles'], ['io', 'I/O']].map((p) =>
+      mk('pg' + p[0], { txt: p[1], label: 'Show ' + p[1], on: s.page === p[0], color: BLUE, k: 0.7, click: () => this.setState({ page: p[0] }) })) });
+
+    return { isScreen: true, isStates: false, T: T, groups: groups, tracks: tracks, stops: stops, rows: rows, strips: strips, show: show, sidePanels: sidePanels, stateRows: [] };
+  }
+
+  stateRows(g, d) {
+    return ['soft', 'backlit', 'satin', 'glass'].map(function (look) {
+      const T = tokens(look, g, d);
+      const key = function (cap, o) {
+        return Object.assign({ isKey: true, isSlot: false, isFader: false, isKnob: false, cap: cap, d: I.play, rad: T.kr, bg: T.kbg, sh: T.ksh, ic: T.ic, icf: T.icf, tf: 'none', ro: 0, rc: T.rippleC }, o || {});
+      };
+      const on = function (cap, c, d2) { return key(cap, { d: d2, bg: T.onFace(c), sh: T.onSh(c, 1, false), ic: T.onIc(c), icf: T.onIcf(c) }); };
+      const slot = function (cap, playing) {
+        const c = '#5b84e6';
+        return { isKey: false, isSlot: true, isFader: false, isKnob: false, cap: cap, col: c, fg: T.text,
+          bg: T.clipFace(c, playing ? 1 : 0), sh: playing ? [T.clipSh].concat(T.glow(c, 0.95)).join(', ') : T.clipSh,
+          playO: playing ? 1 : 0, glyphF: look === 'backlit' ? 'drop-shadow(0 0 3px ' + rgba(c, 0.9) + ')' : 'none',
+          barSh: playing && T.fillGlow ? '0 0 6px ' + rgba(c, 0.85 * g) : 'none' };
+      };
+      const c2 = '#8fea5e';
+      return {
+        title: T.name, sub: T.sub, ground: T.ground, text: T.text, lc: T.label, pr: T.pr, pbg: T.pbg, psh: T.psh, blur: T.blur,
+        cells: [
+          key('Rest', { d: I.rec }),
+          key('Pressed', { d: I.rec, sh: T.kshP, tf: T.sink, ro: 0.45 }),
+          on('On · Play', GREEN, I.play),
+          on('On · Record', RED, I.rec),
+          slot('Clip', false),
+          slot('Clip playing', true),
+          { isKey: false, isSlot: false, isFader: true, isKnob: false, cap: 'Fader cap', col: c2, gbg: T.gbg, gsh: T.gsh, capBg: T.capBg, capSh: T.capSh, capLine: T.capLine(c2), capLineSh: T.capLineSh(c2) },
+          { isKey: false, isSlot: false, isFader: false, isKnob: true, cap: 'Knob', bg: T.kbg, sh: T.ksh, kline: look === 'backlit' ? mix(c2, '#ffffff', 0.3) : 'rgba(255,255,255,0.85)', klineSh: look === 'backlit' ? '0 0 5px ' + rgba(c2, 0.9) : 'none' }
+        ]
+      };
+    });
+  }
+}
+</script>
+</body>
+</html>

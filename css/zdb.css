@@ -410,6 +410,19 @@ section { position: relative; }
   container-type: inline-size; /* the live UI sizes --u off this width */
 }
 .device-screen img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* The hero is the live artifact mockup (demos/Main.dc.html) — the same
+   engine as the instrument previews, autoplays and is fully interactive.
+   js/zdb.js scales the 1334×750 frame to this screen with a transform.
+   Without JS the captured frame (hero-still) stands in. */
+.hero-live {
+  position: absolute; top: 0; left: 0;
+  width: 1334px; height: 750px;
+  border: 0; background: var(--zdb-module);
+  transform-origin: 0 0;
+  display: none;
+}
+.js .hero-live { display: block; }
+.js .device-screen .hero-still { display: none; }
 .shot-note {
   margin: 18px auto 0;
   font-size: 13px;
@@ -810,7 +823,17 @@ section { position: relative; }
 /* ---------- 11 · Download & community --------------------- */
 .download { text-align: center; }
 .download .glowline { width: min(680px, 90%); height: 300px; margin: -170px auto 0; background: radial-gradient(50% 60% at 50% 50%, rgba(0,152,248,0.22), transparent 70%); pointer-events: none; }
-.stores { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; margin-top: 34px; }
+.stores { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; margin-top: 14px; }
+/* the two things you download, labelled for what they are:
+   the app is mobile; on the desktop only the free Server runs */
+.stores-label {
+  margin: 34px 0 0; font-size: 13px; font-weight: 650;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--zdb-col-light); text-align: center;
+}
+.stores-label:first-of-type { margin-top: 30px; }
+.server-cta { display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; margin-top: 14px; }
+.server-cta .btn svg { width: 21px; height: 21px; flex: none; }
 .community-card { margin-top: clamp(60px, 9vh, 100px); padding: clamp(36px, 6vw, 70px) 24px; text-align: center; background: linear-gradient(140deg, var(--zdb-card), var(--zdb-module)); }
 .community-card h2 { font-size: clamp(28px, 4vw, 44px); letter-spacing: -0.02em; margin: 0 0 10px; }
 .community-card p { color: var(--zdb-col-light-light); margin: 0 auto 26px; max-width: 40ch; }

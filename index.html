@@ -15,7 +15,6 @@
 <link rel="apple-touch-icon" href="assets/zerodebug-logo-favicon/apple-touch-icon.png" sizes="180x180">
 <script>document.documentElement.classList.add("js")</script>
 <link rel="stylesheet" href="css/zdb.css">
-<link rel="stylesheet" href="css/ta-ui.css">
 </head>
 <body>
 
@@ -71,226 +70,13 @@
     <figure class="device-stage reveal" style="--rd:.24s;margin:0">
       <div class="device">
         <div class="device-screen">
-        <div class="ta-app" id="ta-live" role="img" aria-label="Live model of touchAble on the iPad: the Session view with clips playing above, the mixer below — faders, meters and the transport running.">
-          <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-            <symbol id="i-new" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v8M8 12h8"/></symbol>
-            <symbol id="i-del" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M9.2 9.2l5.6 5.6M14.8 9.2l-5.6 5.6"/></symbol>
-            <symbol id="i-play" viewBox="0 0 24 24"><path d="M9 6.8v10.4L18.4 12z"/></symbol>
-            <symbol id="i-stop" viewBox="0 0 24 24"><rect x="7.8" y="7.8" width="8.4" height="8.4"/></symbol>
-            <symbol id="i-rec" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6.4"/></symbol>
-            <symbol id="i-metro" viewBox="0 0 24 24"><path d="M10 19h4M12 4.6l3.4 11.2H8.6zM10.2 12.5l3.6-1.4"/></symbol>
-            <symbol id="i-phones" viewBox="0 0 24 24"><path d="M5.6 14.4a6.4 6.4 0 0 1 12.8 0"/><rect x="4.1" y="13.6" width="3.1" height="5.2" rx="1.4"/><rect x="16.8" y="13.6" width="3.1" height="5.2" rx="1.4"/></symbol>
-            <symbol id="i-looptl" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6.4" stroke-dasharray="2.4 2.2"/></symbol>
-            <symbol id="i-undo" viewBox="0 0 24 24"><path d="M8.6 15.4h7a3.4 3.4 0 0 0 0-6.8h-4"/><path d="M12.2 6l-3.4 2.8 3.4 2.8"/></symbol>
-            <symbol id="i-redo" viewBox="0 0 24 24"><path d="M15.4 15.4h-7a3.4 3.4 0 0 1 0-6.8h4"/><path d="M11.8 6l3.4 2.8-3.4 2.8"/></symbol>
-            <symbol id="i-plusr" viewBox="0 0 24 24"><path d="M12 6.6v10.8M6.6 12h10.8"/></symbol>
-            <symbol id="i-branch" viewBox="0 0 24 24"><circle cx="7.2" cy="6.6" r="1.7"/><circle cx="7.2" cy="17.4" r="1.7"/><circle cx="16.8" cy="10.6" r="1.7"/><path d="M7.2 8.3v7.4M8.8 9.6c2.2.9 4.4.9 6.4 0"/></symbol>
-            <symbol id="i-aleft" viewBox="0 0 24 24"><path d="M17 12H7.4M11.4 7.6 7 12l4.4 4.4"/></symbol>
-            <symbol id="i-frame" viewBox="0 0 24 24"><path d="M8.4 5.8H5.8v2.6M15.6 5.8h2.6v2.6M8.4 18.2H5.8v-2.6M15.6 18.2h2.6v-2.6"/></symbol>
-            <symbol id="i-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5.8"/></symbol>
-            <symbol id="i-list" viewBox="0 0 24 24"><rect x="6.8" y="4.8" width="10.4" height="14.4" rx="1.4"/><path d="M9.4 9h5.2M9.4 12h5.2M9.4 15h5.2"/></symbol>
-            <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="5.2" y="6.8" width="13.6" height="9" rx="1.4"/><path d="M12 15.8v2.6"/></symbol>
-            <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.1"/><path d="M12 5.4v2M12 16.6v2M5.4 12h2M16.6 12h2M7.3 7.3l1.4 1.4M15.3 15.3l1.4 1.4M16.7 7.3l-1.4 1.4M8.7 15.3l-1.4 1.4"/></symbol>
-            <symbol id="i-split" viewBox="0 0 24 24"><rect x="5.6" y="5.6" width="12.8" height="12.8" rx="1.6"/><path d="M5.6 13.4h12.8"/><path d="M6.4 14.2h11.2v3.4a.8.8 0 0 1-.8.8H7.2a.8.8 0 0 1-.8-.8z" fill="currentColor" stroke="none" opacity=".55"/></symbol>
-            <symbol id="i-expand" viewBox="0 0 24 24"><path d="M14.4 5.6H19v4.6M9.6 18.4H5v-4.6M19 5.6l-5.4 5.4M5 18.4l5.4-5.4"/></symbol>
-            <symbol id="i-clipedit" viewBox="0 0 24 24"><rect x="5.4" y="5.4" width="13.2" height="13.2" rx="2"/><path d="M9.6 14.4l5-5 1.6 1.6-5 5H9.6z"/></symbol>
-            <symbol id="i-eye" viewBox="0 0 24 24"><path d="M4.8 12S7.5 7.6 12 7.6 19.2 12 19.2 12s-2.7 4.4-7.2 4.4S4.8 12 4.8 12z"/><circle cx="12" cy="12" r="1.9"/></symbol>
-            <symbol id="i-loopsize" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6.6"/><path d="M8 12h8M10.2 9.8 8 12l2.2 2.2M13.8 9.8 16 12l-2.2 2.2"/></symbol>
-            <symbol id="i-loopjump" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6.6"/><path d="M8.6 9.2l2.6 2.8-2.6 2.8M13 9.2l2.6 2.8-2.6 2.8"/></symbol>
-            <symbol id="i-lettera" viewBox="0 0 24 24"><path d="M7.6 17 12 7l4.4 10M9.2 13.6h5.6"/></symbol>
-            <symbol id="i-power" viewBox="0 0 24 24"><path d="M12 5.6v6.2"/><path d="M8.2 8a5.6 5.6 0 1 0 7.6 0"/></symbol>
-            <symbol id="i-power2" viewBox="0 0 24 24"><path d="M12 5.6v6.2"/><path d="M8.2 8a5.6 5.6 0 1 0 7.6 0"/></symbol>
-            <symbol id="i-stdot" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6.8"/><path d="M12 5.2v13.6"/></symbol>
-            <symbol id="i-tril" viewBox="0 0 24 24"><path d="M15 5.8 8.4 12l6.6 6.2z" fill="currentColor" stroke="none"/></symbol>
-            <symbol id="i-grid4" viewBox="0 0 24 24"><rect x="5.8" y="5.8" width="5.2" height="5.2" rx="1"/><rect x="13" y="5.8" width="5.2" height="5.2" rx="1"/><rect x="5.8" y="13" width="5.2" height="5.2" rx="1"/><rect x="13" y="13" width="5.2" height="5.2" rx="1"/></symbol>
-            <symbol id="i-bars" viewBox="0 0 24 24"><path d="M7.4 18.2V8.6M12 18.2v-5.4M16.6 18.2V5.8"/></symbol>
-            <symbol id="i-dial" viewBox="0 0 24 24"><path d="M6 16.4a7.4 7.4 0 1 1 12 0"/><path d="M12 12.6 14.6 9"/></symbol>
-            <symbol id="i-keys" viewBox="0 0 24 24"><rect x="5" y="6.6" width="14" height="10.8" rx="1.4"/><path d="M8.6 6.6v6.8M12 6.6v6.8M15.4 6.6v6.8M5 13.4h14"/></symbol>
-            <symbol id="i-xy" viewBox="0 0 24 24"><rect x="5.6" y="5.6" width="12.8" height="12.8" rx="1.6"/><circle cx="10" cy="10" r="1.5" fill="currentColor" stroke="none"/><circle cx="14.6" cy="14.8" r="1.5" fill="currentColor" stroke="none"/></symbol>
-            <symbol id="i-film" viewBox="0 0 24 24"><rect x="5.2" y="6.8" width="13.6" height="10.4" rx="1.4"/><path d="M8.6 6.8v10.4M15.4 6.8v10.4"/></symbol>
-            <symbol id="i-multi" viewBox="0 0 24 24"><rect x="6.4" y="5.2" width="4.6" height="13.6" rx="1.2"/><rect x="13" y="9.4" width="4.6" height="9.4" rx="1.2"/></symbol>
-            <symbol id="i-snap" viewBox="0 0 24 24"><path d="M8.4 8.4l7.2 7.2M15.6 8.4l-7.2 7.2"/></symbol>
-            <symbol id="i-cross" viewBox="0 0 24 24"><path d="M6.6 17.4 12 12M17.4 6.6 12 12M17.4 17.4 12 12M6.6 6.6 12 12"/></symbol>
-            <symbol id="i-tracks" viewBox="0 0 24 24"><path d="M5.4 7.4h13.2M5.4 12h13.2M5.4 16.6h13.2"/></symbol>
-          </defs></svg>
-
-          <!-- top bar · topbar.base #1b1b1c · layout.topbar.height 65 pt -->
-          <div class="ta-top">
-            <div class="ta-tcard"><span class="ta-tlabel">EDIT</span><span class="ta-trow"><span class="ta-tbtn"><svg class="di"><use href="#i-new"/></svg></span><span class="ta-tbtn"><svg class="di"><use href="#i-del"/></svg></span></span></div>
-            <div class="ta-tcard"><span class="ta-tlabel">TRANSPORT</span><span class="ta-trow"><span class="ta-tbtn"><svg class="di"><use href="#i-play"/></svg></span><span class="ta-tbtn"><svg class="di"><use href="#i-stop"/></svg></span><span class="ta-tbtn"><svg class="di"><use href="#i-rec"/></svg></span></span></div>
-            <div class="ta-tcard"><span class="ta-tlabel">TIMING</span><span class="ta-trow"><span class="ta-tbtn"><svg class="di"><use href="#i-metro"/></svg></span><span class="ta-tbtn"><svg class="di"><use href="#i-phones"/></svg></span><span class="ta-tbtn"><svg class="di"><use href="#i-looptl"/></svg></span></span></div>
-            <div class="ta-tcard"><span class="ta-tlabel">UNDO / REDO</span><span class="ta-trow"><span class="ta-tbtn"><svg class="di"><use href="#i-undo"/></svg></span><span class="ta-tbtn"><svg class="di"><use href="#i-redo"/></svg></span></span></div>
-            <div class="ta-tcard ta-tsong"><span class="ta-tlabel">SONG</span><div class="ta-songpos" id="ta-pos">0.0.0</div><div class="ta-tempo">165.00</div></div>
-            <div class="ta-tcard"><span class="ta-tlabel">RECORD</span><span class="ta-trow"><span class="ta-tbtn"><svg class="di"><use href="#i-plusr"/></svg></span><span class="ta-tbtn"><svg class="di"><use href="#i-branch"/></svg></span><span class="ta-tbtn"><svg class="di"><use href="#i-aleft"/></svg></span><span class="ta-tbtn"><svg class="di"><use href="#i-frame"/></svg></span><span class="ta-tbtn"><svg class="di"><use href="#i-circle"/></svg></span></span></div>
-            <div class="ta-tcard"><span class="ta-tlabel">BROWSER</span><span class="ta-trow"><span class="ta-tbtn"><svg class="di"><use href="#i-list"/></svg></span></span></div>
-            <div class="ta-tcard"><span class="ta-tlabel">SETUP</span><span class="ta-trow"><span class="ta-tbtn"><svg class="di"><use href="#i-monitor"/></svg></span><span class="ta-tbtn"><svg class="di"><use href="#i-gear"/></svg></span></span></div>
-            <div class="ta-tcard"><span class="ta-tlabel">VIEW</span><span class="ta-trow"><span class="ta-tbtn"><svg class="di"><use href="#i-split"/></svg></span><span class="ta-tbtn"><svg class="di"><use href="#i-expand"/></svg></span></span></div>
-          </div>
-          <div class="ta-main">
-            <section class="ta-pane ta-pane-clips">
-              <div class="ta-grid">
-                <div class="ta-col" data-col="0" style="--trk:#4363b0;--bar:#5b84e6">
-                  <div class="ta-thead">Drum Rack</div>
-                  <div class="ta-slot ta-stopped" data-row="0"><span class="ta-nameplate">Beat Intro</span><span class="ta-pbar"><i class="ta-played"></i></span></div>
-                  <div class="ta-slot ta-playing" style="--p:20%" data-row="1"><span class="ta-playtri"></span><span class="ta-nameplate">Beat A</span><span class="ta-pbar"><i class="ta-played"></i></span></div>
-                  <div class="ta-slot ta-stopped" data-row="2"><span class="ta-nameplate">Beat B</span><span class="ta-pbar"><i class="ta-played"></i></span></div>
-                  <div class="ta-slot ta-stopped" data-row="3"><span class="ta-nameplate">Fill</span><span class="ta-pbar"><i class="ta-played"></i></span></div>
-                  <div class="ta-slot ta-stopped" data-row="4"><span class="ta-nameplate">Chop</span><span class="ta-pbar"><i class="ta-played"></i></span></div>
-                </div>
-                <div class="ta-col" data-col="1" style="--trk:#92ea62;--bar:#8fea5e">
-                  <div class="ta-thead ta-hdark">Perc Chance</div>
-                  <div class="ta-slot ta-stopped" data-row="0"><span class="ta-nameplate">Shaker</span><span class="ta-pbar"><i class="ta-played"></i></span></div>
-                  <div class="ta-slot ta-playing" style="--p:24%" data-row="1"><span class="ta-playtri"></span><span class="ta-nameplate">Perc A</span><span class="ta-pbar"><i class="ta-played"></i></span></div>
-                  <div class="ta-slot ta-stopped" data-row="2"><span class="ta-nameplate">Perc B</span><span class="ta-pbar"><i class="ta-played"></i></span></div>
-                  <div class="ta-slot ta-stopped" data-row="3"><span class="ta-nameplate">Perc Break</span><span class="ta-pbar"><i class="ta-played"></i></span></div>
-                  <div class="ta-slot ta-stopped" data-row="4"><span class="ta-nameplate">Perc Chop</span><span class="ta-pbar"><i class="ta-played"></i></span></div>
-                </div>
-                <div class="ta-col" data-col="2" style="--trk:#52a84e;--bar:#5ecf57">
-                  <div class="ta-thead">Perc Hits</div>
-                  <div class="ta-slot ta-empty"><span class="ta-stopsq"></span></div>
-                  <div class="ta-slot ta-playing" style="--p:18%" data-row="1"><span class="ta-playtri"></span><span class="ta-nameplate">Hits A</span><span class="ta-pbar"><i class="ta-played"></i></span></div>
-                  <div class="ta-slot ta-empty"><span class="ta-stopsq"></span></div>
-                  <div class="ta-slot ta-empty"><span class="ta-stopsq"></span></div>
-                  <div class="ta-slot ta-empty"><span class="ta-stopsq"></span></div>
-                </div>
-                <div class="ta-col" data-col="3" style="--trk:#805698;--bar:#cd8ff5">
-                  <div class="ta-thead">Clap Loop</div>
-                  <div class="ta-slot ta-empty"><span class="ta-stopsq"></span></div>
-                  <div class="ta-slot ta-playing" style="--p:30%" data-row="1"><span class="ta-playtri"></span><span class="ta-nameplate">Clap A</span><span class="ta-pbar"><i class="ta-played"></i></span></div>
-                  <div class="ta-slot ta-stopped" data-row="2"><span class="ta-nameplate">Clap B</span><span class="ta-pbar"><i class="ta-played"></i></span></div>
-                  <div class="ta-slot ta-stopped" data-row="3"><span class="ta-nameplate">Clap Break</span><span class="ta-pbar"><i class="ta-played"></i></span></div>
-                  <div class="ta-slot ta-stopped" data-row="4"><span class="ta-nameplate">Clap Chop</span><span class="ta-pbar"><i class="ta-played"></i></span></div>
-                </div>
-                <div class="ta-col" data-col="4" style="--trk:#805698;--bar:#cd8ff5">
-                  <div class="ta-thead">Hihat Loop</div>
-                  <div class="ta-slot ta-empty"><span class="ta-stopsq"></span></div>
-                  <div class="ta-slot ta-empty"><span class="ta-stopsq"></span></div>
-                  <div class="ta-slot ta-empty"><span class="ta-stopsq"></span></div>
-                  <div class="ta-slot ta-stopped" data-row="3"><span class="ta-nameplate">Hats Break</span><span class="ta-pbar"><i class="ta-played"></i></span></div>
-                  <div class="ta-slot ta-stopped" data-row="4"><span class="ta-nameplate">Hats Chop</span><span class="ta-pbar"><i class="ta-played"></i></span></div>
-                </div>
-                <div class="ta-col" data-col="5" style="--trk:#805698;--bar:#cd8ff5">
-                  <div class="ta-thead">Break Loop</div>
-                  <div class="ta-slot ta-empty"><span class="ta-stopsq"></span></div>
-                  <div class="ta-slot ta-empty"><span class="ta-stopsq"></span></div>
-                  <div class="ta-slot ta-empty"><span class="ta-stopsq"></span></div>
-                  <div class="ta-slot ta-stopped" data-row="3"><span class="ta-nameplate">Breaks 1</span><span class="ta-pbar"><i class="ta-played"></i></span></div>
-                  <div class="ta-slot ta-stopped" data-row="4"><span class="ta-nameplate">Breaks 2</span><span class="ta-pbar"><i class="ta-played"></i></span></div>
-                </div>
-                <div class="ta-col" data-col="6" style="--trk:#ba7924;--bar:#ffbc3c">
-                  <div class="ta-thead">Vocals</div>
-                  <div class="ta-slot ta-empty"><span class="ta-recdot"></span></div>
-                  <div class="ta-slot ta-empty"><span class="ta-recdot"></span></div>
-                  <div class="ta-slot ta-empty"><span class="ta-recdot"></span></div>
-                  <div class="ta-slot ta-empty"><span class="ta-recdot"></span></div>
-                  <div class="ta-slot ta-empty"><span class="ta-recdot"></span></div>
-                </div>
-                <div class="ta-col" data-col="7" style="--trk:#ba7924;--bar:#ffbc3c">
-                  <div class="ta-thead">Lead</div>
-                  <div class="ta-slot ta-stopped" data-row="0"><span class="ta-nameplate">Lead Pad</span><span class="ta-pbar"><i class="ta-played"></i></span></div>
-                  <div class="ta-slot ta-playing" style="--p:14%" data-row="1"><span class="ta-playtri"></span><span class="ta-nameplate">Lead A</span><span class="ta-pbar"><i class="ta-played"></i></span></div>
-                  <div class="ta-slot ta-stopped" data-row="2"><span class="ta-nameplate">Lead B</span><span class="ta-pbar"><i class="ta-played"></i></span></div>
-                  <div class="ta-slot ta-empty"></div>
-                  <div class="ta-slot ta-empty"></div>
-                </div>
-              </div>
-              <aside class="ta-scenes">
-                <div class="ta-scenestop"><span>STOPS</span><svg class="di"><use href="#i-stdot"/></svg></div>
-                <div class="ta-scene" data-scene="0"><span>Intro</span><svg class="di ta-launch"><use href="#i-tril"/></svg></div>
-                <div class="ta-scene ta-scene-on" data-scene="1"><span>Verse A</span><svg class="di ta-launch"><use href="#i-tril"/></svg></div>
-                <div class="ta-scene" data-scene="2"><span>Verse B</span><svg class="di ta-launch"><use href="#i-tril"/></svg></div>
-                <div class="ta-scene" data-scene="3"><span>Breakdown</span><svg class="di ta-launch"><use href="#i-tril"/></svg></div>
-                <div class="ta-scene" data-scene="4"><span>Chopped Break</span><svg class="di ta-launch"><use href="#i-tril"/></svg></div>
-              </aside>
-              <aside class="ta-rail ta-rail-a">
-                <div class="ta-rbtn"><svg class="di"><use href="#i-clipedit"/></svg><span>ClipEditor</span></div>
-                <div class="ta-rbtn"><svg class="di"><use href="#i-eye"/></svg><span>Overview</span></div>
-                <div class="ta-rbtn"><svg class="di"><use href="#i-loopsize"/></svg><span>Loop Size</span></div>
-                <div class="ta-rbtn"><svg class="di"><use href="#i-loopjump"/></svg><span>Loop Jump</span></div>
-                <div class="ta-rbtn"><svg class="di"><use href="#i-lettera"/></svg><span>Toggles</span></div>
-                <div class="ta-rbtn"><svg class="di"><use href="#i-power"/></svg><span>Menu</span></div>
-              </aside>
-              <aside class="ta-rail ta-rail-b">
-                <div class="ta-rbtn ta-ron-y"><svg class="di"><use href="#i-grid4"/></svg><span>Clips</span></div>
-                <div class="ta-rbtn"><svg class="di"><use href="#i-bars"/></svg><span>Mixer</span></div>
-                <div class="ta-rbtn"><svg class="di"><use href="#i-dial"/></svg><span>Devices</span></div>
-                <div class="ta-rbtn"><svg class="di"><use href="#i-keys"/></svg><span>Keys</span></div>
-                <div class="ta-rbtn"><svg class="di"><use href="#i-xy"/></svg><span>XY</span></div>
-                <div class="ta-rbtn"><svg class="di"><use href="#i-film"/></svg><span>Editor</span></div>
-              </aside>
-            </section>
-            <section class="ta-pane ta-pane-mixer">
-              <div class="ta-strips">
-                <div class="ta-strip" data-strip="0" style="--trk:#4363b0;--v:0.442;--m0:.48">
-                  <div class="ta-sname">Drum Rack</div>
-                  <div class="ta-sbody"><div class="ta-sfader"><div class="ta-sgroove"><i class="ta-sfill"></i></div><div class="ta-scap"><span class="ta-sgrip"></span></div></div><div class="ta-smeter"><span><i class="ta-slit"></i></span><span><i class="ta-slit"></i></span></div></div>
-                  <div class="ta-db">−2.8<span>dB</span></div>
-                </div>
-                <div class="ta-strip" data-strip="1" style="--trk:#92ea62;--v:0.475;--m0:.44">
-                  <div class="ta-sname">Perc Chance</div>
-                  <div class="ta-sbody"><div class="ta-sfader"><div class="ta-sgroove"><i class="ta-sfill"></i></div><div class="ta-scap"><span class="ta-sgrip"></span></div></div><div class="ta-smeter"><span><i class="ta-slit"></i></span><span><i class="ta-slit"></i></span></div></div>
-                  <div class="ta-db">−1.2<span>dB</span></div>
-                </div>
-                <div class="ta-strip" data-strip="2" style="--trk:#52a84e;--v:0.375">
-                  <div class="ta-sname">Perc Hits</div>
-                  <div class="ta-sbody"><div class="ta-sfader"><div class="ta-sgroove"><i class="ta-sfill"></i></div><div class="ta-scap"><span class="ta-sgrip"></span></div></div><div class="ta-smeter"><span><i class="ta-slit"></i></span><span><i class="ta-slit"></i></span></div></div>
-                  <div class="ta-db">−6.0<span>dB</span></div>
-                </div>
-                <div class="ta-strip" data-strip="3" style="--trk:#805698;--v:0.417;--m0:.42">
-                  <div class="ta-sname">Clap Loop</div>
-                  <div class="ta-sbody"><div class="ta-sfader"><div class="ta-sgroove"><i class="ta-sfill"></i></div><div class="ta-scap"><span class="ta-sgrip"></span></div></div><div class="ta-smeter"><span><i class="ta-slit"></i></span><span><i class="ta-slit"></i></span></div></div>
-                  <div class="ta-db">−4.0<span>dB</span></div>
-                </div>
-                <div class="ta-strip" data-strip="4" style="--trk:#805698;--v:0.342">
-                  <div class="ta-sname">Hihat Loop</div>
-                  <div class="ta-sbody"><div class="ta-sfader"><div class="ta-sgroove"><i class="ta-sfill"></i></div><div class="ta-scap"><span class="ta-sgrip"></span></div></div><div class="ta-smeter"><span><i class="ta-slit"></i></span><span><i class="ta-slit"></i></span></div></div>
-                  <div class="ta-db">−7.6<span>dB</span></div>
-                </div>
-                <div class="ta-strip" data-strip="5" style="--trk:#805698;--v:0.392">
-                  <div class="ta-sname">Break Loop</div>
-                  <div class="ta-sbody"><div class="ta-sfader"><div class="ta-sgroove"><i class="ta-sfill"></i></div><div class="ta-scap"><span class="ta-sgrip"></span></div></div><div class="ta-smeter"><span><i class="ta-slit"></i></span><span><i class="ta-slit"></i></span></div></div>
-                  <div class="ta-db">−5.2<span>dB</span></div>
-                </div>
-                <div class="ta-strip" data-strip="6" style="--trk:#ba7924;--v:0.5">
-                  <div class="ta-sname">Vocals</div>
-                  <div class="ta-sbody"><div class="ta-sfader"><div class="ta-sgroove"><i class="ta-sfill"></i></div><div class="ta-scap"><span class="ta-sgrip"></span></div></div><div class="ta-smeter"><span><i class="ta-slit"></i></span><span><i class="ta-slit"></i></span></div></div>
-                  <div class="ta-db">+0.0<span>dB</span></div>
-                </div>
-                <div class="ta-strip" data-strip="7" style="--trk:#ba7924;--v:0.458;--m0:.36">
-                  <div class="ta-sname">Lead</div>
-                  <div class="ta-sbody"><div class="ta-sfader"><div class="ta-sgroove"><i class="ta-sfill"></i></div><div class="ta-scap"><span class="ta-sgrip"></span></div></div><div class="ta-smeter"><span><i class="ta-slit"></i></span><span><i class="ta-slit"></i></span></div></div>
-                  <div class="ta-db">−2.0<span>dB</span></div>
-                </div>
-              </div>
-              <aside class="ta-show">
-                <div class="ta-showlabel">Show</div>
-                <div class="ta-showcard ta-on">Volume</div>
-                <div class="ta-showcard">Panning</div>
-                <div class="ta-showcard">Toggles</div>
-                <div class="ta-showcard">I / O</div>
-              </aside>
-              <aside class="ta-rail ta-rail-m">
-                <div class="ta-rbtn"><svg class="di"><use href="#i-power"/></svg><span>Master</span></div>
-                <div class="ta-rbtn"><svg class="di"><use href="#i-multi"/></svg><span>Multi</span></div>
-                <div class="ta-rbtn"><svg class="di"><use href="#i-snap"/></svg><span>Snap</span></div>
-                <div class="ta-rbtn"><svg class="di"><use href="#i-cross"/></svg><span>Crossfader</span></div>
-                <div class="ta-rbtn"><svg class="di"><use href="#i-tracks"/></svg><span>All Tracks</span></div>
-                <div class="ta-rbtn"><svg class="di"><use href="#i-power2"/></svg><span>Menu</span></div>
-              </aside>
-              <aside class="ta-rail ta-rail-n">
-                <div class="ta-rbtn"><svg class="di"><use href="#i-grid4"/></svg><span>Clips</span></div>
-                <div class="ta-rbtn ta-ron-b"><svg class="di"><use href="#i-bars"/></svg><span>Mixer</span></div>
-                <div class="ta-rbtn"><svg class="di"><use href="#i-dial"/></svg><span>Devices</span></div>
-                <div class="ta-rbtn"><svg class="di"><use href="#i-keys"/></svg><span>Keys</span></div>
-                <div class="ta-rbtn"><svg class="di"><use href="#i-xy"/></svg><span>XY</span></div>
-                <div class="ta-rbtn"><svg class="di"><use href="#i-film"/></svg><span>Editor</span></div>
-              </aside>
-            </section>
-          </div>
-        </div>
+        <img class="hero-still" src="assets/screens/clips-mixer.png" width="1334" height="750"
+             alt="touchAble on the iPad: the Session view with clips playing above, the mixer below — faders, meters and the transport running.">
+        <iframe class="hero-live" src="demos/Main.dc.html" scrolling="no"
+             title="A live, interactive model of touchAble — launch a clip, move a fader, ride the meters, all working right here."></iframe>
         </div>
       </div>
-      <figcaption class="shot-note">A live model of touchAble &mdash; rebuilt from the app&rsquo;s Soft&nbsp;Graphite interface, clip for clip, fader for fader.</figcaption>
+      <figcaption class="shot-note">A live, playable model of touchAble &mdash; the real thing, running in Soft&nbsp;Graphite. Launch a clip, grab a fader, ride the meters.</figcaption>
     </figure>
   </div>
 </header>
@@ -298,7 +84,7 @@
 <!-- ======================= PLATFORM RIBBON ======================= -->
 <div class="ribbon reveal">
   <div class="wrap">
-    <span class="chip"><span class="dot"></span><b>iPhone&nbsp;· iPad</b>&nbsp;· Mac&nbsp;· Android&nbsp;· Windows</span>
+    <span class="chip"><span class="dot"></span><b>iPhone&nbsp;· iPad&nbsp;· Android</b>&nbsp;app&nbsp;· free <b>Mac &amp; Windows Server</b></span>
     <span class="chip"><b>Wi‑Fi or USB‑C</b> connection</span>
     <span class="chip">Low‑latency <b>audio routing</b></span>
     <span class="chip">Works with <b>Ableton Live&nbsp;9&nbsp;–&nbsp;12</b></span>
@@ -636,7 +422,7 @@
         <ul>
           <li>Everything in touchAble Pro</li>
           <li>All six modules &amp; the editor</li>
-          <li>iOS, Android, macOS &amp; Windows</li>
+          <li>iOS &amp; Android app&nbsp;+ macOS &amp; Windows Server</li>
           <li>Updates included</li>
         </ul>
         <a class="btn btn-ghost" href="#download">Subscribe</a>
@@ -656,7 +442,7 @@
       </article>
     </div>
 
-    <p class="center price-fine reveal">First install the free <a href="https://zerodebug.com" rel="noopener">touchAble&nbsp;Server</a> on your computer.
+    <p class="center price-fine reveal">First install the free <a href="https://zerodebug.com/downloads" rel="noopener">touchAble&nbsp;Server</a> on your Mac or PC.
       The App&nbsp;Store and Google&nbsp;Play bill in your local currency; the amounts shown are indicative.</p>
   </div>
 </section>
@@ -717,8 +503,9 @@
   <div class="wrap">
     <p class="eyebrow reveal">Get started</p>
     <h2 class="headline--md reveal" style="--rd:.05s;margin-bottom:10px;font-weight:700;letter-spacing:-0.022em">We make music<br><span class="grad-text">touchAble.</span></h2>
-    <p class="subhead reveal" style="--rd:.1s;font-weight:400">Download the app and the server. Your Live set is one tap away.<br>
+    <p class="subhead reveal" style="--rd:.1s;font-weight:400">The app on your tablet or phone — the free Server on your Mac or PC.<br>Your Live set is one tap away.<br>
       <span style="font-size:0.75em;color:var(--zdb-col-light)">Free to try · Pro from <span class="amount" data-eur="€3.99" data-usd="$3.99">€3.99</span> a month · Lifetime <span class="amount" data-eur="€54.99" data-usd="$54.99">€54.99</span></span></p>
+    <p class="stores-label reveal" style="--rd:.14s">The app — iPhone&nbsp;· iPad&nbsp;· Android</p>
     <div class="stores reveal" style="--rd:.16s">
       <a class="store-badge" href="https://apps.apple.com/de/app/touchable-pro/id1205967746" rel="noopener">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.05 12.54c-.03-2.37 1.93-3.5 2.02-3.56-1.1-1.61-2.81-1.83-3.42-1.85-1.45-.15-2.84.86-3.58.86-.74 0-1.88-.84-3.1-.82-1.59.02-3.06.93-3.88 2.36-1.66 2.87-.42 7.11 1.19 9.44.79 1.14 1.74 2.43 2.98 2.38 1.19-.05 1.65-.77 3.09-.77 1.45 0 1.85.77 3.11.74 1.28-.02 2.1-1.16 2.88-2.31.91-1.32 1.28-2.61 1.3-2.67-.03-.02-2.49-.96-2.59-3.8ZM14.66 5.9c.65-.79 1.09-1.89.97-2.98-.94.04-2.08.63-2.75 1.42-.61.7-1.13 1.8-.99 2.87 1.05.08 2.12-.54 2.77-1.31Z"/></svg>
@@ -729,8 +516,15 @@
         <span class="sb-txt"><small>Get it on</small><strong>Google Play</strong></span>
       </a>
     </div>
-    <p class="reveal" style="--rd:.2s;margin-top:26px;font-size:15px;color:var(--zdb-col-light)">
-      Also available for <a href="https://zerodebug.com" rel="noopener">macOS &amp; Windows</a> ·
+    <p class="stores-label reveal" style="--rd:.2s">The Server — on the computer, next to Live · free</p>
+    <div class="server-cta reveal" style="--rd:.24s">
+      <a class="btn btn-ghost" href="https://zerodebug.com/downloads" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4" width="19" height="13" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M9 20.5h6M12 17v3.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        touchAble Server for macOS &amp; Windows</a>
+    </div>
+    <p class="reveal" style="--rd:.28s;margin-top:20px;font-size:15px;color:var(--zdb-col-light)">
+      The touchAble app itself runs on iOS and Android — the Server is the desktop half of it,
+      a free download that talks to Ableton&nbsp;Live on your Mac or PC.&nbsp;
       <a class="chev" href="https://zerodebug.com" rel="noopener">FAQs &amp; Manuals</a>
     </p>
   </div>
@@ -821,6 +615,5 @@
 </footer>
 
 <script src="js/zdb.js"></script>
-<script src="js/ta-live.js"></script>
 </body>
 </html>

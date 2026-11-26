@@ -35,26 +35,14 @@ glass) are deliberately not shipped. Tabs lazy-load an iframe on first
 use, and the default device only once the stage scrolls into view;
 without JS the stage shows the captured EQ Eight frame instead.
 
-The **hero goes further than a capture: it is a live model of the whole
-split screen** — Session view with playing clips above, mixer with live
-meters below, top bar and side rails included — rebuilt clip for clip
-from the capture `01_clips_and_mixer_playing_clips.png` (1 pt = 1 px)
-and from the app's drawing code:
-
-- every dimension at the app's real points (65 pt top bar, 50 pt track
-  headers, 48 pt slot rows, 60 pt rails, 55 pt side bars) scaled through
-  a container query, so the UI grows and shrinks with the device
-- slot states as drawn by `TATokens.cpp`: washed clip colour while
-  playing, the white play triangle, the bottom progress pill (played
-  portion = the clip colour mixed toward white), the track-coloured loop
-  bar on stopped clips, the 8 pt grey square in empty slots, the record
-  dot on the armed track
-- the transport clock at the set's 165 BPM: bar.beat.16th readout, an
-  8-beat clip loop, scenes launching every 12 s with the app's white
-  launch flash
-- meters, fader caps, grooves and dB readouts per `TAVolumeView.cpp`
-  (rise/0.1337 s decay, 85 % hot zone); faders get ridden occasionally
-- no-JS and reduced motion show the captured frame as a still
+The **hero is a live, playable model of the whole split screen** — Session
+view with clips playing above, mixer with live meters below, top bar and
+side rails included. It runs `demos/Main.dc.html`, the same interactive
+mockup engine as the instrument previews, in the Soft Graphite finish, at
+the app's native 1334 × 750 and scaled into the device bezel by a
+transform (so mouse and touch gestures land where they should). It
+autoplays on load; without JS — or under reduced motion — the captured
+frame `assets/screens/clips-mixer.png` stands in as a still.
 
 The Low-latency showcase's mixer is a second, smaller **live model**,
 also rebuilt from the app's own drawing code:
@@ -92,12 +80,11 @@ python3 -m http.server 8080
 ```
 index.html      the landing page (hero holds the live touchAble model)
 css/zdb.css     design tokens + corporate styles + the live mixer model
-css/ta-ui.css   the hero's full touchAble UI replica, at app points
 js/zdb.js       scroll reveal, nav states, currency localization, mixer animation,
-                live device-view tabs
-js/ta-live.js   the hero's transport clock, scene launches, meters, fader ride
-demos/          live Soft Graphite device views (EQ Eight, Compressor, Drum
-                Rack, Wavetable) — *.dc.html + Device.dc.html + _runtime/
+                live device-view tabs, hero + device iframe scaling
+demos/          live Soft Graphite interactive mockups — Main.dc.html (the hero's
+                Session + mixer) and the device views (EQ Eight, Compressor, Drum
+                Rack, Wavetable) + Device.dc.html + _runtime/
 assets/screens/ real screen captures from touchAble builds
 assets/favicon/  the live favicon — Soft Geometry mark, black lines on transparent
 assets/zerodebug-logo-favicon/  the Soft Geometry logo masters + navy favicon set

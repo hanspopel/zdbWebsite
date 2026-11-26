@@ -265,3 +265,30 @@
     boot();
   }
 })();
+
+/* ---- hero: scale the live mockup iframe to the device screen ---------
+   The hero embeds demos/Main.dc.html — the interactive clips + mixer
+   mockup, the same engine as the instrument previews. It runs at the
+   app's native 1334 × 750; we scale it into whatever the .device-screen
+   currently measures (it is fluid) and re-scale on resize. The iframe
+   src is in the markup, so the app boots as soon as the page parses. */
+(() => {
+  "use strict";
+  const scr = document.querySelector(".device-screen");
+  const frame = scr && scr.querySelector("iframe.hero-live");
+  if (!frame) return;
+  /* reduced motion: don't boot the live app — keep the captured frame,
+     the same courtesy the low-latency mixer extends */
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    frame.removeAttribute("src");
+    frame.style.display = "none";
+    const still = scr.querySelector(".hero-still");
+    if (still) still.style.display = "block";
+    return;
+  }
+  const W = 1334;
+  const fit = () => { frame.style.transform = "scale(" + (scr.clientWidth / W) + ")"; };
+  if ("ResizeObserver" in window) new ResizeObserver(fit).observe(scr);
+  else window.addEventListener("resize", fit);
+  fit();
+})();
