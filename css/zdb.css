@@ -498,7 +498,10 @@ section { position: relative; }
   box-shadow: var(--lift-2), 0 0 70px rgba(0,152,248,0.10);
   overflow: hidden;
 }
-.big-frame img { width: 100%; display: block; }
+/* height:auto so the capture keeps its native 1334 × 750 aspect when the
+   width is fluid — otherwise the height attribute pins it and the whole
+   Session view gets squeezed horizontally. */
+.big-frame img { width: 100%; height: auto; display: block; }
 /* The Session-view showcase shows the whole app window — so give it the
    whole width instead of a cramped half-column letterbox. The capture is
    shown at its natural 1334 × 750 aspect, full-bleed across the wide
