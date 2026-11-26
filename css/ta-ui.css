@@ -61,8 +61,8 @@
   flex: 0 0 calc(65 * var(--u));
   display: flex;
   align-items: stretch;
-  gap: calc(4 * var(--u));
-  padding: calc(2 * var(--u)) calc(3 * var(--u)) calc(2 * var(--u)) 0;
+  gap: calc(13 * var(--u));                   /* inter-card gap, as captured */
+  padding: calc(2 * var(--u)) calc(6 * var(--u)) calc(2 * var(--u)) calc(9 * var(--u));
   background: var(--ta-tbar);
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.6),
               inset 0  1px 0 rgba(244, 246, 250, 0.04);
@@ -77,7 +77,19 @@
   padding: calc(1.5 * var(--u)) calc(5 * var(--u)) calc(4 * var(--u));
   box-shadow: inset 0 1px 0 rgba(244, 246, 250, 0.05),
               0 2px 5px rgba(0, 0, 0, 0.35);
+  flex: 1 1 0;                               /* the nine cards span the full width */
+  min-width: 0;
 }
+/* card widths in app points, measured from the capture — the row fills 1334 pt */
+.ta-tcard:nth-child(1) { flex-grow: 112; }   /* EDIT         x   9– 121 */
+.ta-tcard:nth-child(2) { flex-grow: 167; }   /* TRANSPORT    x 135– 302 */
+.ta-tcard:nth-child(3) { flex-grow: 174; }   /* TIMING       x 316– 490 */
+.ta-tcard:nth-child(4) { flex-grow: 112; }   /* UNDO / REDO  x 498– 610 */
+.ta-tcard:nth-child(5) { flex-grow:  97; }   /* SONG         x 618– 715 */
+.ta-tcard:nth-child(6) { flex-grow: 278; }   /* RECORD       x 722–1000 */
+.ta-tcard:nth-child(7) { flex-grow:  57; }   /* BROWSER      x1014–1071 */
+.ta-tcard:nth-child(8) { flex-grow: 112; }   /* SETUP        x1085–1197 */
+.ta-tcard:nth-child(9) { flex-grow: 117; }   /* VIEW         x1211–1328 */
 .ta-tlabel {
   font-size: calc(9 * var(--u));
   font-weight: 600;
@@ -100,7 +112,7 @@
 }
 .ta-tbtn .di { width: calc(17 * var(--u)); height: calc(17 * var(--u)); }
 .ta-tbtn.ta-lit { color: var(--ta-lity); }   /* topbar.icon.on */
-.ta-tsong { width: calc(108 * var(--u)); padding-bottom: calc(3 * var(--u)); }
+.ta-tsong { width: 100%; text-align: center; padding-bottom: calc(3 * var(--u)); }
 .ta-songpos, .ta-tempo {
   font-size: calc(15 * var(--u)); font-weight: 700;
   color: #f2f3f5; line-height: calc(16.5 * var(--u));
@@ -375,7 +387,7 @@
 /* ── the mixer's "Show" column + rail variants ───────────── */
 .ta-show {
   margin-left: calc(1 * var(--u));
-  width: calc(104 * var(--u));
+  width: calc(121 * var(--u));                /* same column as the scene launchers */
   display: flex; flex-direction: column;
   gap: calc(3 * var(--u));
 }
@@ -401,4 +413,5 @@
   box-shadow: 0 0 calc(14 * var(--u)) rgba(78, 140, 240, 0.35),
               inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
-.ta-pane-mixer .ta-rail { margin-left: calc(3 * var(--u)); }
+/* rails sit at 1216 and 1276 pt — both panes reach the screen's right edge */
+.ta-pane-mixer .ta-rail { margin-left: calc(2 * var(--u)); }

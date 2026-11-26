@@ -86,7 +86,8 @@ css/ta-ui.css   the hero's full touchAble UI replica, at app points
 js/zdb.js       scroll reveal, nav states, currency localization, mixer animation
 js/ta-live.js   the hero's transport clock, scene launches, meters, fader ride
 assets/screens/ real screen captures from touchAble builds
-assets/zerodebug-logo-favicon/  the Soft Geometry logo + full favicon set
+assets/favicon/  the live favicon — Soft Geometry mark, black lines on transparent
+assets/zerodebug-logo-favicon/  the Soft Geometry logo masters + navy favicon set
 assets/brand/   the touchAble app icon (from the app's asset catalogue)
 ```
 
